@@ -8,8 +8,8 @@ require 'FormCollection.php';
  * 
  * @package	Form
  * @author	Peter Gribanov
- * @since	08.09.2011
- * @version	3.25
+ * @since	$Date:$
+ * @version	$Id:$
  */
 class FormForm implements Serializable {
 
