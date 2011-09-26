@@ -12,7 +12,7 @@ require 'FormManagerCollection.php';
  * @version		3.22 SVN: $Revision$
  * @since		$Date$
  * @link		$HeadURL$
- * @tutorial	http://peter-gribanov.ru/#open-source/form-manager
+ * @link		http://peter-gribanov.ru/#open-source/form-manager
  * @copyright	(c) 2008 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
