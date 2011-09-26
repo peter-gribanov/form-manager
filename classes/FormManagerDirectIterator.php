@@ -18,7 +18,8 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Список данных
 	 * 
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $var = array();
 
