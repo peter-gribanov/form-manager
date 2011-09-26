@@ -1,21 +1,28 @@
 <?php
 
 /**
- * Вложенная коллекция элиментов формы
+ * Вложенная коллекция элементов формы
  * 
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	29.11.2010
- * @version	1.1
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.22 SVN: $Revision$
+ * @since		$Date$
+ * @link		$HeadURL$
+ * @tutorial	http://peter-gribanov.ru/#open-source/form-manager
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerNestedCollection extends FormManagerCollection {
 
 	/**
-	 * Устанавливает форму к которой пренадлежыт коллекция
+	 * Устанавливает форму к которой пренадлежит элемент
+	 * 
+	 * Устанавливает объект формы к которой пренадлежит элемент
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManagerForm $form
-	 * @return FormManagerNestedCollection
+	 * @param	FormManagerForm	$form	Объект формы
+	 * @return	FormManagerNestedCollection	Объект коллекуии
 	 */
 	public function setForm(FormManagerForm $form){
 		parent::setForm($form);
@@ -28,8 +35,8 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	/**
 	 * Добавляет элемент
 	 *
-	 * @param FormManagerItem $item
-	 * @return FormManagerNestedCollection
+	 * @param	FormManagerItem	$item	Объект элемента
+	 * @return	FormManagerNestedCollection	Объект коллекции
 	 */
 	public function add(FormManagerItem $item){
 		$this->items[] = $item;
@@ -37,13 +44,13 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	}
 
 	/**
-	 * Рисует коллекцию элиментов
+	 * Рисует коллекцию элементов
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw(){
 		if (!$this->isEmpty()){
-			include dirname(dirname(__FILE__)).'/skin/'.$this->form->getSkin().'.nested.collection.php';
+			include dirname(__DIR__).'/skin/'.$this->form->getSkin().'.nested.collection.php';
 		}
 	}
 
