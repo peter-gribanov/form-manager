@@ -46,6 +46,7 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	/**
 	 * Рисует коллекцию элементов
 	 * 
+	 * @access	private
 	 * @return	void
 	 */
 	public function draw(){

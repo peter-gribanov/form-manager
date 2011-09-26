@@ -18,14 +18,16 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Объект элементы формы
 	 * 
-	 * @var	FormManagerElement
+	 * @access	private
+	 * @var		FormManagerElement
 	 */
 	private $element;
 
 	/**
 	 * Параметры фильтра
 	 * 
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $filter;
 
