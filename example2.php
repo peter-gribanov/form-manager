@@ -1,7 +1,3 @@
-<?php
-//exit
-use formmanager\Facade;
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,17 +19,17 @@ use formmanager\Facade;
 </head>
 <body><?php
 
-include('Facade.php');
+include('FormManager.php');
 
 
 try {
 	// составление структуры формы
-	$form = Facade::Form()
+	$form = FormManager::Form()
 		->setLangID('ru')
 		->addByQuery($_SERVER['QUERY_STRING'])
 		->add(
 			// добавление текстового поля для ввода email
-			Facade::Text('mail', 'Ваш E-Mail')
+			FormManager::Text('mail', 'Ваш E-Mail')
 				// обязательно для заполнения
 				->setFilter('empty')
 				->setFilter('email')
@@ -41,12 +37,12 @@ try {
 		->add(
 			// поле для ввода текстового сообщения
 			// обязательно для заполнения 
-			Facade::TextArea('mess', 'Ваше сообщение')
+			FormManager::TextArea('mess', 'Ваше сообщение')
 				->setFilter('empty')
 		)
 		->add(
 			// добавление поля CheckBox для выбора оповещения
-			Facade::CheckBox('resend', 'Оповестить меня')
+			FormManager::CheckBox('resend', 'Оповестить меня')
 				// по умолчанию активно
 				->setDefaultValue(true)
 		)
@@ -56,12 +52,12 @@ try {
 		->setSubmitTitle('Отправить анкету')
 		// добавление вложенной коллекции с одним полем
 		->add(
-			Facade::Collection()
+			FormManager::Collection()
 				->add(
 					// выпадающий список со спиком годов
 					// в тегах options для value и label используются значения массива
 					// по умолчанию для value используются ключи массива
-					Facade::Select('year', 'Год выпуска', array(
+					FormManager::Select('year', 'Год выпуска', array(
 						'class'		=> 'year',
 						'use_key'	=> false,
 						'options'	=> array_keys(array_fill(date('Y')-20, 21, ''))
@@ -76,10 +72,10 @@ try {
 		)
 		->add(
 			// добавление вложенной коллекции с двумя полями
-			Facade::Collection()
+			FormManager::Collection()
 				->add(
 					// текстовое поле для ввода даты
-					Facade::Text('date', 'Дата рождения')
+					FormManager::Text('date', 'Дата рождения')
 						// по умолчанию текущая дата
 						->setDefaultValue(date('j.n.Y'))
 						// обязательно для заполнения
@@ -91,7 +87,7 @@ try {
 				)
 				->add(
 					// выбор мола мужской или женский
-					Facade::Element('sex', 'Ваш пол')
+					FormManager::Element('sex', 'Ваш пол')
 						->setView('yesno', array(
 							'value_no'	=> 'Жен',
 							'value_yes' => 'Муж'
