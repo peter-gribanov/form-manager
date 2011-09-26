@@ -1,6 +1,3 @@
-<?php //exit
-use formmanager\Facade;
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,17 +9,15 @@ use formmanager\Facade;
 </style>
 </head>
 <body><?php
-include('Facade.php');
-
-//var_dump(is_dir('lang/en/'));
+include('FormManager.php');
 
 try {
 	// составление формы
-	$form = Facade::Form()
+	$form = FormManager::Form()
 		// отправлять форму методом GET
 		->setMethod('get')
 		// добавление поля для ввода текстового сообщения
-		->add(Facade::Text('mess', 'Ваше сообщение'));
+		->add(FormManager::Text('mess', 'Ваше сообщение'));
 
 } catch (Exception $e){
 	// при составлении структуры формы допущена ошибка
