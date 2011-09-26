@@ -1,19 +1,24 @@
 <?php
 
 /**
- * Прямой итератор
+ * Прямой итератор по коллекции элементов
  * 
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	24.11.2010
- * @version	1.0
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.22 SVN: $Revision$
+ * @since		$Date$
+ * @link		$HeadURL$
+ * @tutorial	http://peter-gribanov.ru/#open-source/form-manager
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerDirectIterator implements Iterator {
 
 	/**
 	 * Список данных
 	 * 
-	 * @var array
+	 * @var	array
 	 */
 	private $var = array();
 
@@ -21,26 +26,26 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Конструктор
 	 * 
-	 * @param array $array
-	 * @return void
+	 * @param	array	$array	ССылка на коллекцию элементов
+	 * @return	void
 	 */
-	public function __construct(& $array){
+	public function __construct( & $array){
 		if (is_array($array)) $this->var = & $array;
 	}
 
 	/**
-	 * Устанавливает внутренний указатель на первый элимент
+	 * Устанавливает внутренний указатель на первый элемент
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function rewind(){
 		reset($this->var);
 	}
 
 	/**
-	 * Возвращает текущий элимент
+	 * Возвращает текущий элемент
 	 * 
-	 * @return mixed
+	 * @return	mixed	Элемент коллекции
 	 */
 	public function current(){
 		return current($this->var);
@@ -49,7 +54,7 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Возвращает индекс текущей позиции
 	 * 
-	 * @return mixed
+	 * @return	mixed	Индекс текущей позиции
 	 */
 	public function key(){
 		return key($this->var);
@@ -58,7 +63,7 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Передвигает вперед внутренний указатель массива
 	 * 
-	 * @return mixed
+	 * @return	mixed	??
 	 */
 	public function next(){
 		return next($this->var);
@@ -67,7 +72,7 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Проверяет, существует ли элемент на текущей позиции
 	 * 
-	 * @return boolean
+	 * @return	boolean	Результат проверки
 	 */
 	public function valid(){
 		return $this->current()!==false;

@@ -3,24 +3,29 @@
 /**
  * Класс исключений для фильтров
  * 
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	25.11.2010
- * @version	1.1
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.22 SVN: $Revision$
+ * @since		$Date$
+ * @link		$HeadURL$
+ * @tutorial	http://peter-gribanov.ru/#open-source/form-manager
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerFilterException extends Exception {
 
 	/**
-	 * Объект поля формы
+	 * Объект элементы формы
 	 * 
-	 * @var FormManagerElement
+	 * @var	FormManagerElement
 	 */
 	private $element;
 
 	/**
 	 * Параметры фильтра
 	 * 
-	 * @var array
+	 * @var	array
 	 */
 	private $filter;
 
@@ -28,10 +33,10 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Конструктор
 	 * 
-	 * @param string $message
-	 * @param FormManagerElement $element
-	 * @param array $filter
-	 * @return void
+	 * @param	string	$message	Текст сообщения
+	 * @param	FormManagerElement	$element	Объект элемента
+	 * @param	array	$filter	Параметры фильтра
+	 * @return	void
 	 */
 	public function __construct($message, FormManagerElement & $element, & $filter){
 		parent::__construct($message, 0);
@@ -40,9 +45,9 @@ class FormManagerFilterException extends Exception {
 	}
 
 	/**
-	 * Возвращает объект поля формы
+	 * Возвращает объект элемента формы
 	 * 
-	 * @return FormManagerElement
+	 * @return	FormManagerElement	Объект элемента
 	 */
 	public function getElement(){
 		return $this->element;
@@ -51,7 +56,7 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Возвращает имя фильтра
 	 * 
-	 * @return string
+	 * @return	string	Имя фильтра
 	 */
 	public function getFilterName(){
 		return $this->filter[0];
@@ -60,7 +65,7 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Возвращает параметры фильтра
 	 * 
-	 * @return array
+	 * @return	array	Параметры фильтра
 	 */
 	public function getFilterParams(){
 		return $this->filter[1];
