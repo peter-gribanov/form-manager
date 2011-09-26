@@ -21,7 +21,8 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Опции формы
 	 * 
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $options = array(
 		'action'		=> '',		// Адрес обработчика формы
@@ -34,29 +35,33 @@ class FormManagerForm implements Serializable {
 
 	/**
 	 * Список элементов
-	 *
-	 * @var	FormManagerCollection
+	 * 
+	 * @access	private
+	 * @var		FormManagerCollection
 	 */
 	private $collection;
 
 	/**
 	 * Список переданных параметров
 	 * 
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $inputs = array();
 
 	/**
 	 * ID активной языковой темы
 	 * 
-	 * @var	string
+	 * @access	private
+	 * @var		string
 	 */
 	private $lang_id;
 
 	/**
 	 * Список загруженных сообщений активной языковой темы
 	 * 
-	 * @var	array
+	 * @access	private
+	 * @var		array
 	 */
 	private $lang_posts = array();
 

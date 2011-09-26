@@ -18,7 +18,8 @@ class FormManagerElement implements FormManagerItem, Serializable {
 	/**
 	 * Опции элемента
 	 * 
-	 * @var	array
+	 * @access	protected
+	 * @var		array
 	 */
 	protected $options = array(
 		'name'		=> '',		// Имя элемента
@@ -33,14 +34,16 @@ class FormManagerElement implements FormManagerItem, Serializable {
 	/**
 	 * Объект формы
 	 * 
-	 * @var	FormManagerForm
+	 * @access	protected
+	 * @var		FormManagerForm
 	 */
 	protected $form;
 
 	/**
 	 * Итератор запуска фильтров при проверки элемента
 	 * 
-	 * @var	integer
+	 * @access	private
+	 * @var		integer
 	 */
 	private $filter_iterator;
 
@@ -51,6 +54,7 @@ class FormManagerElement implements FormManagerItem, Serializable {
 	 * Устанавливает объект формы к которой пренадлежит элемент
 	 * Метод предназначен для внутреннего использования
 	 * 
+	 * @access	private
 	 * @param	FormManagerForm	$form	Объект формы
 	 * @return	FormManagerElement	Объект элемента
 	 */

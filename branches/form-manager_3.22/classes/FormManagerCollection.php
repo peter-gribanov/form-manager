@@ -22,22 +22,25 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Название коллекции
-	 *
-	 * @var	string
+	 * 
+	 * @access	protected
+	 * @var		string
 	 */
 	protected $name = '';
 
 	/**
 	 * Список элементов
-	 *
-	 * @var	array
+	 * 
+	 * @access	protected
+	 * @var		array
 	 */
 	protected $items = array();
 
 	/**
 	 * Объект формы
 	 * 
-	 * @var	FormManagerForm
+	 * @access	protected
+	 * @var		FormManagerForm
 	 */
 	protected $form;
 
