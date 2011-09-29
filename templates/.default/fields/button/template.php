@@ -1,14 +1,4 @@
-<?php
-$params = array_merge(array(
-	'id'		=> '',
-	'class'		=> '',
-	'disabled'	=> false,
-	'type'		=> 'button',
-	'name'		=> '',
-	'value'		=> '',
-), $params);
-
-?><button<?=
+<button<?=
 ($params['type'] ? ' type="'.$params['type'].'"' : '')?><?=
 ($params['id'] ? ' id="'.$params['id'].'"' : '')?><?=
 ($params['class'] ? ' class="'.$params['class'].'"' : '')?><?=
