@@ -1,46 +1,48 @@
 <?php
 
-require 'classes/Form.php';
-require 'classes/FormElement.php';
-require 'classes/FormNestedCollection.php';
-require 'classes/FormText.php';
-require 'classes/FormHidden.php';
-require 'classes/FormSelect.php';
+require 'classes/FormManagerForm.php';
+require 'classes/FormManagerElement.php';
+require 'classes/FormManagerNestedCollection.php';
+require 'classes/fields/FormManagerFieldText.php';
+require 'classes/fields/FormManagerFieldHidden.php';
+require 'classes/fields/FormManagerFieldRadio.php';
+require 'classes/fields/FormManagerFieldSelect.php';
 
 // внутренние константы
 define('FORM_PATH', dirname(__FILE__));
-define('FORM_LANG', LANG);
+define('FORM_LANG', 'ru');
 define('FORM_LANG_PATH', FORM_PATH.'/lang/'.FORM_LANG.'/.parameters.php');
 
 
 /**
  * Класс представляет интерфейс для составления формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	14.09.2011
- * @version	1.4
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		4.0 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager_4.0/
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormFacade {
+class FormManager {
 
 	/**
 	 * Конструктор
 	 * 
 	 * @return void
 	 */
-	protected function __construct(){
+	private function __construct(){
 	}
 
 	/**
 	 * Создает новую форму
 	 * 
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public static function Form(){
-		return new Form();
+		return new FormManagerForm();
 	}
 
 	/**
@@ -48,11 +50,12 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public static function Element($name, $title){
-		$el = new FormElement();
-		return $el->setName($name)
+		$el = new FormManagerElement();
+		return $el
+			->setName($name)
 			->setTitle($title)
 			->setFilter('null');
 	}
@@ -60,10 +63,10 @@ class FormFacade {
 	/**
 	 * Создает новую коллекцию элиментов формы
 	 * 
-	 * @return FormNestedCollection
+	 * @return FormManagerNestedCollection
 	 */
 	public static function Collection(){
-		return new FormNestedCollection();
+		return new FormManagerNestedCollection();
 	}
 
 	/**
@@ -71,10 +74,10 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldText
 	 */
 	public static function Text($name, $title){
-		$el = new FormText();
+		$el = new FormManagerFieldText();
 		return $el
 			->setName($name)
 			->setTitle($title);
@@ -85,7 +88,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldText
 	 */
 	public static function Password($name='password', $title='Password'){
 		return self::Text($name, $title)
@@ -97,10 +100,10 @@ class FormFacade {
 	 * Создает новый элимент формы Hidden
 	 * 
 	 * @param string $name Имя поля
-	 * @return FormHidden
+	 * @return FormManagerFieldHidden
 	 */
 	public static function Hidden($name){
-		$el = new FormHidden();
+		$el = new FormManagerFieldHidden();
 		return $el
 			->setName($name)
 			->setView('hidden');
@@ -111,10 +114,13 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldRadio
 	 */
 	public static function Radio($name, $title){
-		return self::Element($name, $title)
+		$el = new FormManagerFieldRadio();
+		return $el
+			->setName($name)
+			->setTitle($title)
 			->setView('radio');
 	}
 
@@ -123,7 +129,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public static function CheckBox($name, $title){
 		return self::Element($name, $title)
@@ -137,7 +143,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public static function TextArea($name, $title){
 		return self::Element($name, $title)
@@ -150,10 +156,10 @@ class FormFacade {
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
 	 * @param string $parametrs Параметры списка
-	 * @return FormElement
+	 * @return FormManagerFieldSelect
 	 */
 	public static function Select($name, $title, $parametrs=array()){
-		$el = new FormSelect();
+		$el = new FormManagerFieldSelect();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -167,7 +173,7 @@ class FormFacade {
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
 	 * @param string $parametrs Параметры списка
-	 * @return FormElement
+	 * @return FormManagerFieldSelect
 	 */
 	public static function MultiSelect($name, $title, $parametrs=array()){
 		$parametrs = array_merge(array(
@@ -183,10 +189,10 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public static function File($name, $title){
-		$el = new FormElement();
+		$el = new FormManagerElement();
 		return $el->setName($name)
 			->setTitle($title)
 			->setView('file');
@@ -197,7 +203,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldText
 	 */
 	public static function Email($name, $title){
 		return self::Text($name, $title)
@@ -209,7 +215,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldText
 	 */
 	public static function Captcha($name, $title, $length=6){
 		return self::Text($name, $title)
@@ -225,7 +231,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerFieldText
 	 */
 	public static function Date($name, $title){
 		return self::Text($name, $title)
@@ -239,7 +245,7 @@ class FormFacade {
 	 * 
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public static function YesNo($name, $title){
 		return self::Element($name, $title)
