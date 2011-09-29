@@ -3,6 +3,7 @@
 require 'classes/FormManagerForm.php';
 require 'classes/FormManagerElement.php';
 require 'classes/FormManagerNestedCollection.php';
+require 'classes/db/FormManagerDB.php';
 require 'classes/fields/FormManagerFieldText.php';
 require 'classes/fields/FormManagerFieldHidden.php';
 require 'classes/fields/FormManagerFieldRadio.php';
@@ -34,6 +35,18 @@ class FormManager {
 	 * @return void
 	 */
 	private function __construct(){
+	}
+
+	/**
+	 * Устанавливает название драйвер для работы с БД и инициализирует его
+	 * 
+	 * @param	string	$driver_name	Имя драйвера
+	 * @throws	InvalidArgumentException
+	 * @throws	Exception
+	 * @return	void
+	 */
+	public static function setDBDriver($driver_name){
+		FormManagerDB::setDriver($driver_name);
 	}
 
 	/**

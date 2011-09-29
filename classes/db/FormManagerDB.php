@@ -23,13 +23,32 @@ class FormManagerDB {
 
 
 	/**
-	 * Устанавливает драйвер для работы с БД
+	 * Устанавливает название драйвер для работы с БД и инициализирует его
 	 * 
-	 * @param	FormManagerDBDriver	$driver	Драйвер БД
+	 * @param	string	$driver_name	Имя драйвера
+	 * @throws	InvalidArgumentException
+	 * @throws	Exception
 	 * @return	void
 	 */
-	public static function setDBDriver(FormManagerDBDriver $driver){
+	public static function setDriver($driver_name){
+		if (!is_string($driver_name) || !trim($driver_name))
+			throw new InvalidArgumentException('Name of driver of a database should be a string.');
+
+		$classname = 'FormManagerDBDriver'.$driver_name;
+		$file = dirname(__FILE__).'/drivers/'.strtolower($driver_name).'/'.$classname.'.php';
+
+		if (!file_exists($file))
+			throw new Exception('File not found the driver of a database.');
+
+		require_once $file;
+
+		if (!class_exists($classname))
+			throw new Exception('Not find a class driver of a database.');
+
 		self::$driver = $driver;
+
+		if (!(self::$driver instanceof FormManagerDBDriver))
+			throw new Exception('The driver class of the database is not responding interface FormManagerDBDriver.');
 	}
 
 	/**

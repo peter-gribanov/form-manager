@@ -14,4 +14,50 @@
  */
 class FormManagerDBDriverPDO implements FormManagerDBDriver {
 
+	/**
+	 * Объект подключения
+	 * 
+	 * @var	PDO
+	 */
+	private $pdo;
+
+	/**
+	 * Поток запроса
+	 * 
+	 * @var	PDOStatement
+	 */
+	private $stream;
+
+	/**
+	 * Подготавливает запрос к исполненияю и выполняет его
+	 * 
+	 * @param	string	$statement	SQL запрос
+	 * @return	FormManagerDBDriverPDO
+	 */
+	public function prepare($statement){
+		$this->stream = $this->pdo->prepare($statement);
+		$this->stream->execute();
+		return $this;
+	}
+
+	/**
+	 * Возвращает одну запись из результата запроса
+	 * 
+	 * @return	mixed	Запись из результата запроса
+	 */
+	public function fetch(){
+		return $this->stream->fetch(PDO::FETCH_OBJ);
+	}
+
+	/**
+	 * Устанавливает для драйвера существующее соединение с БД
+	 * 
+	 * @param	PDO	$connect	Объект PDO
+	 * @return	boolen	Результат установки соединения
+	 */
+	public function setConnect(PDO & $connect){
+		$this->pdo = $connect;
+		return true;
+	}
+
 }

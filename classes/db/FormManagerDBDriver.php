@@ -18,10 +18,9 @@ interface FormManagerDBDriver {
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
 	 * @param	string	$statement	SQL запрос
-	 * @param	array	$input_parameters	Параметры запроса
 	 * @return FormManagerDBDriver
 	 */
-	public function prepare($statement, $input_parameters=null);
+	public function prepare($statement);
 
 	/**
 	 * Возвращает одну запись из результата запроса
@@ -29,5 +28,19 @@ interface FormManagerDBDriver {
 	 * @return	mixed	Запись из результата запроса
 	 */
 	public function fetch();
+
+	/**
+	 * Устанавливает для драйвера существующее соединение с БД
+	 * 
+	 * Если для работы драйвера необходимо подключение к базе данных,
+	 * и он не может воспользоваться уже существующим или создать новое
+	 * то для него передается ссылка на уже созданное ранее соединение
+	 * с базой данных.
+	 * В основном это применяется на низкоуровневых драйверах.
+	 * 
+	 * @param	resource	$connect	Соединение с БД
+	 * @return	boolen	Результат установки соединения
+	 */
+	public function setConnect( & $connect);
 
 }
