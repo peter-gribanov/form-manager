@@ -1,7 +1,6 @@
 <?php
 
 require 'FormManagerFilterException.php';
-require 'db/FormManagerDB.php';
 
 /**
  * Класс описывает элемент ввода формы
