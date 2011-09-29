@@ -17,8 +17,8 @@ class FormManagerFieldSelect extends FormManagerElement {
 	/**
 	 * Устанавливает параметры вывода
 	 * 
-	 * @param array $params
-	 * @return FormSelect
+	 * @param	array	$params
+	 * @return	FormManagerFieldSelect
 	 */
 	public function setViewParams($params=array()){
 		// установка ключа
@@ -55,8 +55,8 @@ class FormManagerFieldSelect extends FormManagerElement {
 	/**
 	 * Метод для десериализации класса
 	 *
-	 * @param string $data
-	 * @return FormSelect
+	 * @param	string	$data
+	 * @return	FormManagerFieldSelect
 	 */
 	public function unserialize($data){
 		parent::unserialize($data);
