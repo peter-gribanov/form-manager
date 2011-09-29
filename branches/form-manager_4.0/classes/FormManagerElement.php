@@ -1,19 +1,21 @@
 <?php
 
-require 'FormDB.php';
+require 'FormManagerFilterException.php';
+require 'db/FormManagerDB.php';
 
 /**
  * Класс описывает элемент ввода формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	09.09.2011
- * @version	1.18
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		4.0 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager_4.0/
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormElement implements FormItem, Serializable {
+class FormManagerElement implements FormManagerItem, Serializable {
 
 	/**
 	 * Опции поля
@@ -33,7 +35,7 @@ class FormElement implements FormItem, Serializable {
 	/**
 	 * Объект формы
 	 * 
-	 * @var	Form
+	 * @var	FormManagerForm
 	 */
 	protected $form;
 
@@ -49,10 +51,10 @@ class FormElement implements FormItem, Serializable {
 	 * Устанавливает форму к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param Form $form
-	 * @return FormElement
+	 * @param FormManagerForm $form
+	 * @return FormManagerElement
 	 */
-	public function setForm(Form $form){
+	public function setForm(FormManagerForm $form){
 		$this->form = $form;
 		if ($this->options['required']){
 			$this->form->required();
@@ -65,7 +67,7 @@ class FormElement implements FormItem, Serializable {
 	 * 
 	 * @param string $name
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -89,7 +91,7 @@ class FormElement implements FormItem, Serializable {
 	 * 
 	 * @param string $title
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setTitle($title){
 		if (!is_string($title) || !trim($title))
@@ -113,7 +115,7 @@ class FormElement implements FormItem, Serializable {
 	 * 
 	 * @param string $comment
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setComment($comment){
 		if (!is_string($comment) || !trim($comment))
@@ -136,7 +138,7 @@ class FormElement implements FormItem, Serializable {
 	 * Устанавливает значение поля
 	 * 
 	 * @param mixed $val
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setDefaultValue($val){
 		$this->options['default'] = $val;
@@ -188,7 +190,7 @@ class FormElement implements FormItem, Serializable {
 	 * @param string $name
 	 * @param array $params
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setView($name, $params=null){
 		if (!is_string($name) || !trim($name))
@@ -205,7 +207,7 @@ class FormElement implements FormItem, Serializable {
 	 * Устанавливает параметры вывода
 	 * 
 	 * @param array $params
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setViewParams($params=array()){
 		if (!is_array($params))
@@ -217,37 +219,26 @@ class FormElement implements FormItem, Serializable {
 	}
 
 	/**
-	 * Возвращает параметры вывода
-	 * 
-	 * @param string $param
-	 * @return mixid
-	 */
-	public function getViewParams($param=null){
-		if ($param===null){
-			return $this->options['view'][1];
-		} elseif (isset($this->options['view'][1][$param])){
-			return $this->options['view'][1][$param];
-		} else {
-			return null;
-		}
-	}
-
-	/**
 	 * Выводит поле
 	 * 
 	 * @return void
 	 */
 	public function draw(){
-		include Form::getTemplatePath('element.php');
+		$params = $this->options['view'][1];
+		include FormManagerForm::getTemplatePath('element.php');
 	}
 
 	/**
 	 * Выводит поле
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function drawField(){
-		include Form::getTemplatePath('fields/'.$this->options['view'][0].'.php');
+		// загружаем параметру вывода по умолчанию
+		include FormManagerForm::getTemplatePath('fields/'.$this->options['view'][0].'/.parameters.php');
+		$params = array_merge($this->options['view'][1], $params);
+		// выводим шаблон
+		include self::getTemplatePath($this->options['view'][0]);
 	}
 
 	/**
@@ -256,7 +247,7 @@ class FormElement implements FormItem, Serializable {
 	 * @param string $name
 	 * @param array $params
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setFilter($name, $params=null){
 		if (!is_string($name) || !trim($name))
@@ -280,7 +271,7 @@ class FormElement implements FormItem, Serializable {
 	/**
 	 * Производит проверку переданных данных по полю 
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function valid(){
 		// не проверять отключенные поля 
@@ -302,7 +293,7 @@ class FormElement implements FormItem, Serializable {
 	 * @param string $post
 	 * @param array $params
 	 * @throws LogicException
-	 * @throws FormFilterException
+	 * @throws FormManagerFilterException
 	 * @return void
 	 */
 	public function error($post, $params=array()){
@@ -312,14 +303,14 @@ class FormElement implements FormItem, Serializable {
 		// добавление сообщения из языковой темы и название поля
 		array_unshift($params, $this->getLangPost($post), $this->getTitle());
 		// создание исключения
-		throw new FormFilterException(call_user_func_array('sprintf', $params), $this,
+		throw new FormManagerFilterException(call_user_func_array('sprintf', $params), $this,
 			$this->options['filters'][$this->filter_iterator]);
 	}
 
 	/**
 	 * Устанавливает что поле является обязательным для заполнения
 	 * 
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function required(){
 		$this->options['required'] = true;
@@ -361,11 +352,21 @@ class FormElement implements FormItem, Serializable {
 	 * Метод для десериализации класса
 	 *
 	 * @param string $data
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function unserialize($data){
 		$this->options = unserialize($data);
 		return $this;
+	}
+
+	/**
+	 * Возвращает реальный путь к шаблону элемента
+	 * 
+	 * @param	string	$view	Вид элемента
+	 * @return	string	Путь к шаблону элемента
+	 */
+	public static function getTemplatePath($view){
+		return FormManagerForm::getTemplatePath('fields/'.$view.'/template.php');
 	}
 
 }

@@ -3,23 +3,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Form - Example 1</title>
-<style type="text/css">
-/* скрыть поле с уникальным ключом создаваемое при отправки формы методом гет */
-.field-hidden {display:none}
-</style>
+
 </head>
 <body><?php
-include('FormFacade.php');
+include('FormManager.php');
 
 //var_dump(is_dir('lang/en/'));
 
 try {
 	// составление формы
-	$form = FormFacade::Form()
+	$form = FormManager::Form()
 		// отправлять форму методом GET
 		->setMethod('get')
 		// добавление поля для ввода текстового сообщения
-		->add(FormFacade::Text('mess', 'Ваше сообщение'));
+		->add(FormManager::Text('mess', 'Ваше сообщение'));
 
 } catch (Exception $e){
 	// при составлении структуры формы допущена ошибка

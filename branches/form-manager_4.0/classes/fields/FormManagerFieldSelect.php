@@ -3,15 +3,16 @@
 /**
  * Класс описывает элемент ввода формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	12.09.2011
- * @version	1.2
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		4.0 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager_4.0/
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormSelect extends FormElement {
+class FormManagerFieldSelect extends FormManagerElement {
 
 	/**
 	 * Устанавливает параметры вывода
@@ -40,7 +41,7 @@ class FormSelect extends FormElement {
 			if (!is_string($params['optionsByQuery']))
 				throw new InvalidArgumentException('SQL request is not a string.');
 
-			$db = FormDB::prepare($params['optionsByQuery']);
+			$db = FormManagerDB::prepare($params['optionsByQuery']);
 
 			$params['options'] = array();
 

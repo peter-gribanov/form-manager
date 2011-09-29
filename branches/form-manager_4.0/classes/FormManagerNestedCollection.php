@@ -3,24 +3,25 @@
 /**
  * Вложенная коллекция элиментов формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	09.09.2011
- * @version	1.3
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		4.0 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager_4.0/
+ * @copyright	(c) 2008 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormNestedCollection extends FormCollection {
+class FormManagerNestedCollection extends FormManagerCollection {
 
 	/**
 	 * Устанавливает форму к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param Form $form
+	 * @param FormManagerForm $form
 	 * @return FormNestedCollection
 	 */
-	public function setForm(Form $form){
+	public function setForm(FormManagerForm $form){
 		parent::setForm($form);
 		foreach ($this as $item){
 			$item->setForm($form);
@@ -31,10 +32,10 @@ class FormNestedCollection extends FormCollection {
 	/**
 	 * Добавляет элемент
 	 *
-	 * @param FormItem $item
-	 * @return FormNestedCollection
+	 * @param FormManagerItem $item
+	 * @return FormManagerNestedCollection
 	 */
-	public function add(FormItem $item){
+	public function add(FormManagerItem $item){
 		$this->items[] = $item;
 		return $this;
 	}
@@ -46,7 +47,7 @@ class FormNestedCollection extends FormCollection {
 	 */
 	public function draw(){
 		if (!$this->isEmpty()){
-			include Form::getTemplatePath('nested.collection.php');
+			include FormManagerForm::getTemplatePath('nested.collection.php');
 		}
 	}
 
