@@ -16,4 +16,3 @@ if ($params['multiple']){
 } elseif (!in_array($this->getValue(), $values)){
 	$this->error('select');
 }
-?>

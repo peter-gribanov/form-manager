@@ -19,4 +19,3 @@ if ($params['eq'] && $len!=$params['eq']){
 } elseif ($params['max'] && $len>$params['max']){
 	$this->error('length.max', array($params['max']));
 }
-?>

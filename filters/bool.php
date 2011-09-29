@@ -9,4 +9,3 @@ if (!is_bool($this->getValue()) && (!is_numeric($this->getValue())
 		$this->error('bool', array(''));
 	}
 }
-?>

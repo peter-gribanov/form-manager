@@ -11,4 +11,3 @@ $reg = file_get_contents(dirname(__FILE__).'/mail.address.validation.re');
 if (!preg_match($reg, $this->getValue())){
 	$this->error('email');
 }
-?>
