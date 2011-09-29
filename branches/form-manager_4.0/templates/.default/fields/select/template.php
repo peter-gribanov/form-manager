@@ -1,15 +1,4 @@
-<?php
-$params = array_merge(array(
-	'id'		=> '',
-	'class'		=> '',
-	'size'		=> 1,
-	'use_key'	=> false, // использовать ключи массива как значения
-	'options'	=> array(),
-	'multiple'	=> false,
-	'disabled'	=> false
-), $this->getViewParams());
-
-?><select name="<?=$this->getName().($params['multiple'] ? '[]' : '')?>"<?=
+<select name="<?=$this->getName().($params['multiple'] ? '[]' : '')?>"<?=
 ($params['class'] ? ' class="'.$params['class'].'"' : '')?><?=
 ($params['id'] ? ' id="'.$params['id'].'"' : '')?><?=
 ($params['size']>1 ? ' size="'.$params['size'].'"' : '')?><?=
