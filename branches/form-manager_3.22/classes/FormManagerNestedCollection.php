@@ -8,9 +8,8 @@
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		3.22 SVN: $Revision$
  * @since		$Date$
- * @link		$HeadURL$
- * @link		http://peter-gribanov.ru/#open-source/form-manager
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.22/
+ * @copyright	(c) 2009 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerNestedCollection extends FormManagerCollection {
@@ -51,7 +50,7 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	 */
 	public function draw(){
 		if (!$this->isEmpty()){
-			include dirname(__DIR__).'/skin/'.$this->form->getSkin().'.nested.collection.php';
+			include dirname(dirname(__FILE__)).'/skin/'.$this->form->getSkin().'.nested.collection.php';
 		}
 	}
 

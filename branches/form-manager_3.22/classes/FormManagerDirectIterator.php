@@ -8,9 +8,8 @@
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		3.22 SVN: $Revision$
  * @since		$Date$
- * @link		$HeadURL$
- * @link		http://peter-gribanov.ru/#open-source/form-manager
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.22/
+ * @copyright	(c) 2009 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerDirectIterator implements Iterator {
@@ -64,7 +63,7 @@ class FormManagerDirectIterator implements Iterator {
 	/**
 	 * Передвигает вперед внутренний указатель массива
 	 * 
-	 * @return	mixed	??
+	 * @return	mixed	Значение элемента массива
 	 */
 	public function next(){
 		return next($this->var);
