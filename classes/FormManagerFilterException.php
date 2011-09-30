@@ -17,14 +17,16 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormManagerElement
+	 * @access	private
+	 * @var 	FormManagerElement
 	 */
 	private $element;
 
 	/**
 	 * Параметры фильтра
 	 * 
-	 * @var array
+	 * @access	private
+	 * @var 	array
 	 */
 	private $filter;
 
@@ -32,10 +34,10 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Конструктор
 	 * 
-	 * @param string $message
-	 * @param FormManagerElement $element
-	 * @param array $filter
-	 * @return void
+	 * @param	string				$message	Текст сообщения
+	 * @param	FormManagerElement	$element	Объект элемента
+	 * @param	array				$filter		Параметры фильтра
+	 * @return	void
 	 */
 	public function __construct($message, FormManagerElement & $element, & $filter){
 		parent::__construct($message, 0);
@@ -46,7 +48,7 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Возвращает объект поля формы
 	 * 
-	 * @return FormManagerElement
+	 * @return	FormManagerElement	Объект элемента
 	 */
 	public function getElement(){
 		return $this->element;
@@ -55,7 +57,7 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Возвращает имя фильтра
 	 * 
-	 * @return string
+	 * @return	string	Имя фильтра
 	 */
 	public function getFilterName(){
 		return $this->filter[0];
@@ -64,7 +66,7 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Возвращает параметры фильтра
 	 * 
-	 * @return array
+	 * @return	array	Параметры фильтра
 	 */
 	public function getFilterParams(){
 		return $this->filter[1];

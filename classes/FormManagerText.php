@@ -18,10 +18,10 @@ class FormManagerText extends FormManagerElement {
 	/**
 	 * Устанавливает фильтр для поля
 	 * 
-	 * @param string $name
-	 * @param array $params
-	 * @throws InvalidArgumentException
-	 * @return FormManagerElement
+	 * @param	string	$name				Название фильтра
+	 * @param	array	$params				Параметры фильтра
+	 * @throws	InvalidArgumentException	Недопустимое значение
+	 * @return	FormManagerElement			Объект элемента
 	 */
 	public function setFilter($name, $params=null){
 		if ($name=='length' && (isset($params['max']) || isset($params['eq'])))

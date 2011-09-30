@@ -17,16 +17,15 @@ interface FormManagerDBDriver {
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
-	 * @param string $statement
-	 * @param array $input_parameters
-	 * @return FormManagerDBDriver
+	 * @param	string	$statement	SQL запрос
+	 * @return	FormManagerDBDriver	Драйвера работы с БД
 	 */
-	public function prepare($statement, $input_parameters=null);
+	public function prepare($statement);
 
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @return mixed
+	 * @return	mixed	Запись из результата запроса
 	 */
 	public function fetch();
 

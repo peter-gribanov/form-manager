@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Интерфейс элиментов формы
+ * Интерфейс элементов формы
  * 
  * @category	Complex library
  * @package		FormManager
@@ -15,33 +15,35 @@
 interface FormManagerItem {
 
 	/**
-	 * Устанавливает форму к которой пренадлежыт коллекция
+	 * Устанавливает форму к которой пренадлежит элемент
+	 * 
+	 * Устанавливает объект формы к которой пренадлежит элемент
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManagerForm $form
-	 * @return FormManagerItem
+	 * @param	FormManagerForm	$form	Объект формы
+	 * @return	FormManagerItem	Объект элемента
 	 */
 	public function setForm(FormManagerForm $form);
 	
 	/**
 	 * Производит проверку переданных данных 
-	 *
-	 * @return void
+	 * 
+	 * @return	void
 	 */
 	public function valid();
 
 	/**
-	 * Рисует коллекцию элиментов
+	 * Рисует коллекцию элементов
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw();
 
 	/**
 	 * Возвращает сообщение из языковой темы
 	 * 
-	 * @param string $post
-	 * @return string
+	 * @param	string	$post	Идентификатор сообщения
+	 * @return	string			Сообщение
 	 */
 	public function getLangPost($post);
 
