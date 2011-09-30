@@ -464,7 +464,6 @@ class FormManagerForm implements Serializable {
 	public function unserialize($data){
 		list($this->options, $this->collection, self::$template) = unserialize($data);
 		$this->collection->setForm($this);
-		$this->setMethod('post');
 		$this->loadLangPosts();
 		return $this;
 	}
