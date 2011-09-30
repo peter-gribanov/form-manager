@@ -18,7 +18,7 @@ interface FormManagerDBDriver {
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
 	 * @param	string	$statement	SQL запрос
-	 * @return FormManagerDBDriver
+	 * @return	FormManagerDBDriver	Драйвера работы с БД
 	 */
 	public function prepare($statement);
 
@@ -39,7 +39,7 @@ interface FormManagerDBDriver {
 	 * В основном это применяется на низкоуровневых драйверах.
 	 * 
 	 * @param	resource	$connect	Соединение с БД
-	 * @return	boolen	Результат установки соединения
+	 * @return	boolen					Результат установки соединения
 	 */
 	public function setConnect( & $connect);
 

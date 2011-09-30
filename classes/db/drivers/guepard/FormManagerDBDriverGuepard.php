@@ -24,8 +24,8 @@ class FormManagerDBDriverGuepard implements FormManagerDBDriver {
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
-	 * @param	string	$statement	SQL запрос
-	 * @return	FormManagerDBDriverGuepard
+	 * @param	string	$statement			SQL запрос
+	 * @return	FormManagerDBDriverGuepard	Драйвера работы с БД
 	 */
 	public function prepare($statement){
 		$this->stream = DB::prepare($statement);
@@ -50,7 +50,7 @@ class FormManagerDBDriverGuepard implements FormManagerDBDriver {
 	 * Попытка передать ресурс с подключением будит проигнорирована. 
 	 * 
 	 * @param	resource	$connect	Соединение с БД
-	 * @return	boolen	Результат установки соединения
+	 * @return	boolen					Результат установки соединения
 	 */
 	public function setConnect( & $connect){
 		return true;

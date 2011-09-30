@@ -31,8 +31,8 @@ class FormManagerDBDriverMySQL implements FormManagerDBDriver {
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
-	 * @param	string	$statement	SQL запрос
-	 * @return	FormManagerDBDriverMySQL
+	 * @param	string	$statement			SQL запрос
+	 * @return	FormManagerDBDriverMySQL	Драйвера работы с БД
 	 */
 	public function prepare($statement){
 		if ($this->connect){
@@ -56,7 +56,7 @@ class FormManagerDBDriverMySQL implements FormManagerDBDriver {
 	 * Устанавливает для драйвера существующее соединение с БД
 	 * 
 	 * @param	resource	$connect	Соединение с БД
-	 * @return	boolen	Результат установки соединения
+	 * @return	boolen					Результат установки соединения
 	 */
 	public function setConnect( & $connect){
 		if (!is_resource($connect)) return false;

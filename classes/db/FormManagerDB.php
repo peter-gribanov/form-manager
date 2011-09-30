@@ -15,7 +15,7 @@
 class FormManagerDB {
 
 	/**
-	 * Поток запроса
+	 * Драйвера работы с БД
 	 * 
 	 * @var	FormManagerDBDriver
 	 */
@@ -25,9 +25,10 @@ class FormManagerDB {
 	/**
 	 * Устанавливает название драйвер для работы с БД и инициализирует его
 	 * 
-	 * @param	string	$driver_name	Имя драйвера
-	 * @throws	InvalidArgumentException
-	 * @throws	Exception
+	 * @param	string	$driver_name		Имя драйвера
+	 * @throws	InvalidArgumentException	Недопустимое имя драйвера
+	 * @throws	Exception					Файл драйвера не обнаружен
+	 * @throws	Exception					Класс драйвера не обнаружен
 	 * @return	void
 	 */
 	public static function setDriver($driver_name){
@@ -54,12 +55,11 @@ class FormManagerDB {
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
-	 * @param	string	$statement	SQL запрос
-	 * @param	array	$input_parameters	Параметры запроса
-	 * @return	FormManagerDBDriver	Драйвер БД
+	 * @param	string	$statement			SQL запрос
+	 * @return	FormManagerDBDriver			Драйвера работы с БД
 	 */
-	public static function prepare($statement, $input_parameters=null){
-		return self::$driver->prepare($statement, $input_parameters);
+	public static function prepare($statement){
+		return self::$driver->prepare($statement);
 	}
 
 }

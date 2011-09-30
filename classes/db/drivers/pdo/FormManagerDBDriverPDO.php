@@ -31,8 +31,8 @@ class FormManagerDBDriverPDO implements FormManagerDBDriver {
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
-	 * @param	string	$statement	SQL запрос
-	 * @return	FormManagerDBDriverPDO
+	 * @param	string	$statement		SQL запрос
+	 * @return	FormManagerDBDriverPDO	Драйвера работы с БД
 	 */
 	public function prepare($statement){
 		$this->stream = $this->pdo->prepare($statement);
@@ -53,7 +53,7 @@ class FormManagerDBDriverPDO implements FormManagerDBDriver {
 	 * Устанавливает для драйвера существующее соединение с БД
 	 * 
 	 * @param	PDO	$connect	Объект PDO
-	 * @return	boolen	Результат установки соединения
+	 * @return	boolen			Результат установки соединения
 	 */
 	public function setConnect(PDO & $connect){
 		$this->pdo = $connect;
