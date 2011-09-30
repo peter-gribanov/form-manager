@@ -43,7 +43,7 @@ interface FormManagerItem {
 	 * Возвращает сообщение из языковой темы
 	 * 
 	 * @param	string	$post	Идентификатор сообщения
-	 * @return	string	Сообщение
+	 * @return	string			Сообщение
 	 */
 	public function getLangPost($post);
 

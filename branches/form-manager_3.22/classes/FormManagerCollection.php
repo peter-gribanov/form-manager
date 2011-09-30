@@ -60,10 +60,10 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Устанавливает название коллекции
-	 *
-	 * @param	string	$name	Название коллекции
+	 * 
+	 * @param	string	$name				Название коллекции
 	 * @throws	InvalidArgumentException	Недопустимое значение
-	 * @return	FormManagerCollection	Объект коллекции
+	 * @return	FormManagerCollection		Объект коллекции
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -75,7 +75,7 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Возвращает название коллекции
-	 *
+	 * 
 	 * @return	string	Название коллекции
 	 */
 	public function getName(){
@@ -145,7 +145,7 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 	 * Возвращает сообщение из языковой темы
 	 * 
 	 * @param	string	$post	Идентификатор сообщения
-	 * @return	string	Языковое сообщение
+	 * @return	string			Языковое сообщение
 	 */
 	public function getLangPost($post){
 		return $this->form->getLangPost($post);

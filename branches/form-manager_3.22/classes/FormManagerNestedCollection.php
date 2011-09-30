@@ -20,7 +20,7 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	 * Устанавливает объект формы к которой пренадлежит элемент
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param	FormManagerForm	$form	Объект формы
+	 * @param	FormManagerForm	$form		Объект формы
 	 * @return	FormManagerNestedCollection	Объект коллекуии
 	 */
 	public function setForm(FormManagerForm $form){
@@ -33,8 +33,8 @@ class FormManagerNestedCollection extends FormManagerCollection {
 
 	/**
 	 * Добавляет элемент
-	 *
-	 * @param	FormManagerItem	$item	Объект элемента
+	 * 
+	 * @param	FormManagerItem	$item		Объект элемента
 	 * @return	FormManagerNestedCollection	Объект коллекции
 	 */
 	public function add(FormManagerItem $item){
@@ -45,7 +45,6 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	/**
 	 * Рисует коллекцию элементов
 	 * 
-	 * @access	private
 	 * @return	void
 	 */
 	public function draw(){
