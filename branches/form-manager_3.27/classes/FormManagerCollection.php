@@ -1,20 +1,21 @@
 <?php
 
-require 'FormDirectIterator.php';
-require 'FormFilterException.php';
+require 'FormManagerDirectIterator.php';
+require 'FormManagerFilterException.php';
 
 /**
  * Коллекция элиментов формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	09.09.2011
- * @version	1.16
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormCollection implements FormItem, IteratorAggregate, Serializable {
+class FormManagerCollection implements FormManagerItem, IteratorAggregate, Serializable {
 
 	/**
 	 * Название коллекции
@@ -33,7 +34,7 @@ class FormCollection implements FormItem, IteratorAggregate, Serializable {
 	/**
 	 * Объект формы
 	 * 
-	 * @var Form
+	 * @var FormManagerForm
 	 */
 	protected $form;
 
@@ -42,10 +43,10 @@ class FormCollection implements FormItem, IteratorAggregate, Serializable {
 	 * Устанавливает форму к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param Form $form
-	 * @return FormCollection
+	 * @param FormManagerForm $form
+	 * @return FormManagerCollection
 	 */
-	public function setForm(Form $form){
+	public function setForm(FormManagerForm $form){
 		$this->form = $form;
 		foreach ($this->items as $item)
 			$item->setForm($form);
@@ -57,7 +58,7 @@ class FormCollection implements FormItem, IteratorAggregate, Serializable {
 	 *
 	 * @param string $name
 	 * @throws InvalidArgumentException
-	 * @return FormCollection
+	 * @return FormManagerCollection
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -92,25 +93,25 @@ class FormCollection implements FormItem, IteratorAggregate, Serializable {
 	 */
 	public function draw(){
 		if (!$this->isEmpty())
-			include Form::getTemplatePath('collection.php');
+			include FormManagerForm::getTemplatePath('collection.php');
 	}
 
 	/**
 	 * Возвращает итератор
 	 * 
-	 * @return FormDirectIterator
+	 * @return FormManagerDirectIterator
 	 */
 	public function getIterator(){
-		return new FormDirectIterator($this->items);
+		return new FormManagerDirectIterator($this->items);
 	}
 
 	/**
 	 * Добавляет элемент
 	 *
-	 * @param FormItem $item
-	 * @return FormCollection
+	 * @param FormManagerItem $item
+	 * @return FormManagerCollection
 	 */
-	public function add(FormItem $item){
+	public function add(FormManagerItem $item){
 		$this->items[] = $item->setForm($this->form);
 		return $this;
 	}
@@ -118,7 +119,7 @@ class FormCollection implements FormItem, IteratorAggregate, Serializable {
 	/**
 	 * Очищает список элементов
 	 *
-	 * @return FormCollection
+	 * @return FormManagerCollection
 	 */
 	public function clear(){
 		unset($this->items);

@@ -1,20 +1,21 @@
 <?php
 
-require 'FormItem.php';
-require 'FormCollection.php';
+require 'FormManagerItem.php';
+require 'FormManagerCollection.php';
 
 /**
  * Класс описывает форму и позволяет ее динамически составлять
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	14.09.2011
- * @version	3.27
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class Form implements Serializable {
+class FormManagerForm implements Serializable {
 
 	/**
 	 * Опции формы
@@ -40,7 +41,7 @@ class Form implements Serializable {
 	/**
 	 * Список элементов
 	 *
-	 * @var	FormCollection
+	 * @var	FormManagerCollection
 	 */
 	private $collection;
 
@@ -50,6 +51,13 @@ class Form implements Serializable {
 	 * @var	array
 	 */
 	private $inputs = array();
+
+	/**
+	 * ID активной языковой темы
+	 * 
+	 * @var	string
+	 */
+	private $lang_id = 'en';
 
 	/**
 	 * Список загруженных сообщений активной языковой темы
@@ -65,19 +73,18 @@ class Form implements Serializable {
 	 * @return	void
 	 */
 	public function __construct(){
-		$this->collection = new FormCollection();
+		$this->collection = new FormManagerCollection();
 		$this->collection->setForm($this);
 		$this->setMethod('post');
-		$this->loadLangPosts();
 	}
 
 	/**
 	 * Вставляет один или более элементов в конце списка
 	 *
-	 * @param FormItem $item
-	 * @return Form
+	 * @param FormManagerItem $item
+	 * @return FormManagerForm
 	 */
-	public function add(FormItem $item){
+	public function add(FormManagerItem $item){
 		$this->collection->add($item);
 		return $this;
 	}
@@ -88,7 +95,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $query
 	 * @throws InvalidArgumentException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function addByQuery($query){
 		if (!$query) return $this;
@@ -99,7 +106,7 @@ class Form implements Serializable {
 				throw new InvalidArgumentException('Cant add element because of improper URL query');
 
 			$var = explode('=', $var);
-			$this->add(FormFacade::Hidden($var[0])->setDefaultValue($var[1]));
+			$this->add(FormManager::Hidden($var[0])->setDefaultValue($var[1]));
 		}
 		return $this;
 	}
@@ -109,7 +116,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $title
 	 * @param array $params
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function addButton($title, $params=null){
 		if (!is_string($title) || !trim($title))
@@ -146,7 +153,7 @@ class Form implements Serializable {
 
 	/**
 	 * Производит проверку всех полей
-	 * Псевдоним для FormCollection::valid()
+	 * Псевдоним для FormManagerCollection::valid()
 	 *
 	 * @return void
 	 */
@@ -157,7 +164,7 @@ class Form implements Serializable {
 	/**
 	 * Возвращает коллекцию элиментов формы
 	 * 
-	 * @return FormCollection
+	 * @return FormManagerCollection
 	 */
 	public function getCollection(){
 		return $this->collection;
@@ -195,7 +202,7 @@ class Form implements Serializable {
 	/**
 	 * Очищает отправленные данные
 	 * 
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function clearSentValues(){
 		$method = '_'.strtoupper($this->options['method']);
@@ -254,13 +261,13 @@ class Form implements Serializable {
 	 * 
 	 * @param string $template
 	 * @throws InvalidArgumentException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function setTemplate($template){
 		if (!is_string($template) || !trim($template))
 			throw new InvalidArgumentException('Display form must be not empty string');
 
-		if (!file_exists(FORM_PATH.'/templates/'.$template.'/template.php'))
+		if (!file_exists(FORM_MANAGER_PATH.'/templates/'.$template.'/template.php'))
 			throw new InvalidArgumentException('File of display ('.$template.') form do not exists');
 
 		self::$template = $template;
@@ -286,16 +293,37 @@ class Form implements Serializable {
 	}
 
 	/**
+	 * Устанавливает идентификатор языковой темы
+	 * 
+	 * @param	integer	$id	Идентификатор языковой темы
+	 * @throws	InvalidArgumentException
+	 * @return	FormManagerForm	Объект формы
+	 */
+	public function setLangID($id){
+		// не требуется изменять языковую тему
+		if ($this->lang_id==$id) return $this;
+
+		if (!is_string($id) || strlen($id)!=2)
+			throw new InvalidArgumentException('Incorrect id language');
+
+		$this->lang_id = $id;
+		var_dump($this->lang_id);
+		// обновление списка загруженных сообщений
+		$this->loadLangPosts();
+		return $this;
+	}
+
+	/**
 	 * Возвращает реальный путь к шаблону
 	 * 
 	 * @param string $path
 	 * @return string
 	 */
 	public static function getTemplatePath($path){
-		if (file_exists(FORM_PATH.'/templates/'.self::$template.'/'.$path)){
-			return FORM_PATH.'/templates/'.self::$template.'/'.$path;
-		} elseif (file_exists(FORM_PATH.'/templates/.default/'.$path)){
-			return FORM_PATH.'/templates/.default/'.$path;
+		if (file_exists(FORM_MANAGER_PATH.'/templates/'.self::$template.'/'.$path)){
+			return FORM_MANAGER_PATH.'/templates/'.self::$template.'/'.$path;
+		} elseif (file_exists(FORM_MANAGER_PATH.'/templates/.default/'.$path)){
+			return FORM_MANAGER_PATH.'/templates/.default/'.$path;
 		} else {
 			throw new InvalidArgumentException('Template file ('.$path.') do not exists');
 		}
@@ -320,7 +348,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $action
 	 * @throws InvalidArgumentException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function setAction($action){
 		if (!is_string($action) || !trim($action))
@@ -344,7 +372,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $method
 	 * @throws UnexpectedValueException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function setMethod($method){
 		$method = strtolower($method);
@@ -358,7 +386,7 @@ class Form implements Serializable {
 			$this->inputs = & $_GET;
 			// добавление скрытого поля
 			$this->add(
-				Facade::Hidden('unique_key_already_sent')
+				FormManager::Hidden('unique_key_already_sent')
 					->setDefaultValue('4ab24a54898e90ea76f23afc36a81819')
 			);
 		}
@@ -379,7 +407,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $name
 	 * @throws InvalidArgumentException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -403,7 +431,7 @@ class Form implements Serializable {
 	 *
 	 * @param string $title
 	 * @throws InvalidArgumentException
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function setSubmitTitle($title){
 		if (!is_string($title) || !trim($title))
@@ -435,7 +463,7 @@ class Form implements Serializable {
 	 * Метод для десериализации класса
 	 *
 	 * @param string $data
-	 * @return Form
+	 * @return FormManagerForm
 	 */
 	public function unserialize($data){
 		list($this->options, $this->collection, self::$template) = unserialize($data);
@@ -452,12 +480,13 @@ class Form implements Serializable {
 	 * @return void
 	 */
 	private function loadLangPosts(){
-		if (!file_exists(FORM_LANG_PATH))
+		$path = FORM_MANAGER_PATH.'/lang/'.$this->lang_id.'/.parameters.php';
+		if (!file_exists($path))
 			throw new InvalidArgumentException('Language theme for this id is not found');
 
 		// загрузка списка сообщений
-		include FORM_LANG_PATH;
-		$this->lang_posts = & $lang;
+		include $path;
+		$this->lang_posts = $lang;
 	}
 
 }

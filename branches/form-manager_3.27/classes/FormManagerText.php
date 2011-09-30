@@ -3,15 +3,16 @@
 /**
  * Класс описывает элемент ввода формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	07.09.2011
- * @version	1.1
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormText extends FormElement {
+class FormManagerText extends FormManagerElement {
 	
 
 	/**
@@ -20,7 +21,7 @@ class FormText extends FormElement {
 	 * @param string $name
 	 * @param array $params
 	 * @throws InvalidArgumentException
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function setFilter($name, $params=null){
 		if ($name=='length' && (isset($params['max']) || isset($params['eq'])))

@@ -3,22 +3,23 @@
 /**
  * Интерфейс для драйвера работы с БД
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	08.09.2011
- * @version	1.0
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-interface FormDBDriver {
+interface FormManagerDBDriver {
 
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
 	 * @param string $statement
 	 * @param array $input_parameters
-	 * @return FormDBDriver
+	 * @return FormManagerDBDriver
 	 */
 	public function prepare($statement, $input_parameters=null);
 

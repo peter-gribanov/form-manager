@@ -3,24 +3,25 @@
 /**
  * Интерфейс элиментов формы
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	25.11.2010
- * @version	1.0
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-interface FormItem {
+interface FormManagerItem {
 
 	/**
 	 * Устанавливает форму к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param Form $form
-	 * @return FormItem
+	 * @param FormManagerForm $form
+	 * @return FormManagerItem
 	 */
-	public function setForm(Form $form);
+	public function setForm(FormManagerForm $form);
 	
 	/**
 	 * Производит проверку переданных данных 
