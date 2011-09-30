@@ -3,20 +3,21 @@
 /**
  * Класс исключений для фильтров
  * 
- * @license GNU GPL Version 3
- * @copyright 2009, Peter Gribanov
- * @link http://peter-gribanov.ru/license
- * @package	FormManager
- * @author	Peter Gribanov
- * @since	25.11.2010
- * @version	1.1
+ * @category	Complex library
+ * @package		FormManager
+ * @author		Peter S. Gribanov <info@peter-gribanov.ru>
+ * @version		3.27 SVN: $Revision$
+ * @since		$Date$
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.27/
+ * @copyright	(c) 2009 by Peter S. Gribanov
+ * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormFilterException extends Exception {
+class FormManagerFilterException extends Exception {
 
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormElement
+	 * @var FormManagerElement
 	 */
 	private $element;
 
@@ -32,11 +33,11 @@ class FormFilterException extends Exception {
 	 * Конструктор
 	 * 
 	 * @param string $message
-	 * @param FormElement $element
+	 * @param FormManagerElement $element
 	 * @param array $filter
 	 * @return void
 	 */
-	public function __construct($message, FormElement & $element, & $filter){
+	public function __construct($message, FormManagerElement & $element, & $filter){
 		parent::__construct($message, 0);
 		$this->element = & $element;
 		$this->filter = & $filter;
@@ -45,7 +46,7 @@ class FormFilterException extends Exception {
 	/**
 	 * Возвращает объект поля формы
 	 * 
-	 * @return FormElement
+	 * @return FormManagerElement
 	 */
 	public function getElement(){
 		return $this->element;
