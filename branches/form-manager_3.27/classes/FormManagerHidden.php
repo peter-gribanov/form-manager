@@ -17,7 +17,7 @@ class FormManagerHidden extends FormManagerElement {
 	/**
 	 * Выводит поле
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw(){
 		include FormManagerForm::getTemplatePath('hidden.element.php');

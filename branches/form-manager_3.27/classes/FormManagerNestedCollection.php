@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Вложенная коллекция элиментов формы
+ * Вложенная коллекция элементов формы
  * 
  * @category	Complex library
  * @package		FormManager
@@ -15,11 +15,13 @@
 class FormManagerNestedCollection extends FormManagerCollection {
 
 	/**
-	 * Устанавливает форму к которой пренадлежыт коллекция
+	 * Устанавливает форму к которой пренадлежит элемент
+	 * 
+	 * Устанавливает объект формы к которой пренадлежит элемент
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManagerForm $form
-	 * @return FormManagerNestedCollection
+	 * @param	FormManagerForm	$form		Объект формы
+	 * @return	FormManagerNestedCollection	Объект коллекуии
 	 */
 	public function setForm(FormManagerForm $form){
 		parent::setForm($form);
@@ -31,9 +33,9 @@ class FormManagerNestedCollection extends FormManagerCollection {
 
 	/**
 	 * Добавляет элемент
-	 *
-	 * @param FormManagerItem $item
-	 * @return FormManagerNestedCollection
+	 * 
+	 * @param	FormManagerItem	$item		Объект элемента
+	 * @return	FormManagerNestedCollection	Объект коллекции
 	 */
 	public function add(FormManagerItem $item){
 		$this->items[] = $item;
@@ -41,9 +43,9 @@ class FormManagerNestedCollection extends FormManagerCollection {
 	}
 
 	/**
-	 * Рисует коллекцию элиментов
+	 * Рисует коллекцию элементов
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw(){
 		if (!$this->isEmpty()){

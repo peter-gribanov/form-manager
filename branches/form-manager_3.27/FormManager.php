@@ -48,8 +48,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента
 	 */
 	public static function Element($name, $title){
@@ -60,7 +60,7 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новую коллекцию элиментов формы
+	 * Создает новую коллекцию элементов формы
 	 * 
 	 * @return	FormManagerNestedCollection	Объект коллекции
 	 */
@@ -69,11 +69,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Text
+	 * Создает новый элемент формы Text
 	 * 
 	 * @param	string	$name	Имя поля
 	 * @param	string	$title	Заголовок поля
-	 * @return	FormManagerText
+	 * @return	FormManagerText	Объект текстового элемента формы
 	 */
 	public static function Text($name, $title){
 		$el = new FormManagerText();
@@ -83,11 +83,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Password
+	 * Создает новый элемент формы Password
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerText
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Password($name='password', $title='Password'){
 		return self::Text($name, $title)
@@ -96,10 +96,10 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Hidden
+	 * Создает новый элемент формы Hidden
 	 * 
-	 * @param string $name Имя поля
-	 * @return FormManagerHidden
+	 * @param	string	$name		Имя элемента
+	 * @return	FormManagerHidden	Объект скрытого элемента формы
 	 */
 	public static function Hidden($name){
 		$el = new FormManagerHidden();
@@ -109,11 +109,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Radio
+	 * Создает новый элемент формы Radio
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerElement
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Radio($name, $title){
 		return self::Element($name, $title)
@@ -121,11 +121,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы CheckBox
+	 * Создает новый элемент формы CheckBox
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerElement
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function CheckBox($name, $title){
 		return self::Element($name, $title)
@@ -135,11 +135,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы TextArea
+	 * Создает новый элемент формы TextArea
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerElement
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function TextArea($name, $title){
 		return self::Element($name, $title)
@@ -147,12 +147,12 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Select
+	 * Создает новый элемент формы Select
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @param string $parametrs Параметры списка
-	 * @return FormManagerSelect
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @param	string	$parametrs	Параметры списка
+	 * @return	FormManagerSelect	Объект элемента список
 	 */
 	public static function Select($name, $title, $parametrs=array()){
 		$el = new FormManagerSelect();
@@ -164,12 +164,12 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Multi Select
+	 * Создает новый элемент формы Multi Select
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @param string $parametrs Параметры списка
-	 * @return FormManagerSelect
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @param	string	$parametrs	Параметры списка
+	 * @return	FormManagerSelect	Объект элемента список
 	 */
 	public static function MultiSelect($name, $title, $parametrs=array()){
 		$parametrs = array_merge(array(
@@ -181,11 +181,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы File
+	 * Создает новый элемент формы File
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerElement
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function File($name, $title){
 		$el = new FormManagerElement();
@@ -195,11 +195,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы E-mail
+	 * Создает новый элемент формы E-mail
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerText
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Email($name, $title){
 		return self::Text($name, $title)
@@ -207,11 +207,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Captcha
+	 * Создает новый элемент формы Captcha
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerText
+	 * @param	string	$name	Имя элемента
+	 * @param	string	$title	Заголовок элемента
+	 * @return	FormManagerText	Объект текстового элемента формы
 	 */
 	public static function Captcha($name, $title, $length=6){
 		return self::Text($name, $title)
@@ -223,11 +223,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Дата
+	 * Создает новый элемент формы Дата
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerText
+	 * @param	string	$name	Имя элемента
+	 * @param	string	$title	Заголовок элемента
+	 * @return	FormManagerText	Объект текстового элемента формы
 	 */
 	public static function Date($name, $title){
 		return self::Text($name, $title)
@@ -237,11 +237,11 @@ class FormManager {
 	}
 
 	/**
-	 * Создает новый элимент формы Yes или No
+	 * Создает новый элемент формы Yes или No
 	 * 
-	 * @param string $name Имя поля
-	 * @param string $title Заголовок поля
-	 * @return FormManagerElement
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
+	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function YesNo($name, $title){
 		return self::Element($name, $title)
