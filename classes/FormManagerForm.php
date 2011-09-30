@@ -11,9 +11,8 @@ require 'FormManagerCollection.php';
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		3.22 SVN: $Revision$
  * @since		$Date$
- * @link		$HeadURL$
- * @link		http://peter-gribanov.ru/#open-source/form-manager
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.22/
+ * @copyright	(c) 2009 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerForm implements Serializable {
@@ -111,7 +110,7 @@ class FormManagerForm implements Serializable {
 				throw new InvalidArgumentException('Cant add element because of improper URL query');
 
 			$var = explode('=', $var, 2);
-			$this->add(FormManagerFacade::Hidden($var[0])->setDefaultValue($var[1]));
+			$this->add(FormManager::Hidden($var[0])->setDefaultValue($var[1]));
 		}
 		return $this;
 	}
@@ -245,7 +244,7 @@ class FormManagerForm implements Serializable {
 	 * @return	void
 	 */
 	public function draw(){
-		include dirname(__DIR__).'/skin/'.$this->options['skin'].'.php';
+		include dirname(dirname(__FILE__)).'/skin/'.$this->options['skin'].'.php';
 	}
 
 	/**
@@ -262,12 +261,12 @@ class FormManagerForm implements Serializable {
 		if (!is_string($id) || strlen($id)!=2)
 			throw new InvalidArgumentException('Incorrect id language');
 
-		if (!file_exists(dirname(__DIR__).'/lang/'.$id.'.php'))
+		if (!file_exists(dirname(dirname(__FILE__)).'/lang/'.$id.'.php'))
 			throw new InvalidArgumentException('Language theme for this id is not found');
 
 		$this->lang_id = $id;
 		// обновление списка загруженных сообщений
-		include dirname(__DIR__).'/lang/'.$this->lang_id.'.php';
+		include dirname(dirname(__FILE__)).'/lang/'.$this->lang_id.'.php';
 		unset($this->lang_posts);
 		$this->lang_posts = & $lang;
 		return $this;
@@ -330,7 +329,7 @@ class FormManagerForm implements Serializable {
 			$this->inputs = & $_GET;
 			// добавление скрытого поля
 			$this->add(
-				Facade::Hidden('unique_key_already_sent')
+				FormManager::Hidden('unique_key_already_sent')
 					->setDefaultValue('4ab24a54898e90ea76f23afc36a81819')
 			);
 		}

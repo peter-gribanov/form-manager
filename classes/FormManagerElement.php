@@ -8,9 +8,8 @@
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		3.22 SVN: $Revision$
  * @since		$Date$
- * @link		$HeadURL$
- * @link		http://peter-gribanov.ru/#open-source/form-manager
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @link		http://peter-gribanov.ru/open-source/form-manager/3.22/
+ * @copyright	(c) 2009 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormManagerElement implements FormManagerItem, Serializable {
@@ -233,7 +232,7 @@ class FormManagerElement implements FormManagerItem, Serializable {
 	 * @return	void
 	 */
 	public function draw(){
-		include dirname(__DIR__).'/skin/'.$this->form->getSkin().'.element.php';
+		include dirname(dirname(__FILE__)).'/skin/'.$this->form->getSkin().'.element.php';
 	}
 
 	/**
@@ -242,7 +241,7 @@ class FormManagerElement implements FormManagerItem, Serializable {
 	 * @return	void
 	 */
 	public function drawField(){
-		include dirname(__DIR__).'/views/'.$this->options['view'][0].'.php';
+		include dirname(dirname(__FILE__)).'/views/'.$this->options['view'][0].'.php';
 	}
 
 	/**
@@ -260,7 +259,7 @@ class FormManagerElement implements FormManagerItem, Serializable {
 		if (!is_array($params))
 			throw new InvalidArgumentException('Element filter parametrs should be an array');
 
-		if (!file_exists(dirname(__DIR__).'/filters/'.$name.'.php'))
+		if (!file_exists(dirname(dirname(__FILE__)).'/filters/'.$name.'.php'))
 			throw new InvalidArgumentException('File of element filter ('.$name.') do not exists');
 
 		$this->options['filters'][] = array($name, $params);
@@ -283,7 +282,7 @@ class FormManagerElement implements FormManagerItem, Serializable {
 		$this->filter_iterator = 0;
 		while (isset($this->options['filters'][$this->filter_iterator])){
 			$params = $this->options['filters'][$this->filter_iterator][1];
-			include dirname(__DIR__).'/filters/'.$this->options['filters'][$this->filter_iterator][0].'.php';
+			include dirname(dirname(__FILE__)).'/filters/'.$this->options['filters'][$this->filter_iterator][0].'.php';
 			$this->filter_iterator++;
 		}
 		$this->filter_iterator = null;
