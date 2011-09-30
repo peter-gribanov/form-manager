@@ -10,9 +10,9 @@ require 'classes/fields/FormManagerFieldRadio.php';
 require 'classes/fields/FormManagerFieldSelect.php';
 
 // внутренние константы
-define('FORM_PATH', dirname(__FILE__));
-define('FORM_LANG', 'ru');
-define('FORM_LANG_PATH', FORM_PATH.'/lang/'.FORM_LANG.'/.parameters.php');
+define('FORM_MANAGER_PATH', dirname(__FILE__));
+//define('FORM_LANG', 'ru');
+//define('FORM_LANG_PATH', FORM_PATH.'/lang/'.FORM_LANG.'/.parameters.php');
 
 
 /**
@@ -23,7 +23,7 @@ define('FORM_LANG_PATH', FORM_PATH.'/lang/'.FORM_LANG.'/.parameters.php');
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		4.0 SVN: $Revision$
  * @since		$Date$
- * @link		http://peter-gribanov.ru/open-source/form-manager_4.0/
+ * @link		http://peter-gribanov.ru/open-source/form-manager/4.0/
  * @copyright	(c) 2008 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
