@@ -225,29 +225,11 @@ class FormManagerForm implements Serializable {
 			return false;
 		}
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * отключено, так как принимает формы только с той же страницы, с которой они были отправлены
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-		// получение тикущей страници
-		$current = ($_SERVER['SERVER_PROTOCOL'][4]=='S' ? 'https' : 'http').'://'
-			.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-
-		$referer = $_SERVER['HTTP_REFERER'];
-
-		// игнорировать GET параметры при отправке формы методом GET
-		if ($this->options['method'] == 'get'){
-			list($current, ) = explode('?', $current.'?', 2);
-			list($referer, ) = explode('?', $referer.'?', 2);
-		}
-
-		return $current==$referer;
-*/
-
 		// получение тикущего хотса
 		$current = ($_SERVER['SERVER_PROTOCOL'][4]=='S' ? 'https' : 'http').'://'
 			.$_SERVER['HTTP_HOST'].'/';
 		// разрешен прием форм в пределах одного хоста
-		return strpos($_SERVER['HTTP_REFERER'], $current)!==false;
+		return substr($_SERVER['HTTP_REFERER'], 0, strlen($current))==$current;
 	}
 
 	/**
