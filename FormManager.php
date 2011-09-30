@@ -19,8 +19,6 @@ require 'classes/FormManagerHidden.php';
  * @link		http://peter-gribanov.ru/open-source/form-manager/3.22/
  * @copyright	(c) 2009 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
- * @example		example1.php Example 1
- * @example		example2.php Example 2
  */
 class FormManager {
 
@@ -36,8 +34,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Element($name, $title){
@@ -59,8 +57,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Text
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Text($name, $title){
@@ -70,8 +68,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Password
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Password($name='password', $title='Password'){
@@ -83,7 +81,7 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Hidden
 	 * 
-	 * @param	string	$name	Имя элемента
+	 * @param	string	$name		Имя элемента
 	 * @return	FormManagerHidden	Объект скрытого элемента формы
 	 */
 	public static function Hidden($name){
@@ -94,8 +92,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Radio
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Radio($name, $title){
@@ -105,8 +103,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы CheckBox
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function CheckBox($name, $title){
@@ -119,8 +117,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы TextArea
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function TextArea($name, $title){
@@ -130,8 +128,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Select
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @param	string	$parametrs	Параметры списка
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
@@ -144,8 +142,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы File
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function File($name, $title){
@@ -155,8 +153,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы E-mail
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Email($name, $title){
@@ -166,8 +164,8 @@ class FormManager {
 	/**
 	 * Создает новый элемент формы Captcha
 	 * 
-	 * @param	string	$name	Имя элемента
-	 * @param	string	$title	Заголовок элемента
+	 * @param	string	$name		Имя элемента
+	 * @param	string	$title		Заголовок элемента
 	 * @return	FormManagerElement	Объект элемента формы
 	 */
 	public static function Captcha($name, $title, $length=6){

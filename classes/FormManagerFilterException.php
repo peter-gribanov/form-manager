@@ -34,9 +34,9 @@ class FormManagerFilterException extends Exception {
 	/**
 	 * Конструктор
 	 * 
-	 * @param	string	$message	Текст сообщения
+	 * @param	string				$message	Текст сообщения
 	 * @param	FormManagerElement	$element	Объект элемента
-	 * @param	array	$filter	Параметры фильтра
+	 * @param	array				$filter		Параметры фильтра
 	 * @return	void
 	 */
 	public function __construct($message, FormManagerElement & $element, & $filter){

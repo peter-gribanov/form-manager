@@ -82,7 +82,7 @@ class FormManagerForm implements Serializable {
 	 * Вставляет один или более элементов в конце списка элементов
 	 * 
 	 * @param	FormManagerItem	$item	Объект элемента или коллекции элементов
-	 * @return	FormManagerForm	Объект формы
+	 * @return	FormManagerForm			Объект формы
 	 */
 	public function add(FormManagerItem $item){
 		$this->collection->add($item);
@@ -97,16 +97,16 @@ class FormManagerForm implements Serializable {
 	 * переменными из запроса
 	 * Пример строки запроса: a=foo&b=bar
 	 * 
-	 * @param	string	$query	Строка запроса
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	string	$query				Строка запроса
+	 * @throws	InvalidArgumentException	Некооректный URL
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function addByQuery($query){
 		if (!$query) return $this;
 
 		$query = explode('&', $query);
 		foreach ($query as $var){
-			if (strpos($var, '=') !== false)
+			if (substr_count($var, '=') !== 1)
 				throw new InvalidArgumentException('Cant add element because of improper URL query');
 
 			$var = explode('=', $var, 2);
@@ -118,7 +118,7 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Производит проверку всех элементов
 	 * 
-	 * @see	FormManagerCollection::valid()	Псевдоним
+	 * @see		FormManagerCollection::valid()	Псевдоним
 	 * @return	void
 	 */
 	public function valid(){
@@ -159,7 +159,7 @@ class FormManagerForm implements Serializable {
 	 * Возвращает значение указанное пользователем
 	 * 
 	 * @param	string	$name	Идентификатор значения
-	 * @return	string	Значение
+	 * @return	string			Значение
 	 */
 	public function & getSentValue($name){
 		return $this->inputs[$name];
@@ -214,15 +214,16 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Устанавливает идентификатор шаблона вида формы
 	 * 
-	 * @param	string	$skin	Идентификатор шаблона
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	string	$skin				Идентификатор шаблона
+	 * @throws	InvalidArgumentException	Недопустимый идентификатор шаблона
+	 * @throws	InvalidArgumentException	Файл шаблона не найден
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setSkin($skin){
 		if (!is_string($skin) || !trim($skin))
 			throw new InvalidArgumentException('Display form must be not empty string');
 
-		if (!file_exists(realpath(dirname(__DIR__).'/skin/'.$skin.'.php')))
+		if (!file_exists(realpath(dirname(dirname(__FILE__)).'/skin/'.$skin.'.php')))
 			throw new InvalidArgumentException('File of display ('.$skin.') form do not exists');
 
 		$this->options['skin'] = $skin;
@@ -250,9 +251,10 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Устанавливает идентификатор языковой темы
 	 * 
-	 * @param	integer	$id	Идентификатор языковой темы
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	integer	$id					Идентификатор языковой темы
+	 * @throws	InvalidArgumentException	Недопустимый идентификатор языковой темы
+	 * @throws	InvalidArgumentException	Файл языковой темы не найден
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setLangID($id){
 		// не требуется изменять языковую тему
@@ -275,9 +277,9 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Возвращает сообщение из языковой темы
 	 * 
-	 * @param	string	$post	Идентификатор сообщения
-	 * @throws	InvalidArgumentException
-	 * @return	string	Сообщение
+	 * @param	string	$post				Идентификатор сообщения
+	 * @throws	InvalidArgumentException	Неизвестный дентификатор сообщения
+	 * @return	string						Сообщение
 	 */
 	public function getLangPost($post){
 		if (!isset($this->lang_posts[$post]))
@@ -288,10 +290,10 @@ class FormManagerForm implements Serializable {
 
 	/**
 	 * Устанавливает адрес обработчика формы
-	 *
-	 * @param	string	$action	Адрес обработчика
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * 
+	 * @param	string	$action				Адрес обработчика
+	 * @throws	InvalidArgumentException	Недопустимый адрес обработчика
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setAction($action){
 		if (!is_string($action) || !trim($action))
@@ -313,9 +315,9 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Устанавливает метод передачи данных
 	 * 
-	 * @param	string	$method	Метод
-	 * @throws	UnexpectedValueException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	string	$method				Метод
+	 * @throws	UnexpectedValueException	Недопустимый метод
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setMethod($method){
 		$method = strtolower($method);
@@ -348,9 +350,9 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Устанавливает название формы
 	 * 
-	 * @param	string	$name	Название
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	string	$name				Название
+	 * @throws	InvalidArgumentException	Недопустимое название
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -372,9 +374,9 @@ class FormManagerForm implements Serializable {
 	/**
 	 * Устанавливает заголовок для кнопки отправки формы
 	 * 
-	 * @param	string	$title	Заголовок
-	 * @throws	InvalidArgumentException
-	 * @return	FormManagerForm	Объект формы
+	 * @param	string	$title				Заголовок
+	 * @throws	InvalidArgumentException	Недопустимый заголовок
+	 * @return	FormManagerForm				Объект формы
 	 */
 	public function setSubmitTitle($title){
 		if (!is_string($title) || !trim($title))
@@ -386,7 +388,7 @@ class FormManagerForm implements Serializable {
 
 	/**
 	 * Возвращает заголовок для кнопки отправки формы
-	 *
+	 * 
 	 * @return	string	Заголовок
 	 */
 	public function getSubmitTitle(){
@@ -395,7 +397,7 @@ class FormManagerForm implements Serializable {
 
 	/**
 	 * Метод для сериализации объеекты формы
-	 *	
+	 * 
 	 * @return	string	Сериализованый объект формы
 	 */
 	public function serialize(){
@@ -404,7 +406,7 @@ class FormManagerForm implements Serializable {
 
 	/**
 	 * Метод для десериализации объекта формы
-	 *
+	 * 
 	 * @param	string	$data	Сериализованый объект формы
 	 * @return	FormManagerForm	Объект формы
 	 */
