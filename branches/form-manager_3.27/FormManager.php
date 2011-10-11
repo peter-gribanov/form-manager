@@ -7,9 +7,10 @@ require 'classes/FormManagerText.php';
 require 'classes/FormManagerHidden.php';
 require 'classes/FormManagerSelect.php';
 
-// внутренние константы
+// путь к библиотеке на диске
 define('FORM_MANAGER_PATH', dirname(__FILE__));
-
+// http путь к дирректории
+define('FORM_MANAGER_HTTP_PATH', '/form-manager/');
 
 /**
  * Основной интерфейс(фасад) библиотеки
@@ -213,13 +214,13 @@ class FormManager {
 	 * @param	string	$title	Заголовок элемента
 	 * @return	FormManagerText	Объект текстового элемента формы
 	 */
-	public static function Captcha($name, $title, $length=6){
+	public static function Kcaptcha($name, $title, $length=6){
 		return self::Text($name, $title)
-			->setView('captcha')
+			->setView('kcaptcha')
 			->setComment(sprintf($this->getLangPost('captcha-length'), $length))
 			->setFilter('empty')
 			->setFilter('length', array('min' => $length, 'max' => $length))
-			->setFilter('captcha');
+			->setFilter('kcaptcha');
 	}
 
 	/**
