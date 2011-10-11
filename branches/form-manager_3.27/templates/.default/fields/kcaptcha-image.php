@@ -1,11 +1,1 @@
-<?php
-$params = array_merge(array(
-	'width'		=> 0,
-	'height'	=> 0,
-	'length'	=> 0,
-), $this->getViewParams());
-
-?><img src="<?=G_ROOT?>components/guepard/form/images/captcha/captcha.jpg?<?=
-($params['width'] ? 'w='.$params['width'].'&' : '')?><?=
-($params['height'] ? 'h='.$params['height'].'&' : '')?><?=
-($params['length'] ? 'l='.$params['length'].'&' : '')?>_=<?=time()?>" class="form-captcha-image" alt="" />
+<img src="<?=FORM_MANAGER_HTTP_PATH?>templates/.default/fields/kcaptcha/?_=<?=time()?>" class="form-kcaptcha-image" alt="" />

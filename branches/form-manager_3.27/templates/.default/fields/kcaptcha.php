@@ -1,5 +1,8 @@
-<? include 'kcaptcha-image.php'?>
+<?
+$params = $this->getViewParams();
+include 'kcaptcha-image.php';
+?>
 <br />
-<div class="comment"><?=sprintf($this->getLangPost('captcha-length'), $params['length'])?><br />
-<?=sprintf($this->getLangPost('captcha-link'), '<a href="" class="form-captcha-button">', '</a>')?></div>
+<div class="comment"><?=sprintf($this->getLangPost('kcaptcha-length'), $params['length'])?><br />
+<?=sprintf($this->getLangPost('kcaptcha-link'), '<a href="" class="form-kcaptcha-button">', '</a>')?></div>
 <? include 'kcaptcha-field.php'?>

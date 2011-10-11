@@ -17,10 +17,10 @@
 <script type="text/javascript">
 $(function(){
 	$('.datepicker').datepicker({dateFormat:'dd.mm.yy'});
-	// captcha
-	$('.form-captcha-button').click(function(e){
-		$('.form-captcha-image').attr('src',
-			$('.form-captcha-image').attr('src').replace(/(\?.*?)(_=\d+)?/, '$1')
+	// kcaptcha
+	$('.form-kcaptcha-button').click(function(e){
+		$('.form-kcaptcha-image').attr('src',
+			$('.form-kcaptcha-image').attr('src').replace(/(\?.*?)(_=\d+)?/, '$1')
 			+'_='+(new Date()).getTime());
 		e.stopImmediatePropagation();
 		return false;

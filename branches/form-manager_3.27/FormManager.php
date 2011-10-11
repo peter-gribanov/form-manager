@@ -10,7 +10,8 @@ require 'classes/FormManagerSelect.php';
 // путь к библиотеке на диске
 define('FORM_MANAGER_PATH', dirname(__FILE__));
 // http путь к дирректории
-define('FORM_MANAGER_HTTP_PATH', '/form-manager/');
+define('FORM_MANAGER_HTTP_PATH', '/');
+//define('FORM_MANAGER_HTTP_PATH', '/form-manager/');
 
 /**
  * Основной интерфейс(фасад) библиотеки
@@ -217,7 +218,7 @@ class FormManager {
 	public static function Kcaptcha($name, $title, $length=6){
 		return self::Text($name, $title)
 			->setView('kcaptcha')
-			->setComment(sprintf($this->getLangPost('captcha-length'), $length))
+//			->setComment(sprintf($this->getLangPost('kcaptcha-length'), $length))
 			->setFilter('empty')
 			->setFilter('length', array('min' => $length, 'max' => $length))
 			->setFilter('kcaptcha');
