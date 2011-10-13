@@ -5,9 +5,6 @@
  * 
  * Automatic test to tell computers and humans apart
  * 
- * Copyright by Kruglov Sergei, 2006, 2007, 2008, 2011
- * www.captcha.ru, www.kruglov.ru
- * 
  * System requirements: PHP 4.0.6+ w/ GD
  * 
  * KCAPTCHA is a free software. You can freely use it for developing own site or software.
@@ -16,12 +13,22 @@
  * You can remove it, but I would be pleased if you left it. ;)
  * 
  * See config.php for customization
+ * 
+ * @package		KCAPTCHA
+ * @author		Kruglov Sergei
+ * @version		2.0
+ * @link		www.captcha.ru
+ * @link		www.kruglov.ru
+ * @copyright	Kruglov Sergei, 2006, 2007, 2008, 2011
  */
 class KCAPTCHA{
 
-	// generates keystring and image
+	/**
+	 * Generates keystring and image
+	 * 
+	 * @return	void
+	 */
 	function KCAPTCHA(){
-
 		require(dirname(__FILE__).'/config.php');
 		$fonts=array();
 		$fontsdir_absolute=dirname(__FILE__).'/'.$fontsdir;
@@ -176,7 +183,7 @@ class KCAPTCHA{
 
 				if($sx<0 || $sy<0 || $sx>=$width-1 || $sy>=$height-1){
 					continue;
-				}else{
+				} else {
 					$color=imagecolorat($img, $sx, $sy) & 0xFF;
 					$color_x=imagecolorat($img, $sx+1, $sy) & 0xFF;
 					$color_y=imagecolorat($img, $sx, $sy+1) & 0xFF;
@@ -185,11 +192,11 @@ class KCAPTCHA{
 
 				if($color==255 && $color_x==255 && $color_y==255 && $color_xy==255){
 					continue;
-				}else if($color==0 && $color_x==0 && $color_y==0 && $color_xy==0){
+				} elseif($color==0 && $color_x==0 && $color_y==0 && $color_xy==0){
 					$newred=$foreground_color[0];
 					$newgreen=$foreground_color[1];
 					$newblue=$foreground_color[2];
-				}else{
+				} else {
 					$frsx=$sx-floor($sx);
 					$frsy=$sy-floor($sy);
 					$frsx1=1-$frsx;
@@ -221,17 +228,22 @@ class KCAPTCHA{
 		if(function_exists('imagejpeg')){
 			header('Content-Type: image/jpeg');
 			imagejpeg($img2, null, $jpeg_quality);
-		}else if(function_exists('imagegif')){
+		} elseif(function_exists('imagegif')){
 			header('Content-Type: image/gif');
 			imagegif($img2);
-		}else if(function_exists('imagepng')){
+		} elseif(function_exists('imagepng')){
 			header('Content-Type: image/x-png');
 			imagepng($img2);
 		}
 	}
 
-	// returns keystring
+	/**
+	 * Returns keystring
+	 * 
+	 * @return	void
+	 */
 	function getKeyString(){
 		return $this->keystring;
 	}
+
 }
