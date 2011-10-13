@@ -215,12 +215,14 @@ class FormManager {
 	 * @param	string	$title	Заголовок элемента
 	 * @return	FormManagerText	Объект текстового элемента формы
 	 */
-	public static function Kcaptcha($name, $title, $length=6){
+	public static function Kcaptcha($name, $title){
+		require FORM_MANAGER_PATH.'/templates/.default/fields/kcaptcha/config.php';
+
 		return self::Text($name, $title)
 			->setView('kcaptcha')
 //			->setComment(sprintf($this->getLangPost('kcaptcha-length'), $length))
 			->setFilter('empty')
-			->setFilter('length', array('min' => $length, 'max' => $length))
+			->setFilter('length', array('eq' => $length))
 			->setFilter('kcaptcha');
 	}
 

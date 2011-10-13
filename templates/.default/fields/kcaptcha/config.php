@@ -2,6 +2,13 @@
 
 /**
  * KCAPTCHA configuration file
+ * 
+ * @package		KCAPTCHA
+ * @author		Kruglov Sergei
+ * @version		2.0
+ * @link		www.captcha.ru
+ * @link		www.kruglov.ru
+ * @copyright	Kruglov Sergei, 2006, 2007, 2008, 2011
  */
 
 // do not change without changing font files!
@@ -16,7 +23,8 @@ $allowed_symbols = "23456789abcdegikpqsvxyz"; #alphabet without similar symbols 
 $fontsdir = 'fonts';	
 
 // CAPTCHA string length
-//$length = mt_rand(5,7); # random 5 or 6 or 7
+//$length = mt_rand(5,7); // random 5 or 6 or 7
+// CAPTCHA string length not be a random in package FormManager
 $length = 6;
 
 // CAPTCHA image size (you do not need to change it, this parameters is optimal)
