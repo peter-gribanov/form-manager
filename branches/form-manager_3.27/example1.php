@@ -19,31 +19,31 @@ try {
 		// добавление поля для ввода текстового сообщения
 		->add(FormManager::Text('mess', 'Ваше сообщение'));
 
-} catch (Exception $e){
-	// при составлении структуры формы допущена ошибка
+
+	// форма заполнена и отправлена
+	if ($form->isAlreadySent()){
+		// вывод отправленых данных
+		var_dump($_GET);
+
+		try {
+			// проверка формы
+			$form->valid();
+			echo '<p><strong>Форма заполнена правильно.</strong></p>';
+
+		} catch (FormManagerFilterException $e){
+			// в форме обнаружена ошибка
+			echo '<p><strong>Ошибка: '.$e->getMessage().'</strong></p>';
+		}
+	}
+
+
+	// вывод HTML структуры формы
+	echo $form->draw();
+
+} catch (Exception  $e){
+	// ошибка в форме
 	exit('<p><strong>Ошибка: '.$e->getMessage().'</strong></p>');
 }
-
-
-// форма заполнена и отправлена
-if ($form->isAlreadySent()){
-	// вывод отправленых данных
-	var_dump($_GET);
-
-	try {
-		// проверка формы
-		$form->valid();
-		echo '<p><strong>Форма заполнена правильно.</strong></p>';
-
-	} catch (FormManagerFilterException $e){
-		// в форме обнаружена ошибка
-		echo '<p><strong>Ошибка: '.$e->getMessage().'</strong></p>';
-	}
-}
-
-
-// вывод HTML структуры формы
-echo $form->draw();
 ?>
 </body>
 </html>

@@ -82,6 +82,7 @@ class FormManagerForm implements Serializable {
 		$this->collection = new FormManagerCollection();
 		$this->collection->setForm($this);
 		$this->setMethod('post');
+		$this->loadLangPosts();
 	}
 
 	/**
@@ -485,4 +486,3 @@ class FormManagerForm implements Serializable {
 	}
 
 }
-?>

@@ -107,36 +107,35 @@ try {
 	// обращение к коллекции и установка ее имени
 	$form->getCollection()->setName('Основная коллекция');
 
+
+	// форма заполнена и отправлена
+	if ($form->isAlreadySent()){
+		// вывод отправленых данных
+		var_dump($_POST);
+
+		try {
+			// проверка формы
+			$form->valid();
+			echo '<p><strong>Форма заполнена правильно.</strong></p>';
+
+			// очистка отправленных данных
+			$form->clearSentValues();
+
+		} catch (FormManagerFilterException $e){
+			// в форме обнаружена ошибка
+			echo '<p><strong>Ошибка в форме: '.$e->getMessage().'</strong></p>';
+		}
+	}
+
+
+
+	// вывод HTML структуры формы
+	$form->draw();
+
 } catch (Exception $e){
 	// при составлении структуры формы допущена ошибка
 	exit('<p><strong>Ошибка: '.$e->getMessage().'</strong></p>');
 }
-
-
-
-// форма заполнена и отправлена
-if ($form->isAlreadySent()){
-	// вывод отправленых данных
-	var_dump($_POST);
-
-	try {
-		// проверка формы
-		$form->valid();
-		echo '<p><strong>Форма заполнена правильно.</strong></p>';
-
-		// очистка отправленных данных
-		$form->clearSentValues();
-
-	} catch (FormManagerFilterException $e){
-		// в форме обнаружена ошибка
-		echo '<p><strong>Ошибка в форме: '.$e->getMessage().'</strong></p>';
-	}
-}
-
-
-
-// вывод HTML структуры формы
-$form->draw();
 ?>
 </body>
 </html>
