@@ -304,7 +304,6 @@ class FormManagerForm implements Serializable {
 			throw new InvalidArgumentException('Incorrect id language');
 
 		$this->lang_id = $id;
-		var_dump($this->lang_id);
 		// обновление списка загруженных сообщений
 		$this->loadLangPosts();
 		return $this;
