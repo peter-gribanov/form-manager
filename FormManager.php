@@ -9,9 +9,17 @@ require 'classes/FormManagerSelect.php';
 
 // путь к библиотеке на диске
 define('FORM_MANAGER_PATH', dirname(__FILE__));
-// http путь к дирректории
-define('FORM_MANAGER_HTTP_PATH', '/');
-//define('FORM_MANAGER_HTTP_PATH', '/form-manager/');
+
+// определение http пути к дирректории
+// http путь по умолчанию
+$http_path = '/';
+$path = realpath($_SERVER['DOCUMENT_ROOT']);
+if (FORM_MANAGER_PATH!=$path && strpos($path, FORM_MANAGER_PATH)===0){
+	$http_path = str_replace(FORM_MANAGER_PATH, '', $path).'/';
+}
+// http пути к дирректории
+define('FORM_MANAGER_HTTP_PATH', $http_path);
+
 
 /**
  * Основной интерфейс(фасад) библиотеки
