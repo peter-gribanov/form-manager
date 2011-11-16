@@ -42,7 +42,7 @@ class FormManager_Db_Driver_Guepard implements FormManager_Db_Driver_Interface {
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @TODO проверить возвращаемый тип
+	 * @todo проверить возвращаемый тип
 	 * 
 	 * @return mixed Запись из результата запроса
 	 */

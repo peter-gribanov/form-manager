@@ -43,16 +43,16 @@ class FormManager_Factory {
 	 * @param string $driver_name Имя драйвера
 	 */
 	public static function setDbDriver($driver_name) {
-		FormManager_DB::setDriver($driver_name);
+		FormManager_Db::setDriver($driver_name);
 	}
 
 	/**
 	 * Создает новую форму
 	 * 
-	 * @return FormManager_Form
+	 * @return FormManager_Model_Form
 	 */
 	public static function Form() {
-		return new FormManager_Form();
+		return new FormManager_Model_Form();
 	}
 
 	/**
@@ -61,10 +61,10 @@ class FormManager_Factory {
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Element
+	 * @return FormManager_Model_Field
 	 */
 	public static function Element($name, $title) {
-		$el = new FormManager_Element();
+		$el = new FormManager_Model_Field();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -74,10 +74,10 @@ class FormManager_Factory {
 	/**
 	 * Создает новую коллекцию элиментов формы
 	 * 
-	 * @return FormManager_Collection_Nested
+	 * @return FormManager_Model_Collection_Nested
 	 */
 	public static function Collection() {
-		return new FormManager_Collection_Nested();
+		return new FormManager_Model_Collection_Nested();
 	}
 
 	/**
@@ -86,10 +86,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Field_Text
+	 * @return FormManager_Model_Field_Text
 	 */
 	public static function Text($name, $title) {
-		$el = new FormManager_Field_Text();
+		$el = new FormManager_Model_Field_Text();
 		return $el
 			->setName($name)
 			->setTitle($title);
@@ -101,7 +101,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Field_Text
+	 * @return FormManager_Model_Field_Text
 	 */
 	public static function Password($name = 'password', $title = 'Password') {
 		return self::Text($name, $title)
@@ -114,10 +114,10 @@ class FormManager_Factory {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Field_Hidden
+	 * @return FormManager_Model_Field_Hidden
 	 */
 	public static function Hidden($name) {
-		$el = new FormManager_Field_Hidden();
+		$el = new FormManager_Model_Field_Hidden();
 		return $el
 			->setName($name)
 			->setView('hidden');
@@ -129,10 +129,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Field_Radio
+	 * @return FormManager_Model_Field_Radio
 	 */
 	public static function Radio($name, $title) {
-		$el = new FormManager_Fiel_dRadio();
+		$el = new FormManager_Model_Field_Radio();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -145,7 +145,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Element
+	 * @return FormManager_Model_Field
 	 */
 	public static function CheckBox($name, $title) {
 		return self::Element($name, $title)
@@ -160,7 +160,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Element
+	 * @return FormManager_Model_Field
 	 */
 	public static function TextArea($name, $title) {
 		return self::Element($name, $title)
@@ -174,10 +174,10 @@ class FormManager_Factory {
 	 * @param string $title     Заголовок поля
 	 * @param string $parametrs Параметры списка
 	 * 
-	 * @return FormManager_Field_Select
+	 * @return FormManager_Model_Field_Select
 	 */
 	public static function Select($name, $title, $parametrs = array()) {
-		$el = new FormManager_Field_Select();
+		$el = new FormManager_Model_Field_Select();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -192,7 +192,7 @@ class FormManager_Factory {
 	 * @param string $title     Заголовок поля
 	 * @param string $parametrs Параметры списка
 	 * 
-	 * @return FormManager_Field_Select
+	 * @return FormManager_Model_Field_Select
 	 */
 	public static function MultiSelect($name, $title, $parametrs = array()) {
 		$parametrs = array_merge(array(
@@ -209,10 +209,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Element
+	 * @return FormManager_Model_Field
 	 */
 	public static function File($name, $title){
-		$el = new FormManager_Element();
+		$el = new FormManager_Model_Field();
 		return $el->setName($name)
 			->setTitle($title)
 			->setView('file');
@@ -224,7 +224,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Field_Text
+	 * @return FormManager_Model_Field_Text
 	 */
 	public static function Email($name, $title){
 		return self::Text($name, $title)
@@ -234,12 +234,15 @@ class FormManager_Factory {
 	/**
 	 * Создает новый элимент формы Captcha
 	 * 
-	 * @param string $name  Имя поля
-	 * @param string $title Заголовок поля
+	 * @todo убрать параметр $length
 	 * 
-	 * @return FormManagerFieldText
+	 * @param string  $name   Имя поля
+	 * @param string  $title  Заголовок поля
+	 * @param integer $length Длинна кода
+	 * 
+	 * @return FormManager_Model_Field_Text
 	 */
-	public static function Captcha($name, $title, $length = 6) {
+	public static function Captcha($name, $title, $length = 6 ) {
 		return self::Text($name, $title)
 			->setView('captcha')
 			->setComment(sprintf($this->getLangPost('captcha-length'), $length))
@@ -254,12 +257,12 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManagerFieldText
+	 * @return FormManager_Model_Field_Text
 	 */
 	public static function Date($name, $title) {
 		return self::Text($name, $title)
 			->setView('date')
-			->setFilter('length', array('max'=>10))
+			->setFilter('length', array('max' => 10))
 			->setFilter('date');
 	}
 
@@ -269,7 +272,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Element
+	 * @return FormManager_Model_Field
 	 */
 	public static function YesNo($name, $title) {
 		return self::Element($name, $title)

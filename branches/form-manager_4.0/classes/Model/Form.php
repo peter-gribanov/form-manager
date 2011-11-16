@@ -43,9 +43,9 @@ class FormManager_Model_Form {
 	/**
 	 * Список элементов
 	 * 
-	 * @TODO исправить имя класса
+	 * @todo исправить имя класса
 	 * 
-	 * @var FormManager_Collection_
+	 * @var FormManager_Model_Collection_Primary
 	 */
 	private $collection;
 
@@ -68,7 +68,7 @@ class FormManager_Model_Form {
 	 * Конструктор
 	 */
 	public function __construct() {
-		$this->collection = new FormManager_Collection();
+		$this->collection = new FormManager_Model_Collection_Primary();
 		$this->collection->setForm($this);
 //		$this->setMethod('POST');
 		$this->loadLangPosts();
@@ -81,7 +81,7 @@ class FormManager_Model_Form {
 	 * 
 	 * @return FormManager_Model_Form
 	 */
-	public function add(FormManager_Item $item) {
+	public function add(FormManager_Model_Form $item) {
 		$this->collection->add($item);
 		return $this;
 	}
@@ -90,7 +90,7 @@ class FormManager_Model_Form {
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
 	 * Пример строки запроса: a=foo&b=bar
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws FormManager_Exception_InvalidArgument
 	 * 
 	 * @param string $query
 	 * 
@@ -104,7 +104,7 @@ class FormManager_Model_Form {
 		$query = explode('&', $query);
 		foreach ($query as $var) {
 			if ( substr_count($var, '=') != 1 ) {
-				throw new InvalidArgumentException(
+				throw new FormManager_Exception_InvalidArgument(
 					'Cant add element because of improper URL query');
 			}
 
@@ -168,7 +168,7 @@ class FormManager_Model_Form {
 	/**
 	 * Возвращает коллекцию элиментов формы
 	 * 
-	 * @return FormManager_Collection
+	 * @return FormManager_Model_Collection_Primary
 	 */
 	public function getCollection() {
 		return $this->collection;
@@ -299,7 +299,7 @@ class FormManager_Model_Form {
 	/**
 	 * Возвращает сообщение из языковой темы
 	 * 
-	 * @throws InvalidArgumentException
+	 * @throws FormManager_Exception_InvalidArgument
 	 * 
 	 * @param string $post
 	 * 
@@ -307,7 +307,7 @@ class FormManager_Model_Form {
 	 */
 	public function getLangPost($post) {
 		if ( !isset($this->lang_posts[$post]) ) {
-			throw new InvalidArgumentException('Selected message is not found in the language theme');
+			throw new FormManager_Exception_InvalidArgument('Selected message is not found in the language theme');
 		}
 
 		return $this->lang_posts[$post];
@@ -316,7 +316,7 @@ class FormManager_Model_Form {
 	/**
 	 * Устанавливает адрес обработчика формы
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws FormManager_Exception_InvalidArgument
 	 * 
 	 * @param string $action
 	 * 
@@ -324,7 +324,7 @@ class FormManager_Model_Form {
 	 */
 	public function setAction($action) {
 		if ( !is_string($action) || !trim($action) ) {
-			throw new InvalidArgumentException('Form action must be not empty string');
+			throw new FormManager_Exception_InvalidArgument('Form action must be not empty string');
 		}
 
 		$this->options['action'] = $action;
@@ -343,7 +343,7 @@ class FormManager_Model_Form {
 	/**
 	 * Устанавливает метод передачи данных
 	 *
-	 * @throws UnexpectedValueException
+	 * @throws FormManager_Exception_UnexpectedValue
 	 * 
 	 * @param string $method
 	 * 
@@ -352,7 +352,7 @@ class FormManager_Model_Form {
 	public function setMethod($method) {
 		$method = strtoupper($method);
 		if ( !in_array($method, array('POST', 'GET')) ) {
-			throw new UnexpectedValueException('Form method must be POST or GET');
+			throw new FormManager_Exception_UnexpectedValue('Form method must be POST or GET');
 		}
 
 		$this->options['method'] = $method;
@@ -379,7 +379,7 @@ class FormManager_Model_Form {
 	/**
 	 * Устанавливает название формы
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws FormManager_Exception_InvalidArgument
 	 * 
 	 * @param string $name
 	 * 
@@ -387,7 +387,7 @@ class FormManager_Model_Form {
 	 */
 	public function setName($name) {
 		if ( !is_string($name) || !trim($name) ) {
-			throw new InvalidArgumentException('Form name must be not empty string');
+			throw new FormManager_Exception_InvalidArgument('Form name must be not empty string');
 		}
 
 		$this->options['name'] = $name;
@@ -406,7 +406,7 @@ class FormManager_Model_Form {
 	/**
 	 * Устанавливает заголовок для кнопки отправки формы
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws FormManager_Exception_InvalidArgument
 	 * 
 	 * @param string $title
 	 * 
@@ -414,7 +414,7 @@ class FormManager_Model_Form {
 	 */
 	public function setSubmitTitle($title) {
 		if ( !is_string($title) || !trim($title) ) {
-			throw new InvalidArgumentException('Form submit title must be not empty string');
+			throw new FormManager_Exception_InvalidArgument('Form submit title must be not empty string');
 		}
 
 		$this->options['submit_title'] = $title;

@@ -14,6 +14,8 @@
 /**
  * Корневой путь к библиотеке на сервере
  * 
+ * @todo DocBlox не ципляет комментарий
+ * 
  * @var string
  */
 define('FORM_MANAGER_PATH', dirname(__FILE__));
@@ -32,12 +34,13 @@ if ( FORM_MANAGER_PATH != $path && strpos($path, FORM_MANAGER_PATH) === 0 ) {
  * @var string
  */
 define('FORM_MANAGER_HTTP_PATH', $http_path);
+
 unset($http_path, $path);
 
 /**
  * Псевдоним для var_dump()
  * 
- * @TODO Удалить на паблике
+ * @todo Удалить на паблике
  * 
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>

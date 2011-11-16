@@ -12,11 +12,11 @@
  */
 
 /**
- * Класс исключений брасаемых при некорректных параметрах
+ * Класс исключений брасаемых при значении не соответствующем заданным значениям
  * 
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Exception_InvalidArgument extends FormManager_Exception implements InvalidArgumentException {
+class FormManager_Exception_UnexpectedValue extends FormManager_Exception implements UnexpectedValueException {
 
 }
