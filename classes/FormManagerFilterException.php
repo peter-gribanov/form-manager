@@ -3,13 +3,12 @@
 /**
  * Класс исключений для фильтров
  * 
- * @category	Complex library
  * @package		FormManager
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		4.0 SVN: $Revision$
  * @since		$Date$
  * @link		http://peter-gribanov.ru/open-source/form-manager/4.0/
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @copyright	2008 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 class FormFilterException extends Exception {
@@ -17,14 +16,14 @@ class FormFilterException extends Exception {
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormManagerElement
+	 * @var	FormManagerElement
 	 */
 	private $element;
 
 	/**
 	 * Параметры фильтра
 	 * 
-	 * @var array
+	 * @var	array
 	 */
 	private $filter;
 
@@ -32,10 +31,10 @@ class FormFilterException extends Exception {
 	/**
 	 * Конструктор
 	 * 
-	 * @param string $message
-	 * @param FormManagerElement $element
-	 * @param array $filter
-	 * @return void
+	 * @param	string				$message	Сообщение
+	 * @param	FormManagerElement	$element	Объект элемента
+	 * @param	array				$filter		Параметры фильтра
+	 * @return	void
 	 */
 	public function __construct($message, FormManagerElement & $element, & $filter){
 		parent::__construct($message, 0);
@@ -46,7 +45,7 @@ class FormFilterException extends Exception {
 	/**
 	 * Возвращает объект поля формы
 	 * 
-	 * @return FormManagerElement
+	 * @return	FormManagerElement	Объект элемента
 	 */
 	public function getElement(){
 		return $this->element;
@@ -55,7 +54,7 @@ class FormFilterException extends Exception {
 	/**
 	 * Возвращает имя фильтра
 	 * 
-	 * @return string
+	 * @return	string	Имя фильтра
 	 */
 	public function getFilterName(){
 		return $this->filter[0];
@@ -64,7 +63,7 @@ class FormFilterException extends Exception {
 	/**
 	 * Возвращает параметры фильтра
 	 * 
-	 * @return array
+	 * @return	array	Параметры фильтра
 	 */
 	public function getFilterParams(){
 		return $this->filter[1];
