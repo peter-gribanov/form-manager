@@ -22,7 +22,7 @@ define('FORM_MANAGER_PATH', dirname(__FILE__));
 // http путь по умолчанию
 $http_path = '/';
 $path = realpath($_SERVER['DOCUMENT_ROOT']);
-if (FORM_MANAGER_PATH!=$path && strpos($path, FORM_MANAGER_PATH)===0){
+if ( FORM_MANAGER_PATH != $path && strpos($path, FORM_MANAGER_PATH) === 0 ) {
 	$http_path = str_replace(FORM_MANAGER_PATH, '', $path).'/';
 }
 
@@ -33,6 +33,20 @@ if (FORM_MANAGER_PATH!=$path && strpos($path, FORM_MANAGER_PATH)===0){
  */
 define('FORM_MANAGER_HTTP_PATH', $http_path);
 unset($http_path, $path);
+
+/**
+ * Псевдоним для var_dump()
+ * 
+ * @TODO Удалить на паблике
+ * 
+ * @package FormManager
+ * @author  Peter Gribanov <info@peter-gribanov.ru>
+ * 
+ * @param $var Выводимая переменная
+ */
+function p($var){
+	var_dump($var);
+}
 
 // подключение автолоудера
 require FORM_MANAGER_PATH.'/autoload.php';

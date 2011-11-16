@@ -11,10 +11,12 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
-return array(
-	'id'       => '',
-	'cols'     => 20,
-	'rows'     => 2,
-	'class'    => '',
-	'disabled' => false
-);
+/**
+ * Класс описывает элемент ввода радио кнопка
+ * 
+ * @package FormManager
+ * @author  Peter S. Gribanov <info@peter-gribanov.ru>
+ */
+class FormManager_Model_Field_Radio extends FormManager_Model_Field {
+
+}

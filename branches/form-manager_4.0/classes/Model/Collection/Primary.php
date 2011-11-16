@@ -1,19 +1,25 @@
 <?php
+/**
+ * FormManager package
+ * 
+ * @package   FormManager
+ * @author    Peter Gribanov <info@peter-gribanov.ru>
+ * @version   4.0 SVN: $Revision$
+ * @since     $Date$
+ * @link      http://peter-gribanov.ru/open-source/form-manager/4.0/
+ * @copyright 2008 by Peter Gribanov
+ * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
+ */
 
 //require 'FormManagerIterator.php';
 
 /**
  * Коллекция элиментов формы
  * 
- * @package		FormManager
- * @author		Peter S. Gribanov <info@peter-gribanov.ru>
- * @version		4.0 SVN: $Revision$
- * @since		$Date$
- * @link		http://peter-gribanov.ru/open-source/form-manager/4.0/
- * @copyright	2008 by Peter S. Gribanov
- * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
+ * @package FormManager
+ * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManagerCollection implements FormManagerItem, /*IteratorAggregate,*/ Serializable {
+class FormManager_Model_Collection_Primary implements FormManager_Model_Collection_Interface, FormManager_Model_Collection_Item, /*IteratorAggregate,*/ Serializable {
 
 	/**
 	 * Название коллекции
