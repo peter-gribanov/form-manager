@@ -49,7 +49,7 @@ class FormManager_Db_Driver_Interface_PDO implements FormManager_Db_Driver_Inter
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @TODO проверить возвращаемый тип
+	 * @todo проверить возвращаемый тип
 	 * 
 	 * @return PDORow Запись из результата запроса
 	 */
