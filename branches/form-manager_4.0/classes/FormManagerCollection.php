@@ -1,49 +1,50 @@
 <?php
 
-require 'FormManagerIterator.php';
+//require 'FormManagerIterator.php';
 
 /**
  * Коллекция элиментов формы
  * 
- * @category	Complex library
  * @package		FormManager
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		4.0 SVN: $Revision$
  * @since		$Date$
  * @link		http://peter-gribanov.ru/open-source/form-manager/4.0/
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @copyright	2008 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-class FormManagerCollection implements FormManagerItem, IteratorAggregate, Serializable {
+class FormManagerCollection implements FormManagerItem, /*IteratorAggregate,*/ Serializable {
 
 	/**
 	 * Название коллекции
 	 *
-	 * @var string
+	 * @var	string
 	 */
 	protected $name = '';
 
 	/**
 	 * Список элементов
 	 *
-	 * @var array
+	 * @var	array
 	 */
 	protected $items = array();
 
 	/**
 	 * Объект формы
 	 * 
-	 * @var FormManagerForm
+	 * @var	FormManagerForm
 	 */
 	protected $form;
 
 
 	/**
-	 * Устанавливает форму к которой пренадлежыт коллекция
+	 * Устанавливает форму
+	 * 
+	 * Устанавливает объект формы к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManagerForm $form
-	 * @return FormManagerCollection
+	 * @param	FormManagerForm	$form	Объект формы
+	 * @return	FormManagerCollection	Объект коллекции
 	 */
 	public function setForm(FormManagerForm $form){
 		$this->form = $form;
@@ -54,10 +55,10 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Устанавливает название коллекции
-	 *
-	 * @param string $name
-	 * @throws InvalidArgumentException
-	 * @return FormManagerCollection
+	 * 
+	 * @param	string	$name				Название коллекции
+	 * @throws	InvalidArgumentException	Недопустимое имя
+	 * @return	FormManagerCollection		Объект коллекции
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name))
@@ -69,26 +70,27 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Возвращает название коллекции
-	 *
-	 * @return string
-	 */
+	 * 
+	 * @return	string
+	 *//*
 	public function getName(){
 		return $this->name;
-	}
+	}*/
 
 	/**
 	 * Производит проверку переданных данных
-	 *
-	 * @return void
+	 * 
+	 * @return	void
 	 */
 	public function valid(){
-		foreach ($this as $item) $item->valid();
+		foreach ($this as $item)
+			$item->valid();
 	}
 
 	/**
 	 * Рисует коллекцию элиментов
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw(){
 		if (!$this->isEmpty())
@@ -98,17 +100,17 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 	/**
 	 * Возвращает итератор
 	 * 
-	 * @return FormManagerIterator
-	 */
+	 * @return	FormManagerIterator
+	 *//*
 	public function getIterator(){
 		return new FormManagerIterator($this->items);
-	}
+	}*/
 
 	/**
 	 * Добавляет элемент
-	 *
-	 * @param FormManagerItem $item
-	 * @return FormManagerCollection
+	 * 
+	 * @param	FormManagerItem	$item	Объект элимента
+	 * @return	FormManagerCollection	Объект коллекции
 	 */
 	public function add(FormManagerItem $item){
 		$this->items[] = $item->setForm($this->form);
@@ -117,8 +119,8 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Очищает список элементов
-	 *
-	 * @return FormManagerCollection
+	 * 
+	 * @return	FormManagerCollection	Объект коллекции
 	 */
 	public function clear(){
 		unset($this->items);
@@ -129,7 +131,7 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 	/**
 	 * Проверяет пуста ли коллекция
 	 * 
-	 * @return boolean
+	 * @return	boolean	Результат проверки
 	 */
 	public function isEmpty(){
 		return !$this->items;
@@ -138,17 +140,17 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 	/**
 	 * Возвращает сообщение из языковой темы
 	 * 
-	 * @param string $post
-	 * @return string
-	 */
+	 * @param	string	$post
+	 * @return	string
+	 *//*
 	public function getLangPost($post){
 		return $this->form->getLangPost($post);
-	}
+	}*/
 
 	/**
 	 * Метод для сериализации класса
-	 *
-	 * @return string
+	 * 
+	 * @return	string	Сериализованная коллекция
 	 */
 	public function serialize(){
 		return serialize(array(
@@ -159,9 +161,9 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 
 	/**
 	 * Метод для десериализации класса
-	 *
-	 * @param string $data
-	 * @return void
+	 * 
+	 * @param	string	$data	Сериализованная коллекция
+	 * @return	void
 	 */
 	public function unserialize($data){
 		list(
@@ -171,4 +173,3 @@ class FormManagerCollection implements FormManagerItem, IteratorAggregate, Seria
 	}
 
 }
-?>

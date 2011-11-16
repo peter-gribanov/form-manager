@@ -1,48 +1,49 @@
 <?php
 
 /**
- * Интерфейс элиментов формы
+ * Интерфейс элементов формы
  * 
- * @category	Complex library
  * @package		FormManager
  * @author		Peter S. Gribanov <info@peter-gribanov.ru>
  * @version		4.0 SVN: $Revision$
  * @since		$Date$
  * @link		http://peter-gribanov.ru/open-source/form-manager/4.0/
- * @copyright	(c) 2008 by Peter S. Gribanov
+ * @copyright	2008 by Peter S. Gribanov
  * @license		http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 interface FormManagerItem {
 
 	/**
-	 * Устанавливает форму к которой пренадлежыт коллекция
+	 * Устанавливает форму
+	 * 
+	 * Устанавливает объект формы к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManagerForm $form
-	 * @return FormManagerItem
+	 * @param	FormManagerForm	$form	Объект формы
+	 * @return	FormManagerItem			Объект элемента
 	 */
 	public function setForm(FormManagerForm $form);
 	
 	/**
-	 * Производит проверку переданных данных 
+	 * Производит проверку переданных данных
 	 *
-	 * @return void
+	 * @return	void
 	 */
 	public function valid();
 
 	/**
-	 * Рисует коллекцию элиментов
+	 * Рисует коллекцию элементов
 	 * 
-	 * @return void
+	 * @return	void
 	 */
 	public function draw();
 
 	/**
 	 * Возвращает сообщение из языковой темы
 	 * 
-	 * @param string $post
-	 * @return string
+	 * @param	string	$post
+	 * @return	string
 	 */
-	public function getLangPost($post);
+//	public function getLangPost($post);
 
 }

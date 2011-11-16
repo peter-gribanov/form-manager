@@ -5,7 +5,8 @@
  * @link http://peter-gribanov.ru/license
  * @package	FormManager
  */
-$options = array(
+
+return array(
 
 	// KCAPTCHA configuration file
 
@@ -38,4 +39,3 @@ $options = array(
 // в случае указания any пытается создать сначала jpg потом png и если ничего другого не работает создает gif 
 	'default_image_type' => 'any',
 );
-?>
