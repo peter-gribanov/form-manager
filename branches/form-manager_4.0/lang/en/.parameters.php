@@ -2,6 +2,7 @@
 /**
  * FormManager package
  * 
+ * @todo      проверить табы
  * @package   FormManager
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @version   4.0 SVN: $Revision$
@@ -25,9 +26,9 @@ return array(
 	'length.max'           => 'You specify a value of more than %2$s characters for the field - %1$s.',
 	'email'                => 'You have specify incorrect E-Mail in the field - %s.',
 	'select'               => 'You specify the value is not one of the list for the field - %s.',
-	'captcha'              => 'You have entered an incorrect verification code in the field - %s.',
-	'captcha-length'       => 'Confirmation code consists of %s characters.',
-	'captcha-link'         => 'With poor legibility %supdate%s code.',
+	'kcaptcha'             => 'You have entered an incorrect verification code in the field - %s.',
+	'kcaptcha-length'      => 'Confirmation code consists of %s characters.',
+	'kcaptcha-link'        => 'With poor legibility %supdate%s code.',
 	'date'                 => 'The specified date in your field %s does not fit DD.MM.YYYY.',
 	'field-yesno-yes'      => 'Yes',
 	'field-yesno-no'       => 'No',

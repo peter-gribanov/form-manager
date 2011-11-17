@@ -11,8 +11,4 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
-return array(
-	'width'  => 0,
-	'height' => 0,
-	'length' => 0,
-);
+include 'lib/index.php';
