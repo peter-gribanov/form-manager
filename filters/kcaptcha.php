@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * FormManager package
  * 
@@ -10,7 +10,7 @@
  * @copyright 2008 by Peter Gribanov
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-?><input type="password" name="<?=$this->getName()?>" value="<?=$this->getValue()?>"<?=
-($params['class'] ? ' class="'.$params['class'].'"' : '')?><?=
-($params['id'] ? ' id="'.$params['id'].'"' : '')?><?=
-($params['disabled'] ? ' disabled="disabled"' : '')?> />
+
+if ( empty($_SESSION['kcaptcha_keystring']) || $_SESSION['kcaptcha_keystring'] != $this->getValue() ) {
+	$this->error('kcaptcha');
+}

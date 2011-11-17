@@ -11,18 +11,6 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
-/*
-require 'classes/FormManagerLang.php';
-require 'classes/FormManagerForm.php';
-require 'classes/FormManagerElement.php';
-require 'classes/FormManagerNestedCollection.php';
-require 'classes/db/FormManagerDB.php';
-require 'classes/fields/FormManagerFieldText.php';
-require 'classes/fields/FormManagerFieldHidden.php';
-require 'classes/fields/FormManagerFieldRadio.php';
-require 'classes/fields/FormManagerFieldSelect.php';
-*/
-
 /**
  * Класс представляет интерфейс для составления формы
  * 
@@ -242,13 +230,13 @@ class FormManager_Factory {
 	 * 
 	 * @return FormManager_Model_Field_Text
 	 */
-	public static function Captcha($name, $title, $length = 6 ) {
+	public static function Kcaptcha($name, $title, $length = 6 ) {
 		return self::Text($name, $title)
-			->setView('captcha')
-			->setComment(sprintf($this->getLangPost('captcha-length'), $length))
+			->setView('kcaptcha')
+			->setComment(sprintf($this->getLangPost('kcaptcha-length'), $length))
 			->setFilter('empty')
 			->setFilter('length', array('min' => $length, 'max' => $length))
-			->setFilter('captcha');
+			->setFilter('kcaptcha');
 	}
 
 	/**
