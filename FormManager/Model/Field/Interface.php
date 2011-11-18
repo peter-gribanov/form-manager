@@ -17,7 +17,7 @@
  * @package FormManager\Model\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Field_Interface extends FormManager_Model_Interface, Serializable {
+interface FormManager_Model_Field_Interface extends FormManager_Model_Interface {
 
 	/**
 	 * Устанавливает форму

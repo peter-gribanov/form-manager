@@ -17,7 +17,7 @@
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Form {
+class FormManager_Model_Form implements FormManager_Model_Interface {
 
 	/**
 	 * Опции формы
@@ -436,7 +436,7 @@ class FormManager_Model_Form {
 	 * @return string
 	 */
 	public function serialize() {
-		return serialize(array($this->options, $this->collection));
+		return serialize($this->export());
 	}
 
 	/**
@@ -451,6 +451,18 @@ class FormManager_Model_Form {
 		$this->collection->setForm($this);
 		$this->loadLangPosts();
 		return $this;
+	}
+
+	/**
+	 * Возвращает все данные
+	 * 
+	 * @return array
+	 */
+	public function export() {
+		return array(
+			$this->options,
+			$this->collection->export()
+		);
 	}
 
 	/**
