@@ -24,7 +24,7 @@ class FormManager_Filter_Exception extends FormManager_Exception {
 	 * 
 	 * @var FormManager_Model_Field_Abstract
 	 */
-	private $element;
+	private $field;
 
 	/**
 	 * Параметры фильтра
@@ -43,23 +43,23 @@ class FormManager_Filter_Exception extends FormManager_Exception {
 	 */
 	public function __construct($message, FormManager_Model_Field_Abstract &$field, &$filter){
 		parent::__construct($message, 600);
-		$this->element = & $element;
+		$this->field = & $field;
 		$this->filter = & $filter;
 	}
 
 	/**
 	 * Возвращает объект поля формы
 	 * 
-	 * @return	FormManagerElement	Объект элемента
+	 * @return FormManager_Filter_Abstract Объект элемента
 	 */
-	public function getElement(){
-		return $this->element;
+	public function getField(){
+		return $this->field;
 	}
 
 	/**
 	 * Возвращает имя фильтра
 	 * 
-	 * @return	string	Имя фильтра
+	 * @return string Имя фильтра
 	 */
 	public function getFilterName(){
 		return $this->filter[0];
@@ -68,7 +68,7 @@ class FormManager_Filter_Exception extends FormManager_Exception {
 	/**
 	 * Возвращает параметры фильтра
 	 * 
-	 * @return	array	Параметры фильтра
+	 * @return array Параметры фильтра
 	 */
 	public function getFilterParams(){
 		return $this->filter[1];
