@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Lang {
+class FormManager_Language {
 
 	/**
 	 * Идентификатор языковой темы
@@ -35,7 +35,7 @@ class FormManager_Lang {
 
 
 	/**
-	 * Конструктор
+	 * Запрещена инициализация класса
 	 */
 	private function __construct() {
 	}
@@ -43,20 +43,18 @@ class FormManager_Lang {
 	/**
 	 * Устанавливает идентификатор языковой темы
 	 * 
-	 * @param  string $id Идентификатор языковой темы
+	 * @param  string $id Id языковой темы
 	 * 
 	 * @return boolen Результат установки темы
 	 */
-	public static function setID($id) {
-		$path = FORM_MANAGER_PATH.'/lang/'.$id.'/.parameters.php';
-		if (!file_exists($path)) {
+	public static function setId($id) {
+		// проверка списка
+		if (($mess=self::getMessagesList($id))===false) {
 			return false;
 		}
 
 		self::$id = $id;
-		// загрузка списка сообщений
-		include $path;
-		self::$mess =& $lang;
+		self::$mess = $mess;
 
 		return true;
 	}
@@ -64,16 +62,40 @@ class FormManager_Lang {
 	/**
 	 * Возвращает одно или все языковые сообщения
 	 * 
-	 * @param string $id Идентификатор сообщения
+	 * @param string $id Id сообщения
 	 * 
 	 * @return string|array Языковые сообщения
 	 */
-	public static function &getMess($id = null) {
+	public static function &getMessage($id = null) {
 		// загрузка списка сообщений если он еще не загружен
 		if (self::$mess === null) {
-			self::$mess = include FORM_MANAGER_PATH.'/lang/'.$id.'/.parameters.php';
+			self::$mess = self::loadMessagesList(self::$id);
+			// проверка результата загрузки
+			if (self::$mess === false) {
+				$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';
+				throw new FormManager_Language_Exception('File "'.$file.'" for linguistic theme "'.self::$id.'" not found', 801);
+			} elseif (!self::$mess) {
+				throw new FormManager_Language_Exception('List of messages for linguistic theme "'.self::$id.'" is empty', 802);
+			}
 		}
 		return ($id !== null) ? self::$mess[$id] : self::$mess;
 	}
 
+	/**
+	 * Загружает список сообщений если он еще не загружен
+	 * 
+	 * @param string $id Id языковой темы
+	 * 
+	 * @return array|boolen Результат загрузки списка
+	 */
+	private static function getMessagesList($id){
+		$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';
+		// проверка файла
+		if (!file_exists($file) || !is_readable($file)) {
+			return false;
+		}
+		// загрузка списка сообщений
+		return include $file;
+		
+	}
 }
