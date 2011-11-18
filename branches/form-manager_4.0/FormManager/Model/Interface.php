@@ -17,7 +17,7 @@
  * @package FormManager\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Interface {
+interface FormManager_Model_Interface extends Serializable {
 
 	/**
 	 * Возвращает все данные
