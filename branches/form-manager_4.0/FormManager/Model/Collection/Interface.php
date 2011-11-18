@@ -17,19 +17,7 @@
  * @package FormManager\Model\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Collection_Interface extends FormManager_Model_Interface {
-
-	/**
-	 * Устанавливает форму
-	 * 
-	 * Устанавливает объект формы к которой пренадлежыт коллекция
-	 * Метод предназначен для внутреннего использования
-	 * 
-	 * @param FormManager_Form $form Объект формы
-	 * 
-	 * @return FormManager_Model_Collection_Interface Объект коллекции
-	 */
-	public function setForm(FormManager_Form $form);
+interface FormManager_Model_Collection_Interface extends FormManager_Model_Collection_Item_Interface {
 
 	// TODO описать интерфейс
 
