@@ -11,38 +11,66 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
-// регистрируем автозагрузчик
-spl_autoload_register(function ($class_name) {
-	// получение имени файла
-	$file = str_replace(
-		array('FormManager_', '_'),
-		array('', '/'),
-		$class_name
-	);
-	$file = FORM_MANAGER_PATH.'/classes/'.$file.'.php';
+/**
+ * Исключение для автозагрузки
+ * 
+ * @package AutoLoad
+ * @author  Peter Gribanov <info@peter-gribanov.ru>
+ */
+class Cms_AutoLoad_Exception extends Exception {
 
-	// проверка существования файла
-	if ( !file_exists($file)) {
-		throw new Exception('Файл класса '.$class_name.' не найден');
+}
+
+
+/**
+ * Функция автозагрузки классов и интерфейсов у нас анонимная
+ * 
+ * Pегистрируем ее через SPL, чтобы избежать конфликта с другими
+ * функциями автозагрузки. Что, является хорошим тоном.
+ * 
+ * Второй параметр указывает что необходимо генерить исключени в случаи неуспеха
+ * Третий что нашу функцию необходимо домавить в начала всех функций автозагрузок
+ * 
+ * Внимание вызов у несуществующего класса константы, например Cms_Undefined::UNDEFINED
+ * Вызовет PHP Fatal error:  Undefined class constant и невозможно будет перехватить
+ * исключение
+ * В тоже время Cms_Undefined::undefined() и Cms_Undefined::$undefined работать будут ожидаемо
+ * 
+ * @package AutoLoad
+ * @author  Peter Gribanov <info@peter-gribanov.ru>
+ * @throws  Cms_AutoLoad_Exception
+ * @param   string $name
+ * @return  boolen
+ */
+spl_autoload_register(function ($name) {
+	// аутолоадер используем только для FormManager_
+	if (strpos($name, 'FormManager_') !== 0) {
+		return false;
 	}
-	require $file;
-	// проверка существования класса
-	if ( class_exists($class_name) ) {
-		throw new Exception('Класса '.$class_name.' не установлен');
+
+	// получение имени файла
+	$file = FORM_MANAGER_PATH.'/'.str_replace('_', '/', $name).'.php';
+
+	// тип
+	$type = strpos($name, 'Interface') === false ? 'class' : 'interface';
+
+	// проверка файла
+	if (!file_exists($file) || !is_readable($file)) {
+		throw new Cms_AutoLoad_Exception('File "' . $file . '" for '.$type.' "'.$name.'" not found');
 	}
-	// проверка корректности класса
-	$name = explode('_', $class_name);
-	switch ($name[1]) {
-		case 'Model': {
-			if ( !($class_name instanceof FormManager_Model_interface) ) {
-				return false;
-			}
-		} break;
-		case 'Collection': {
-			if ( !($class_name instanceof FormManager_Model_interface) ) {
-				return false;
-			}
-		} break;
+
+	try {
+		include_once($file);
+	} catch (Exception $exeption) {
+		// Костыль для php. При работе со статическими метада класса, без костыля
+		// будет фатальная ошибка и исключение не сгенерируется
+		throw new Cms_AutoLoad_Exception('The file "'.$file.'" error, '.$type.' "'.$name.'" impossible to determine: "'.$exeption->getMessage().'"');
+	}
+
+	// проверка успошности загрузки
+	$is = $type.'_exists';
+	if (!$is($name, false)) {
+		throw new Cms_AutoLoad_Exception('The file "'.$file.'" '.$type.' "'.$name.'" not found');
 	}
 	return true;
-});
+}, true, true);
