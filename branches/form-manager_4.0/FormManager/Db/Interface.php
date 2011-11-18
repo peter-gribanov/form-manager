@@ -14,7 +14,7 @@
 /**
  * Интерфейс драйвера работы с БД
  * 
- * @package FormManager
+ * @package FormManager\Db
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 interface FormManager_Db_Interface {
@@ -24,14 +24,14 @@ interface FormManager_Db_Interface {
 	 * 
 	 * @param string $statement SQL запрос
 	 * 
-	 * @return FormManager_Db_Driver_Interface Драйвера работы с БД
+	 * @return FormManager_Db_Interface Драйвера работы с БД
 	 */
 	public function prepare($statement);
 
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @return mixed Запись из результата запроса
+	 * @return array Запись из результата запроса
 	 */
 	public function fetch();
 
