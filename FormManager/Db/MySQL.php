@@ -14,10 +14,10 @@
 /**
  * Драйвер MySQL для работы менеджера форм с БД
  * 
- * @package FormManager
+ * @package FormManager\Db
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Db_Interface_MySQL implements FormManager_Db_Interface {
+class FormManager_Db_MySQL implements FormManager_Db_Interface {
 
 	/**
 	 * Подключение к БД
@@ -38,10 +38,10 @@ class FormManager_Db_Interface_MySQL implements FormManager_Db_Interface {
 	 * 
 	 * @param string $statement SQL запрос
 	 * 
-	 * @return FormManager_Db_Driver_Interface_MySQL Драйвера работы с БД
+	 * @return FormManager_Db_MySQL Драйвера работы с БД
 	 */
 	public function prepare($statement) {
-		if ( $this->connect ) {
+		if ($this->connect) {
 			$this->result = mysql_query($statement, $this->connect);
 		} else {
 			$this->result = mysql_query($statement);
@@ -52,10 +52,10 @@ class FormManager_Db_Interface_MySQL implements FormManager_Db_Interface {
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @return stdClass Запись из результата запроса
+	 * @return array Запись из результата запроса
 	 */
 	public function fetch() {
-		return mysql_fetch_object($this->result);
+		return mysql_fetch_assoc($this->result);
 	}
 
 	/**
@@ -66,7 +66,7 @@ class FormManager_Db_Interface_MySQL implements FormManager_Db_Interface {
 	 * @return boolen Результат установки соединения
 	 */
 	public function setConnect(&$connect) {
-		if ( !is_resource($connect) ) {
+		if (!is_resource($connect)) {
 			return false;
 		}
 		$this->connect = $connect;
