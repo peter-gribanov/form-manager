@@ -2,7 +2,6 @@
 /**
  * FormManager package
  * 
- * @todo      проверить табы
  * @package   FormManager
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @version   4.0 SVN: $Revision$
@@ -38,4 +37,6 @@ return array(
 	'exception-500'        => 'Error in the model fields',
 	'exception-600'        => 'Exception filter',
 	'exception-700'        => 'Error in the database',
+	'exception-701'        => 'Name of driver of a database should be a string',
+	'exception-702'        => 'The driver class of the database is not responding interface "FormManager_Db_Interface"',
 );

@@ -28,9 +28,9 @@ class FormManager_Exception extends Exception {
 	 */
 	public function __construct($message = '', $code = null, Exception $previous = null) {
 		if (!$message && $code) {
-			$message = FormManager_Language::getMessage('exception-'.$code);
+			$message =& FormManager_Language::getMessage('exception-'.$code);
 			if (!$message) {
-				$message = FormManager_Language::getMessage('exception-'.$code[0].'00');
+				$message =& FormManager_Language::getMessage('exception-'.$code[0].'00');
 			}
 		}
 		parent::__construct($message, $code, $previous);
