@@ -19,6 +19,45 @@
  */
 interface FormManager_Model_Collection_Interface extends FormManager_Model_Collection_Item_Interface {
 
-	// TODO описать интерфейс
+	/**
+	 * Устанавливает название коллекции
+	 * 
+	 * @throws FormManager_Model_Collection_Exception
+	 * 
+	 * @param string $name Название коллекции
+	 * 
+	 * @return FormManager_Model_Collection_Primary Объект коллекции
+	 */
+	public function setName($name);
+
+	/**
+	 * Возвращает название коллекции
+	 * 
+	 * @return	string
+	 */
+	public function getName();
+
+	/**
+	 * Добавляет элемент
+	 * 
+	 * @param FormManager_Model_Collection_Item_Interface $item Объект элимента
+	 * 
+	 * @return FormManager_Model_Collection_Primary Объект коллекции
+	 */
+	public function add(FormManager_Model_Collection_Item_Interface $item);
+
+	/**
+	 * Очищает список элементов
+	 * 
+	 * @return	FormManagerCollection	Объект коллекции
+	 */
+	public function clear();
+
+	/**
+	 * Проверяет пуста ли коллекция
+	 * 
+	 * @return	boolean	Результат проверки
+	 */
+	public function isEmpty();
 
 }

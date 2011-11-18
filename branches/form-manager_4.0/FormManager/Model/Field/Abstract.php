@@ -17,7 +17,7 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Field_Interface {
+abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Model_Field_Interface {
 
 	/**
 	 * Опции поля
@@ -26,20 +26,13 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	 */
 	protected $options = array(
 		'name'		=> '',		// Имя поля
-		'title'		=> '',		// Заголовок для поля
-		'comment'	=> '',		// Комментарий к полю
+//		'title'		=> '',		// Заголовок для поля
+//		'comment'	=> '',		// Комментарий к полю
 		'default'	=> '',		// Значение по умолчанию
 		'view'		=> array('text', array()),	// Вид поля
 		'filters'	=> array(),	// Фильтры проверки поля
 		'required'	=> false,	// Обязательное для заполнения
 	);
-
-	/**
-	 * Объект формы
-	 * 
-	 * @var	FormManagerForm
-	 */
-	protected $form;
 
 	/**
 	 * Итератор запуска фильтров при проверки поля
@@ -48,23 +41,6 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	 */
 	private $filter_iterator;
 
-
-	/**
-	 * Устанавливает форму
-	 * 
-	 * Устанавливает объект формы к которой пренадлежыт коллекция
-	 * Метод предназначен для внутреннего использования
-	 * 
-	 * @param	FormManagerForm	$form	Объект формы
-	 * @return	FormManagerElement		Объект элемента
-	 */
-	public function setForm(FormManagerForm $form){
-		$this->form = $form;
-		if ($this->options['required'])
-			$this->form->required();
-
-		return $this;
-	}
 
 	/**
 	 * Устанавливает имя поля
@@ -85,28 +61,32 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	 * Возвращает имя поля
 	 * 
 	 * @return	string
-	 *//*
+	 */
 	public function getName(){
 		return $this->options['name'];
-	}*/
+	}
 
 	/**
 	 * Устанавливает заголовок для поля
 	 * 
+	 * TODO перенести в Question
+	 * 
 	 * @param string $title
 	 * @throws InvalidArgumentException
 	 * @return FormManagerElement
-	 */
+	 *//*
 	public function setTitle($title){
 		if (!is_string($title) || !trim($title))
 			throw new InvalidArgumentException('Element title must be not empty string');
 
 		$this->options['title'] = $title;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает заголовок для поля
+	 * 
+	 * TODO перенести в Question
 	 * 
 	 * @return string
 	 *//*
@@ -117,20 +97,24 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	/**
 	 * Устанавливает комментарий для поля
 	 * 
+	 * TODO перенести в Question
+	 * 
 	 * @param string $comment
 	 * @throws InvalidArgumentException
 	 * @return FormManagerElement
-	 */
+	 *//*
 	public function setComment($comment){
 		if (!is_string($comment) || !trim($comment))
 			throw new InvalidArgumentException('Element comment must be not empty string');
 
 		$this->options['comment'] = $comment;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает комментарий для поля
+	 * 
+	 * TODO перенести в Question
 	 * 
 	 * @return string
 	 *//*
@@ -143,26 +127,26 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	 * 
 	 * @param mixed $val
 	 * @return FormManagerElement
-	 *//*
+	 */
 	public function setDefaultValue($val){
 		$this->options['default'] = $val;
 		return $this;
-	}*/
+	}
 
 	/**
 	 * Возвращает значение поля
 	 * 
 	 * @return string
-	 *//*
+	 */
 	public function getDefaultValue(){
 		return $this->options['default'];
-	}*/
+	}
 
 	/**
 	 * Возвращает значение поля
 	 * 
 	 * @return string
-	 *//*
+	 */
 	public function getValue(){
 		// значение указанное пользователем
 		$value = & $this->getSentValue();
@@ -177,16 +161,16 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 		}
 
 		return $value!==null ? $value : $this->getDefaultValue();
-	}*/
+	}
 
 	/**
 	 * Возвращает значение указанное пользователем
 	 * 
 	 * @return string
-	 *//*
-	public function & getSentValue(){
+	 */
+	public function &getSentValue(){
 		return $this->form->getSentValue($this->getName());
-	}*/
+	}
 
 	/**
 	 * Устанавливает вид для поля
@@ -328,10 +312,10 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	 * Проверяет является ли поле обязательным для заполнения
 	 * 
 	 * @return boolen
-	 *//*
+	 */
 	public function isRequired(){
 		return $this->options['required'];
-	}*/
+	}
 
 	/**
 	 * Возвращает сообщение из языковой темы
@@ -374,4 +358,3 @@ abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Fie
 	}*/
 
 }
-?>
