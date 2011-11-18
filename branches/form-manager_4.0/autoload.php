@@ -56,7 +56,7 @@ spl_autoload_register(function ($name) {
 
 	// проверка файла
 	if (!file_exists($file) || !is_readable($file)) {
-		throw new Cms_AutoLoad_Exception('File "' . $file . '" for '.$type.' "'.$name.'" not found');
+		throw new Cms_AutoLoad_Exception('File "'.$file.'" for '.$type.' "'.$name.'" not found', 101);
 	}
 
 	try {
@@ -64,13 +64,13 @@ spl_autoload_register(function ($name) {
 	} catch (Exception $exeption) {
 		// Костыль для php. При работе со статическими метада класса, без костыля
 		// будет фатальная ошибка и исключение не сгенерируется
-		throw new Cms_AutoLoad_Exception('The file "'.$file.'" error, '.$type.' "'.$name.'" impossible to determine: "'.$exeption->getMessage().'"');
+		throw new Cms_AutoLoad_Exception('The file "'.$file.'" error, '.$type.' "'.$name.'" impossible to determine: "'.$exeption->getMessage().'"'. 102);
 	}
 
 	// проверка успошности загрузки
 	$is = $type.'_exists';
 	if (!$is($name, false)) {
-		throw new Cms_AutoLoad_Exception('The file "'.$file.'" '.$type.' "'.$name.'" not found');
+		throw new Cms_AutoLoad_Exception('The file "'.$file.'" '.$type.' "'.$name.'" not found', 103);
 	}
 	return true;
 }, true, true);
