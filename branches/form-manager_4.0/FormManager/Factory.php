@@ -20,7 +20,7 @@
 class FormManager_Factory {
 
 	/**
-	 * Конструктор
+	 * Запрещена инициализация класса
 	 */
 	private function __construct() {
 	}
@@ -29,10 +29,10 @@ class FormManager_Factory {
 	 * Устанавливает название драйвер для работы с БД и инициализирует его
 	 * 
 	 * @param string $driver_name Имя драйвера
-	 */
+	 *//*
 	public static function setDbDriver($driver_name) {
-		FormManager_Db::setDriver($driver_name);
-	}
+		FormManager_Db::set($driver_name);
+	}*/
 
 	/**
 	 * Создает новую форму
