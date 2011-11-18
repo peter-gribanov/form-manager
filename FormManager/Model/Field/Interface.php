@@ -20,17 +20,92 @@
 interface FormManager_Model_Field_Interface extends FormManager_Model_Interface {
 
 	/**
-	 * Устанавливает форму
+	 * Устанавливает имя поля
 	 * 
-	 * Устанавливает объект формы к которой пренадлежыт коллекция
-	 * Метод предназначен для внутреннего использования
+	 * @param string $name Имя
 	 * 
-	 * @param FormManager_Form $form Объект формы
-	 * 
-	 * @return FormManager_Model_Field_Interface Объект поля
+	 * @return FormManager_Model_Field_Abstract Объект элемента
 	 */
-	public function setForm(FormManager_Form $form);
+	public function setName($name);
 
-	// TODO описать интерфейс
+	/**
+	 * Возвращает имя поля
+	 * 
+	 * @return string
+	 */
+	public function getName();
+
+	/**
+	 * Устанавливает значение поля
+	 * 
+	 * @param string|integer|boolen $value
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function setDefaultValue($value);
+
+	/**
+	 * Возвращает значение поля
+	 * 
+	 * @return string
+	 */
+	public function getDefaultValue();
+
+	/**
+	 * Возвращает значение поля
+	 * 
+	 * @return string
+	 */
+	public function getValue();
+
+	/**
+	 * Возвращает значение указанное пользователем
+	 * 
+	 * @return string
+	 */
+	public function &getSentValue();
+
+	/**
+	 * Устанавливает вид для поля
+	 * 
+	 * @param string $name
+	 * @param array  $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function setView($name, $params = null);
+
+	/**
+	 * Устанавливает параметры вывода
+	 * 
+	 * @param array $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function setViewParams($params = array());
+
+	/**
+	 * Устанавливает фильтр для поля
+	 * 
+	 * @param string $name
+	 * @param array  $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function setFilter($name, $params = null);
+
+	/**
+	 * Устанавливает что поле является обязательным для заполнения
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function required();
+
+	/**
+	 * Проверяет является ли поле обязательным для заполнения
+	 * 
+	 * @return boolen
+	 */
+	public function isRequired();
 
 }

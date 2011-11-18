@@ -21,10 +21,10 @@ class FormManager_Model_Field_Hidden extends FormManager_Model_Field {
 
 	/**
 	 * Выводит поле
-	 */
+	 *//*
 	public function draw() {
 		$params = $this->options['view'][1];
 		include FormManagerForm::getTemplatePath('hidden.element.php');
-	}
+	}*/
 
 }

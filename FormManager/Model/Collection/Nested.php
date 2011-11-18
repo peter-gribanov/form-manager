@@ -17,7 +17,7 @@
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Collection_Nested extends FormManager_Collection_Primary {
+class FormManager_Model_Collection_Nested extends FormManager_Model_Collection_Abstract {
 
 	/**
 	 * Устанавливает форму к которой пренадлежыт коллекция
@@ -49,10 +49,10 @@ class FormManager_Collection_Nested extends FormManager_Collection_Primary {
 	 * Рисует коллекцию элиментов
 	 * 
 	 * @return	void
-	 */
+	 *//*
 	public function draw(){
 		if (!$this->isEmpty())
 			include FormManagerForm::getTemplatePath('nested.collection.php');
-	}
+	}*/
 
 }

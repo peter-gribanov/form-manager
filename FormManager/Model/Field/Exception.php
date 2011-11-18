@@ -26,7 +26,7 @@ class FormManager_Model_Field_Exception extends FormManager_Exception {
 	 * @param integer   $code     Код исключения
 	 * @param Exception $previous Предыдущее исключение
 	 */
-	public function __construct($message = '', $code = 500, Exception $previous = null) {
+	public function __construct($message = '', $code = 700, Exception $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 

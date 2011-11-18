@@ -42,7 +42,7 @@ class FormManager_Filter_Exception extends FormManager_Exception {
 	 * @param array                            $filter  Параметры фильтра
 	 */
 	public function __construct($message, FormManager_Model_Field_Abstract &$field, &$filter){
-		parent::__construct($message, 600);
+		parent::__construct($message, 300);
 		$this->field = & $field;
 		$this->filter = & $filter;
 	}
