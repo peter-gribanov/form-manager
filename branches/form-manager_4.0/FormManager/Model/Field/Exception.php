@@ -12,12 +12,12 @@
  */
 
 /**
- * Класс исключений
+ * Исключение для модели полей
  * 
- * @package FormManager
+ * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Exception extends Exception {
+class FormManager_Model_Field_Exception extends FormManager_Exception {
 
 	/**
 	 * Создает исключение
@@ -26,13 +26,8 @@ class FormManager_Exception extends Exception {
 	 * @param integer   $code     Код исключения
 	 * @param Exception $previous Предыдущее исключение
 	 */
-	public function __construct($message = '', $code = null, Exception $previous = null) {
-		if (!$message && $code) {
-			$message = FormManager_Language::getMessage('exception-'.$code);
-			if (!$message) {
-				$message = FormManager_Language::getMessage('exception-'.$code[0].'00');
-			}
-		}
+	public function __construct($message = '', $code = 500, Exception $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
+
 }

@@ -14,22 +14,22 @@
 /**
  * Класс исключений для фильтров
  * 
- * @package FormManager
+ * @package FormManager\Filter
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Exception_Filter extends FormManager_Exception {
+class FormManager_Filter_Exception extends FormManager_Exception {
 
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var	FormManagerElement
+	 * @var FormManager_Model_Field_Abstract
 	 */
 	private $element;
 
 	/**
 	 * Параметры фильтра
 	 * 
-	 * @var	array
+	 * @var array
 	 */
 	private $filter;
 
@@ -37,13 +37,12 @@ class FormManager_Exception_Filter extends FormManager_Exception {
 	/**
 	 * Конструктор
 	 * 
-	 * @param	string				$message	Сообщение
-	 * @param	FormManagerElement	$element	Объект элемента
-	 * @param	array				$filter		Параметры фильтра
-	 * @return	void
+	 * @param string                           $message Сообщение
+	 * @param FormManager_Model_Field_Abstract $field   Объект элемента
+	 * @param array                            $filter  Параметры фильтра
 	 */
-	public function __construct($message, FormManagerElement & $element, & $filter){
-		parent::__construct($message, 0);
+	public function __construct($message, FormManager_Model_Field_Abstract &$field, &$filter){
+		parent::__construct($message, 600);
 		$this->element = & $element;
 		$this->filter = & $filter;
 	}
