@@ -17,7 +17,7 @@
  * @package AutoLoad
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Cms_AutoLoad_Exception extends Exception {
+class FormManager_AutoLoad_Exception extends Exception {
 
 }
 
