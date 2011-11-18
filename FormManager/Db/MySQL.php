@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Db_Driver_Interface_MySQL implements FormManager_Db_Driver_Interface {
+class FormManager_Db_Interface_MySQL implements FormManager_Db_Interface {
 
 	/**
 	 * Подключение к БД
