@@ -22,43 +22,36 @@ class FormManager_Db {
 	/**
 	 * Драйвера работы с БД
 	 * 
-	 * @var	FormManager_Db_Driver
+	 * @var	FormManager_Db_Interface
 	 */
 	private static $driver;
 
 
 	/**
+	 * Запрещена инициализация класса
+	 */
+	private function __construct() {
+	}
+
+	/**
 	 * Устанавливает название драйвер для работы с БД и инициализирует его
 	 * 
-	 * @throws FormManager_Exception_InvalidArgument Недопустимое имя драйвера
-	 * @throws FormManager_Exception                 Файл драйвера не обнаружен
-	 * @throws FormManager_Exception                 Класс драйвера не обнаружен
+	 * @throws FormManager_Db_Exception
 	 * 
 	 * @param string $driver_name Имя драйвера
 	 */
-	public static function setDriver($driver_name) {
-		if ( !is_string($driver_name) || !trim($driver_name) ) {
-			throw new FormManager_Exception_InvalidArgument('Name of driver of a database should be a string.');
+	public static function set($driver_name) {
+		if (!is_string($driver_name) || !trim($driver_name)) {
+			throw new FormManager_Db_Exception('', 701);
 		}
 
-		$class_name = 'FormManager_Db_Driver_'.$driver_name;/*
-		$file = FORM_MANAGER_PATH.'/Classes/Db/Driver/'.strtolower($driver_name).'/'.$classname.'.php';
-
-		if ( !file_exists($file) ) {
-			throw new FormManager_Exception('File not found the driver of a database.');
-		}
-
-		require_once $file;
-
-		if ( !class_exists($classname) ) {
-			throw new FormManager_Exception('Not find a class driver of a database.');
-		}*/
+		$class_name = 'FormManager_Db_'.$driver_name;
 
 		self::$driver = new $class_name;
-/*
-		if ( !(self::$driver instanceof FormManager_Db_Driver_Interface) ) {
-			throw new FormManager_Exception('The driver class of the database is not responding interface FormManagerDBDriver.');
-		}*/
+
+		if (!(self::$driver instanceof FormManager_Db_Interface)) {
+			throw new FormManager_Exception('', 702);
+		}
 	}
 
 	/**
@@ -66,7 +59,7 @@ class FormManager_Db {
 	 * 
 	 * @param string $statement SQL запрос
 	 * 
-	 * @return FormManager_Db_Driver Драйвера работы с БД
+	 * @return FormManager_Db_Interface Драйвера работы с БД
 	 */
 	public static function prepare($statement) {
 		return self::$driver->prepare($statement);
