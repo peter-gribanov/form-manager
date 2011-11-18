@@ -14,10 +14,10 @@
 /**
  * Класс описывает элемент ввода формы
  * 
- * @package FormManager\Model
+ * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field implements FormManager_Item, Serializable {
+abstract class FormManager_Model_Field_Abstract implements FormManager_Model_Field_Interface {
 
 	/**
 	 * Опции поля
