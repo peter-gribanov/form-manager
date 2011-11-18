@@ -17,20 +17,26 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Filter_Interface extends FormManager_Interface {
-
-	/**
-	 * Устанавливает объект поля формы
-	 * 
-	 * @param FormManager_Model_Field_Abstract $field Объект поля
-	 */
-	public function __construct(FormManager_Model_Field_Abstract $field);
+class FormManager_Filter_Bool extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле
 	 * 
 	 * @throws FormManager_Filter_Exception
 	 */
-	public function valid();
+	public function valid(){
+		if (!is_bool($this->field->getValue())
+			&& (!is_numeric($this->field->getValue())
+				|| ($field->getValue() != 0 && $this->getValue() != 1))) {
+
+			$param = $this->field->getViewParams();
+
+			if ( !empty($param['value_no']) && !empty($param['value_yes']) ) {
+				$this->trigger('bool', array('('.$param['value_no'].', '.$param['value_yes'].')'));
+			} else {
+				$this->trigger('bool', array(''));
+			}
+		}
+	}
 
 }
