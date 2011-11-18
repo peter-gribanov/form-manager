@@ -32,4 +32,10 @@ return array(
 	'date'                 => 'The specified date in your field %s does not fit DD.MM.YYYY.',
 	'field-yesno-yes'      => 'Yes',
 	'field-yesno-no'       => 'No',
+	'exception-200'        => 'Error in the model form',
+	'exception-300'        => 'Error in the model collections',
+	'exception-400'        => 'Error in the model questions',
+	'exception-500'        => 'Error in the model fields',
+	'exception-600'        => 'Exception filter',
+	'exception-700'        => 'Error in the database',
 );
