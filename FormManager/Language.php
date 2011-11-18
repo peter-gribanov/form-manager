@@ -24,7 +24,7 @@ class FormManager_Language {
 	 * 
 	 * @var string
 	 */
-	private static $id = 'en';
+	private static $id = self::DEFAULT_ID;
 
 	/**
 	 * Список сообщений языковой темы
@@ -32,6 +32,14 @@ class FormManager_Language {
 	 * @var array
 	 */
 	private static $mess = null;
+
+
+	/**
+	 * Идентификатор языковой темы по умолчанию
+	 * 
+	 * @var string
+	 */
+	const DEFAULT_ID = 'en';
 
 
 	/**
@@ -73,9 +81,9 @@ class FormManager_Language {
 			// проверка результата загрузки
 			if (self::$mess === false) {
 				$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';
-				throw new FormManager_Language_Exception('File "'.$file.'" for linguistic theme "'.self::$id.'" not found', 801);
+				throw new FormManager_Language_Exception('File "'.$file.'" for linguistic theme "'.self::$id.'" not found', 401);
 			} elseif (!self::$mess) {
-				throw new FormManager_Language_Exception('List of messages for linguistic theme "'.self::$id.'" is empty', 802);
+				throw new FormManager_Language_Exception('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
 			}
 		}
 		return ($id !== null) ? self::$mess[$id] : self::$mess;
