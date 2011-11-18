@@ -11,6 +11,10 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
+if (version_compare(phpversion(), '5.0', '<') == true) {
+	exit('Для работы требуется PHP 5.0.x');
+}
+
 /**
  * Корневой путь к библиотеке на сервере
  * 
@@ -38,17 +42,16 @@ define('FORM_MANAGER_HTTP_PATH', $http_path);
 unset($http_path, $path);
 
 /**
- * Псевдоним для var_dump()
+ * Функция отладки, обычно определяется во внешней библиотеке debuger
  * 
  * @todo Удалить на паблике
- * 
- * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
- * 
  * @param $var Выводимая переменная
  */
-function p($var){
-	var_dump($var);
+if (!function_exists('p')) {
+	function p($var) {
+		return htmlspecialchars(print_r($var, true));
+	}
 }
 
 // подключение автолоудера
