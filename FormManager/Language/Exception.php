@@ -19,15 +19,4 @@
  */
 class FormManager_Language_Exception extends FormManager_Exception {
 
-	/**
-	 * Создает исключение
-	 * 
-	 * @param string    $message  Текст сообщения
-	 * @param integer   $code     Код исключения
-	 * @param Exception $previous Предыдущее исключение
-	 */
-	public function __construct($message = '', $code = 800, Exception $previous = null) {
-		parent::__construct($message, $code);
-	}
-
 }
