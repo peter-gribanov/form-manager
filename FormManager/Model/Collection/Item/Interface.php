@@ -12,12 +12,12 @@
  */
 
 /**
- * Интерфейс модели поля
+ * Интерфейс элемента коллекции
  * 
- * @package FormManager\Model\Field
+ * @package FormManager\Model\Collection\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Field_Interface extends FormManager_Model_Interface {
+interface FormManager_Model_Collection_Item_Interface extends FormManager_Model_Interface {
 
 	/**
 	 * Устанавливает форму
@@ -27,10 +27,8 @@ interface FormManager_Model_Field_Interface extends FormManager_Model_Interface 
 	 * 
 	 * @param FormManager_Form $form Объект формы
 	 * 
-	 * @return FormManager_Model_Field_Interface Объект поля
+	 * @return FormManager_Model_Collection_Item_Interface Объект коллекции
 	 */
 	public function setForm(FormManager_Form $form);
-
-	// TODO описать интерфейс
 
 }

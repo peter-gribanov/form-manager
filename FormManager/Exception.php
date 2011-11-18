@@ -22,6 +22,9 @@ class FormManager_Exception extends Exception {
 	/**
 	 * Создает исключение
 	 * 
+	 * Если не указано сообщение, но указан код то берет сообщение из языковой темы
+	 * Если в языковой теме не оказалось сообщения с указанным кодом то ищет сообщение с группой этого кода
+	 * 
 	 * @param string    $message  Текст сообщения
 	 * @param integer   $code     Код исключения
 	 * @param Exception $previous Предыдущее исключение
@@ -31,6 +34,9 @@ class FormManager_Exception extends Exception {
 			$message =& FormManager_Language::getMessage('exception-'.$code);
 			if (!$message) {
 				$message =& FormManager_Language::getMessage('exception-'.$code[0].'00');
+				if (!$message) {
+					$message = '';
+				}
 			}
 		}
 		parent::__construct($message, $code, $previous);

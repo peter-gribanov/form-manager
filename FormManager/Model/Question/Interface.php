@@ -17,18 +17,8 @@
  * @package FormManager\Question
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Question_Interface extends FormManager_Model_Interface {
+interface FormManager_Model_Question_Interface extends FormManager_Model_Collection_Item_Interface {
 
-	/**
-	 * Устанавливает форму
-	 * 
-	 * Устанавливает объект формы к которой пренадлежыт коллекция
-	 * Метод предназначен для внутреннего использования
-	 * 
-	 * @param FormManager_Form $form Объект формы
-	 * 
-	 * @return FormManager_Model_Question_Interface Объект вопроса
-	 */
-	public function setForm(FormManager_Form $form);
+	// TODO описать интерфейс
 
 }
