@@ -15,7 +15,7 @@
  - 3xx Ошибки в моделе коллекций FormManager\Model\Collection
    - 300 Общий номер ошибки
 
- - 4xx Ошибки в модели вопросов  FormManager\Model
+ - 4xx Ошибки в модели вопросов  FormManager\Model\Question
    - 400 Общий номер ошибки
 
  - 5xx Ошибки в модели полей     FormManager\Model\Field
