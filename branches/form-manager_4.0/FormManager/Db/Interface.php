@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Db_Driver_Interface {
+interface FormManager_Db_Interface {
 
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
