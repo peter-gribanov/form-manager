@@ -17,7 +17,7 @@
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Field_Kcaptcha extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Kcaptcha extends FormManager_Filter_Field_Abstract {
 
 	/**
 	 * Проверяет поле
