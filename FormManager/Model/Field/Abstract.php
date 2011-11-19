@@ -260,16 +260,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	}
 
 	/**
-	 * Возвращает сообщение из языковой темы
-	 * 
-	 * @param  string $post
-	 * @return string
-	 *//*
-	public function getLangPost($post){
-		return $this->form->getLangPost($post);
-	}*/
-
-	/**
 	 * Метод для сериализации класса
 	 *
 	 * @return string
