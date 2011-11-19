@@ -11,6 +11,12 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
-if ( $this->getValue() != '' && !preg_match('/^\d\d\.\d\d\.\d{4}$/', $this->getValue()) ) {
-	$this->error('date');
+/**
+ * Фильтра проверки на Integer
+ * 
+ * @package FormManager\Filter
+ * @author  Peter Gribanov <info@peter-gribanov.ru>
+ */
+class FormManager_Filter_Int extends FormManager_Filter_Integer {
+
 }

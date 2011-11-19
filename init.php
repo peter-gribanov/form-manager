@@ -12,7 +12,7 @@
  */
 
 if (version_compare(phpversion(), '5.0', '<') == true) {
-	exit('Для работы требуется PHP 5.0.x');
+	exit('Requires PHP 5.0.x');
 }
 
 /**
@@ -45,7 +45,9 @@ unset($http_path, $path);
  * Функция отладки, обычно определяется во внешней библиотеке debuger
  * 
  * @todo Удалить на паблике
- * @author  Peter Gribanov <info@peter-gribanov.ru>
+ * 
+ * @author Peter Gribanov <info@peter-gribanov.ru>
+ * 
  * @param $var Выводимая переменная
  */
 if (!function_exists('p')) {

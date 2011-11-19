@@ -16,9 +16,9 @@ return array(
 	'required_fields'        => 'Required fields',
 	'filter-null'            => 'No information about the field - %s.',
 	'filter-empty'           => 'You have not filled the field - %s.',
-	'filter-int'             => 'You have specified an integer field - %s.',
+	'filter-integer'         => 'You have specified an integer field - %s.',
 	'filter-float'           => 'You have specified floating-point number in the field - %s.',
-	'filter-bool'            => 'You specify the value is not one of the two permissible%2$s for field - %1$s.',
+	'filter-boolen'          => 'You specify the value is not one of the two permissible%2$s for field - %1$s.',
 	'filter-length'          => 'You specify a value less than %2$s or more than %3$s characters for the field - %1$s.',
 	'filter-length.eq'       => 'You have specified a value whose length is not equal to %2$s characters for the field - %1$s.',
 	'filter-length.min'      => 'You specify a value of less than %2$s characters for the field - %1$s.',
@@ -31,7 +31,7 @@ return array(
 	'filter-date'            => 'The specified date in your field %s does not fit DD.MM.YYYY.',
 	'field-yesno-yes'        => 'Yes',
 	'field-yesno-no'         => 'No',
-// TODO нехватает кодов исключений
+//@todo нехватает кодов исключений
 	'exception-000'          => 'Unknown error',
 	'exception-200'          => 'Error in the model form',
 	'exception-300'          => 'Error in the model collections',
