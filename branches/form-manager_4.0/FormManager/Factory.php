@@ -12,7 +12,7 @@
  */
 
 /**
- * Класс представляет интерфейс для составления формы
+ * Фабрика формы
  * 
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -44,6 +44,62 @@ class FormManager_Factory {
 	}
 
 	/**
+	 * Создает новую коллекцию элиментов формы
+	 * 
+	 * @throws FormManager_Exception
+	 * 
+	 * @param string $name Имя коллекции
+	 * @param string $type Тип коллекции
+	 * 
+	 * @return FormManager_Model_Collection_Interface
+	 */
+	public static function getCollection($name, $type = 'default'){
+		$class_name = 'FormManager_Model_Collection_'.ucfirst($type);
+		$obj = new $class_name();
+		if (!($obj instanceof FormManager_Model_Collection_Interface)) {
+			throw new FormManager_Exception('', 1001);
+		}
+		return $obj->setName($name);
+	}
+
+	/**
+	 * Создает новый элимент формы
+	 * 
+	 * @throws FormManager_Exception
+	 * 
+	 * @param string $name Имя поля
+	 * @param string $type Тип поля
+	 * 
+	 * @return FormManager_Model_Field_Interface
+	 */
+	public static function getField($name, $type = 'default'){
+		$class_name = 'FormManager_Model_Field_'.ucfirst($type);
+		$obj = new $class_name();
+		if (!($obj instanceof FormManager_Model_Field_Interface)) {
+			throw new FormManager_Exception('', 1002);
+		}
+		return $obj->setName($name);
+	}
+
+	/**
+	 * Создает новый вопрос
+	 * 
+	 * @throws FormManager_Exception
+	 * 
+	 * @param string $type Тип вопроса
+	 * 
+	 * @return FormManager_Model_Question_Interface
+	 */
+	public static function getQuestion($type = 'default'){
+		$class_name = 'FormManager_Model_Question_'.ucfirst($type);
+		$obj = new $class_name();
+		if (!($obj instanceof FormManager_Model_Question_Interface)) {
+			throw new FormManager_Exception('', 1003);
+		}
+		return $obj;
+	}
+
+	/**
 	 * Создает новый элимент формы
 	 * 
 	 * @param string $name Имя поля
@@ -51,7 +107,7 @@ class FormManager_Factory {
 	 * 
 	 * @return FormManager_Model_Field
 	 */
-	public static function Element($name, $title) {
+	public static function Field($name, $title) {
 		$el = new FormManager_Model_Field();
 		return $el
 			->setName($name)
