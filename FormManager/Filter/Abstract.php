@@ -47,7 +47,7 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface $field, array $options = array()) {
+	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array()) {
 		//@todo нужно реализовать проверку где происходит валидация
 //		if (!is_integer($this->filter_iterator)){
 //			throw new FormManager_Filter_Exception('Validate field is not running', 301);

@@ -29,6 +29,7 @@ return array(
 	'filter-kcaptcha-length' => 'Код подтверждения состоит из %s символов.',
 	'filter-kcaptcha-link'	 => 'При плохой разборчивости %sобновите%s код.',
 	'filter-date'	         => 'Указанная Вами дата в поле %s не соответствует формату DD.MM.YYYY.',
+	'filter-form-referer'    => 'Форма может быть отправлена только с этого сервера',
 	'field-yesno-yes'	     => 'Да',
 	'field-yesno-no'	     => 'Нет',
 //@todo нехватает кодов исключений

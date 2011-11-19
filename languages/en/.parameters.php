@@ -29,6 +29,7 @@ return array(
 	'filter-kcaptcha-length' => 'Confirmation code consists of %s characters.',
 	'filter-kcaptcha-link'   => 'With poor legibility %supdate%s code.',
 	'filter-date'            => 'The specified date in your field %s does not fit DD.MM.YYYY.',
+	'filter-form-referer'    => 'Form can be sent only from this server',
 	'field-yesno-yes'        => 'Yes',
 	'field-yesno-no'         => 'No',
 //@todo нехватает кодов исключений
