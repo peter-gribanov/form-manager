@@ -14,10 +14,10 @@
 /**
  * Фильтра проверки на Null
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Null extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Null extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле

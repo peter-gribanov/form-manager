@@ -14,10 +14,10 @@
 /**
  * Фильтра проверки формата даты
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Data extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Data extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле

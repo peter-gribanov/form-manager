@@ -14,10 +14,10 @@
 /**
  * Фильтра проверки на длинну строки
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Length extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Length extends FormManager_Filter_Abstract {
 
 	/**
 	 * Устанавливает объект поля формы

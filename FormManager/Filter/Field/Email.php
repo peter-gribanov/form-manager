@@ -14,10 +14,10 @@
 /**
  * Фильтра проверки формата e-mail адреса
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Email extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Email extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле

@@ -12,19 +12,19 @@
  */
 
 /**
- * Фильтра проверки на не пустое поле
+ * Фильтра проверки на Float
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Empty extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Float extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (trim($this->field->getValue()) == '') {
-			$this->trigger('empty');
+		if (!is_numeric($this->field->getValue()) || (float)$this->field->getValue() != $this->field->getValue()) {
+			$this->trigger('float');
 		}
 	}
 
