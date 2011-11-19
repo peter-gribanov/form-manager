@@ -12,19 +12,19 @@
  */
 
 /**
- * Фильтра проверки на Integer
+ * Фильтра проверки на не пустое поле
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Integer extends FormManager_Filter_Abstract {
+class FormManager_Filter_Field_Empty extends FormManager_Filter_Abstract {
 
 	/**
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (!is_numeric($this->field->getValue()) || (int)$this->field->getValue() != $this->field->getValue()) {
-			$this->trigger('integer');
+		if (trim($this->field->getValue()) == '') {
+			$this->trigger('empty');
 		}
 	}
 

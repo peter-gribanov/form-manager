@@ -14,9 +14,9 @@
 /**
  * Фильтра проверки на Boolen
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Bool extends FormManager_Filter_Boolen {
+class FormManager_Filter_Field_Bool extends FormManager_Filter_Boolen {
 
 }

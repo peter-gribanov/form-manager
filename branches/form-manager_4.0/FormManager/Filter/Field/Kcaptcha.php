@@ -12,11 +12,20 @@
  */
 
 /**
- * Фильтра проверки на Integer
+ * Фильтра проверки Kcaptcha
  * 
- * @package FormManager\Filter
+ * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Int extends FormManager_Filter_Integer {
+class FormManager_Filter_Field_Kcaptcha extends FormManager_Filter_Abstract {
+
+	/**
+	 * Проверяет поле
+	 */
+	public function check(){
+		if (empty($_SESSION['kcaptcha_keystring']) || $_SESSION['kcaptcha_keystring'] != $this->field->getValue()) {
+			$this->trigger('kcaptcha');
+		}
+	}
 
 }
