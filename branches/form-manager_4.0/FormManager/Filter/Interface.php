@@ -25,7 +25,7 @@ interface FormManager_Filter_Interface {
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface $field, array $options = array());
+	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array());
 
 	/**
 	 * Возвращает список ошибок
