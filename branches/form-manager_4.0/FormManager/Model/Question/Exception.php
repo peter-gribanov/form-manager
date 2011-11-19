@@ -17,7 +17,7 @@
  * @package FormManager\Model\Question
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Question_Exception extends FormManager_Exception {
+class FormManager_Model_Question_Exception extends FormManager_Model_Exception {
 
 	/**
 	 * Создает исключение

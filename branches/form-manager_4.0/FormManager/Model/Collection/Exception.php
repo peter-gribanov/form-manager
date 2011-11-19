@@ -17,7 +17,7 @@
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Collection_Exception extends FormManager_Exception {
+class FormManager_Model_Collection_Exception extends FormManager_Model_Exception {
 
 	/**
 	 * Создает исключение
