@@ -17,6 +17,6 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Default extends FormManager_Model_Field {
+class FormManager_Model_Field_Default extends FormManager_Model_Field_Abstract {
 
 }
