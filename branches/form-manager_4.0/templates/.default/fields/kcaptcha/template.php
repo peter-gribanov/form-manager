@@ -2,7 +2,8 @@
 /**
  * FormManager package
  * 
- * @todo      Исправить линк на корректную картинку
+ * @todo Исправить линк на корректную картинку
+ * 
  * @package   FormManager
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @version   4.0 SVN: $Revision$
