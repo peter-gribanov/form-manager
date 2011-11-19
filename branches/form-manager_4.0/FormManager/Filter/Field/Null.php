@@ -23,8 +23,7 @@ class FormManager_Filter_Field_Null extends FormManager_Filter_Field_Abstract {
 	 * Проверяет поле
 	 */
 	public function check(){
-		// FIXME поле options отсюда недоступно  
-		if (!is_bool($this->field->options['default']) && $this->field->getSentValue() === null ) {
+		if (!is_bool($this->field->getDefaultValue()) && $this->field->getSentValue() === null ) {
 			$this->trigger('null);
 		}
 	}
