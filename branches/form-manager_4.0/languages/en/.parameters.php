@@ -31,6 +31,7 @@ return array(
 	'filter-date'            => 'The specified date in your field %s does not fit DD.MM.YYYY.',
 	'field-yesno-yes'        => 'Yes',
 	'field-yesno-no'         => 'No',
+// TODO нехватает кодов исключений
 	'exception-000'          => 'Unknown error',
 	'exception-200'          => 'Error in the model form',
 	'exception-300'          => 'Error in the model collections',
