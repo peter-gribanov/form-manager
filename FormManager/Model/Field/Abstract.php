@@ -26,8 +26,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 */
 	protected $options = array(
 		'name'		=> '',		// Имя поля
-//		'title'		=> '',		// Заголовок для поля
-//		'comment'	=> '',		// Комментарий к полю
 		'default'	=> '',		// Значение по умолчанию
 		'view'		=> array('text', array()),	// Вид поля
 		'filters'	=> array(),	// Фильтры проверки поля
@@ -65,62 +63,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	public function getName(){
 		return $this->options['name'];
 	}
-
-	/**
-	 * Устанавливает заголовок для поля
-	 * 
-	 * TODO перенести в Question
-	 * 
-	 * @param string $title
-	 * @throws InvalidArgumentException
-	 * @return FormManagerElement
-	 *//*
-	public function setTitle($title){
-		if (!is_string($title) || !trim($title))
-			throw new InvalidArgumentException('Element title must be not empty string');
-
-		$this->options['title'] = $title;
-		return $this;
-	}*/
-
-	/**
-	 * Возвращает заголовок для поля
-	 * 
-	 * TODO перенести в Question
-	 * 
-	 * @return string
-	 *//*
-	public function getTitle(){
-		return $this->options['title'];
-	}*/
-
-	/**
-	 * Устанавливает комментарий для поля
-	 * 
-	 * TODO перенести в Question
-	 * 
-	 * @param string $comment
-	 * @throws InvalidArgumentException
-	 * @return FormManagerElement
-	 *//*
-	public function setComment($comment){
-		if (!is_string($comment) || !trim($comment))
-			throw new InvalidArgumentException('Element comment must be not empty string');
-
-		$this->options['comment'] = $comment;
-		return $this;
-	}*/
-
-	/**
-	 * Возвращает комментарий для поля
-	 * 
-	 * TODO перенести в Question
-	 * 
-	 * @return string
-	 *//*
-	public function getComment(){
-		return $this->options['comment'];
-	}*/
 
 	/**
 	 * Устанавливает значение поля
@@ -333,18 +275,28 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @return string
 	 */
 	public function serialize(){
-		return serialize($this->options);
+		return serialize($this->export());
 	}
 
 	/**
 	 * Метод для десериализации класса
 	 *
 	 * @param string $data
-	 * @return FormManagerElement
+	 * 
+	 * @return FormManager_Model_Collection_Abstract
 	 */
 	public function unserialize($data){
 		$this->options = unserialize($data);
 		return $this;
+	}
+
+	/**
+	 * Возвращает все данные
+	 * 
+	 * @return array
+	 */
+	public function export(){
+		return $this->options;
 	}
 
 	/**
