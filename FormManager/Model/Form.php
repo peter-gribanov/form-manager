@@ -71,7 +71,7 @@ class FormManager_Model_Form implements FormManager_Model_Interface {
 		$this->collection = new FormManager_Model_Collection_Primary();
 		$this->collection->setForm($this);
 //		$this->setMethod('POST');
-		$this->loadLangPosts();
+//		$this->loadLangPosts();
 	}
 
 	/**
