@@ -40,7 +40,8 @@ class FormManager_Factory {
 	 * @return FormManager_Model_Form
 	 */
 	public static function Form() {
-		return new FormManager_Model_Form();
+		$form = new FormManager_Model_Form();
+		return $form;
 	}
 
 	/**

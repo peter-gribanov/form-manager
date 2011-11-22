@@ -25,10 +25,10 @@ interface FormManager_Model_Collection_Item_Interface extends FormManager_Model_
 	 * Устанавливает объект формы к которой пренадлежыт коллекция
 	 * Метод предназначен для внутреннего использования
 	 * 
-	 * @param FormManager_Form $form Объект формы
+	 * @param FormManager_Model_Form $form Объект формы
 	 * 
 	 * @return FormManager_Model_Collection_Item_Interface Объект коллекции
 	 */
-	public function setForm(FormManager_Form $form);
+	public function setForm(FormManager_Model_Form $form);
 
 }
