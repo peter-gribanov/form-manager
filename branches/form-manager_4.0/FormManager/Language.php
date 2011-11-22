@@ -68,13 +68,31 @@ class FormManager_Language {
 	}
 
 	/**
+	 * Возвращает идентификатор языковой темы
+	 * 
+	 * @return string Id языковой темы
+	 */
+	public static function getId() {
+		return self::$id;
+	}
+
+	/**
+	 * Определяет является ли активная тема темой по умолчанию
+	 * 
+	 * @return boolen
+	 */
+	public static function isDefaultId() {
+		return (self::$id == self::DEFAULT_ID);
+	}
+
+	/**
 	 * Возвращает одно или все языковые сообщения
 	 * 
 	 * @param string $id Id сообщения
 	 * 
 	 * @return string|array Языковые сообщения
 	 */
-	public static function &getMessage($id = null) {
+	public static function getMessage($id = null) {
 		// загрузка списка сообщений если он еще не загружен
 		if (self::$mess === null) {
 			self::$mess = self::loadMessagesList(self::$id);
@@ -86,7 +104,13 @@ class FormManager_Language {
 				throw new FormManager_Language_Exception('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
 			}
 		}
-		return ($id !== null) ? self::$mess[$id] : self::$mess;
+		if ($id == null) {
+			return self::$mess;
+		} elseif (isset(self::$mess[$id])) {
+			return self::$mess[$id];
+		} else {
+			return null;
+		}
 	}
 
 	/**
