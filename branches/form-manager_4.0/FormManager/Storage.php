@@ -12,20 +12,27 @@
  */
 
 /**
- * Клас является адаптором для работы с базой данных
+ * Интерфейс рализующий получение данных из хранилища
  * 
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Db {
+class FormManager_Storage {
 
 	/**
-	 * Драйвера работы с БД
+	 * Драйвера работы с хранилищем
 	 * 
-	 * @var	FormManager_Db_Interface
+	 * @var	FormManager_Storage_Interface
 	 */
 	private static $driver;
 
+
+	/**
+	 * Драйвер по умолчанию
+	 * 
+	 * @var string
+	 */
+	const DEFAULT_DRIVER = 'file';
 
 	/**
 	 * Запрещена инициализация класса
@@ -36,22 +43,26 @@ class FormManager_Db {
 	/**
 	 * Устанавливает название драйвер для работы с БД и инициализирует его
 	 * 
-	 * @throws FormManager_Db_Exception
+	 * @throws FormManager_Storage_Exception
 	 * 
 	 * @param string $driver_name Имя драйвера
+	 * 
+	 * @return FormManager_Storage_Interface Драйвера работы с БД
 	 */
-	public static function set($driver_name) {
+	public static function get($driver_name = self::DEFAULT_DRIVER) {
 		if (!is_string($driver_name) || !trim($driver_name)) {
-			throw new FormManager_Db_Exception('', 701);
+			throw new FormManager_Storage_Exception('', 701);
 		}
 
-		$class_name = 'FormManager_Db_'.$driver_name;
+		$class_name = 'FormManager_Storage_'.$driver_name;
 
 		self::$driver = new $class_name;
 
-		if (!(self::$driver instanceof FormManager_Db_Interface)) {
-			throw new FormManager_Exception('', 702);
+		if (!(self::$driver instanceof FormManager_Storage_Interface)) {
+			throw new FormManager_Storage_Exception('', 702);
 		}
+
+		return self::$driver;
 	}
 
 	/**
@@ -60,9 +71,9 @@ class FormManager_Db {
 	 * @param string $statement SQL запрос
 	 * 
 	 * @return FormManager_Db_Interface Драйвера работы с БД
-	 */
+	 *//*
 	public static function prepare($statement) {
 		return self::$driver->prepare($statement);
-	}
+	}*/
 
 }
