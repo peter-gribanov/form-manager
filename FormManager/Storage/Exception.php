@@ -14,10 +14,10 @@
 /**
  * Класс исключений для фильтров
  * 
- * @package FormManager\Db
+ * @package FormManager\Storage
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Db_Exception extends FormManager_Exception {
+class FormManager_Storage_Exception extends FormManager_Exception {
 
 	/**
 	 * Создает исключение

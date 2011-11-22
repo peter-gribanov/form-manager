@@ -14,17 +14,17 @@
 /**
  * Интерфейс драйвера работы с БД
  * 
- * @package FormManager\Db
+ * @package FormManager\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Db_Interface {
+interface FormManager_Storage_Interface {
 
 	/**
 	 * Подготавливает запрос к исполненияю и выполняет его
 	 * 
 	 * @param string $statement SQL запрос
 	 * 
-	 * @return FormManager_Db_Interface Драйвера работы с БД
+	 * @return FormManager_Storage_Interface Драйвера работы с БД
 	 */
 	public function prepare($statement);
 

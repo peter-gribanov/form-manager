@@ -14,10 +14,10 @@
 /**
  * Драйвер PDO для работы менеджера форм с БД
  * 
- * @package FormManager\Db
+ * @package FormManager\Storage
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Db_PDO implements FormManager_Db_Interface {
+class FormManager_Storage_Pdo implements FormManager_Storage_Interface {
 
 	/**
 	 * Объект подключения
@@ -38,7 +38,7 @@ class FormManager_Db_PDO implements FormManager_Db_Interface {
 	 * 
 	 * @param string $statement SQL запрос
 	 * 
-	 * @return FormManager_Db_PDO Драйвера работы с БД
+	 * @return FormManager_Storage_Pdo Драйвера работы с БД
 	 */
 	public function prepare($statement) {
 		$this->stream = $this->pdo->prepare($statement);
@@ -49,7 +49,7 @@ class FormManager_Db_PDO implements FormManager_Db_Interface {
 	/**
 	 * Возвращает одну запись из результата запроса
 	 * 
-	 * @todo проверить возвращаемый тип
+	 * TODO проверить возвращаемый тип
 	 * 
 	 * @return array Запись из результата запроса
 	 */
