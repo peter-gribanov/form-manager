@@ -30,16 +30,16 @@ class FormManager_Exception extends Exception {
 	 * @param Exception $previous Предыдущее исключение
 	 */
 	public function __construct($message = '', $code = null, Exception $previous = null) {
-		// нет сообщения, но есть код
-		if (!$message && $code) {
-			$message =& FormManager_Language::getMessage('exception-'.$code);
-			// нет сообщения для кода
-			if (!$message) {
-				$message =& FormManager_Language::getMessage('exception-'.$code[0].'00');
-				// нет сообщения для группы кода
-				if (!$message && $code[0] != 0) {
-					$message =& FormManager_Language::getMessage('exception-000');
-				}
+		// если указан код сообщения и выбрана языковая тема не по молчанию
+		// пытаемся получить сообщение из языковой темы
+		if ($code && (!$message || !FormManager_Language::isDefaultId())){
+			// получение сообщения для кода
+			$lang_mess = FormManager_Language::getMessage('exception-'.$code);
+			if ($lang_mess) {
+				$message = $lang_mess;
+			} elseif(!$message) {
+				// получение сообщения для группы кода
+				$message = FormManager_Language::getMessage('exception-'.$code[0].'00');
 			}
 		}
 		parent::__construct($message, $code, $previous);
