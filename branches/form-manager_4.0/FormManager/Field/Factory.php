@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Factory {
+class FormManager_Field_Factory {
 
 	/**
 	 * Возвращает новый элимент формы

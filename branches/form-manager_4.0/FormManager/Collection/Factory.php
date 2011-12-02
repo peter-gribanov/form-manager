@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Collection_Factory {
+class FormManager_Collection_Factory {
 
 	/**
 	 * Возвращает новую коллекцию элиментов формы
