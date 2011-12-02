@@ -20,6 +20,14 @@
 class FormManager_Factory {
 
 	/**
+	 * TODO добавить описание
+	 * 
+	 * @var FormManager_Model_Field_Factory|null
+	 */
+	private static $field_factory = null;
+
+
+	/**
 	 * Запрещена инициализация класса
 	 */
 	private function __construct() {
@@ -66,20 +74,15 @@ class FormManager_Factory {
 	/**
 	 * Создает новый элимент формы
 	 * 
-	 * @throws FormManager_Exception
-	 * 
 	 * @param string $name Имя поля
-	 * @param string $type Тип поля
 	 * 
 	 * @return FormManager_Model_Field_Interface
 	 */
-	public static function getField($name, $type = 'default'){
-		$class_name = 'FormManager_Model_Field_'.ucfirst($type);
-		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Model_Field_Interface)) {
-			throw new FormManager_Exception('', 1002);
+	public static function getField($name = 'default'){
+		if (!self::$field_factory) {
+			self::$field_factory = new FormManager_Model_Field_Factory();
 		}
-		return $obj->setName($name);
+		return self::$field_factory->get($name);
 	}
 
 	/**
@@ -91,8 +94,8 @@ class FormManager_Factory {
 	 * 
 	 * @return FormManager_Model_Question_Interface
 	 */
-	public static function getQuestion($type = 'default'){
-		$class_name = 'FormManager_Model_Question_'.ucfirst($type);
+	public static function getQuestion($type = 'Base'){
+		$class_name = 'FormManager_Model_Question_'.$type;
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Model_Question_Interface)) {
 			throw new FormManager_Exception('', 1003);

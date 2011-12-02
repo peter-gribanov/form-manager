@@ -17,6 +17,6 @@
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Collection_Default extends FormManager_Model_Collection_Abstract {
+class FormManager_Model_Collection_Base extends FormManager_Model_Collection_Abstract {
 
 }
