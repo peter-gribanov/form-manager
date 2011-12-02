@@ -41,7 +41,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 * 
 	 * @param string $name Название коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Primary Объект коллекции
+	 * @return FormManager_Model_Collection_Abstract Объект коллекции
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name)) {
@@ -65,7 +65,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 * 
 	 * @param FormManager_Model_Collection_Item_Interface $item Объект элимента
 	 * 
-	 * @return FormManager_Model_Collection_Primary Объект коллекции
+	 * @return FormManager_Model_Collection_Abstract Объект коллекции
 	 */
 	public function add(FormManager_Model_Collection_Item_Interface $item){
 		$this->items[] = $item->setForm($this->form);

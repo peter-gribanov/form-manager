@@ -14,6 +14,8 @@
 /**
  * Вопрос по умолчанию
  * 
+ * TODO необходимо реализовать механизм работы с полем
+ * 
  * @package FormManager\Model\Question
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */

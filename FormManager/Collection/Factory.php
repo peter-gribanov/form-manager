@@ -17,17 +17,17 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Collection_Factory {
+final class FormManager_Collection_Factory {
 
 	/**
 	 * Возвращает новую коллекцию элиментов формы
 	 * 
-	 * @param string $name Имя коллекции
+	 * @param string $method Вызываемый метод
 	 * 
 	 * @return FormManager_Model_Collection_Interface
 	 */
-	public function __call($collection_name) {
-		$obj = $this->get($collection_name);
+	public function __call($method) {
+		$obj = $this->get($method);
 		// TODO реализовать добавление метода в класс
 		return $obj;
 	}
@@ -37,12 +37,12 @@ class FormManager_Collection_Factory {
 	 * 
 	 * @throws FormManager_Model_Collection_Exception
 	 * 
-	 * @param string $name Имя коллекции
+	 * @param string $type Тип коллекции
 	 * 
 	 * @return FormManager_Model_Collection_Interface
 	 */
-	public function get($collection_name = 'Base'){
-		$class_name = 'FormManager_Model_Collection_'.$collection_name;
+	public function get($type = 'Base'){
+		$class_name = 'FormManager_Model_Collection_'.$type;
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Model_Collection_Interface)) {
 			throw new FormManager_Model_Collection_Exception('', 1001);

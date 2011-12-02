@@ -17,6 +17,6 @@
  * @package FormManager\Model\Question
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Question_Default extends FormManager_Model_Question_Abstract {
+class FormManager_Model_Question_Base extends FormManager_Model_Question_Abstract {
 
 }

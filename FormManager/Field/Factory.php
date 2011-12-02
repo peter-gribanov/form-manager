@@ -17,17 +17,17 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Field_Factory {
+final class FormManager_Field_Factory {
 
 	/**
 	 * Возвращает новый элимент формы
 	 * 
-	 * @param string $name Имя поля
+	 * @param string $method Вызываемый метод
 	 * 
 	 * @return FormManager_Model_Field_Interface
 	 */
-	public function __call($field_name) {
-		$obj = $this->get($field_name);
+	public function __call($method) {
+		$obj = $this->get($method);
 		// TODO реализовать добавление метода в класс
 		return $obj;
 	}
@@ -37,12 +37,12 @@ class FormManager_Field_Factory {
 	 * 
 	 * @throws FormManager_Model_Field_Exception
 	 * 
-	 * @param string $name Имя поля
+	 * @param string $type Тип поля
 	 * 
 	 * @return FormManager_Model_Field_Interface
 	 */
-	public static function get($field_name = 'Base'){
-		$class_name = 'FormManager_Model_Field_'.$field_name;
+	public function get($type = 'Base'){
+		$class_name = 'FormManager_Model_Field_'.$type;
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Model_Field_Interface)) {
 			throw new FormManager_Model_Field_Exception('', 1002);
