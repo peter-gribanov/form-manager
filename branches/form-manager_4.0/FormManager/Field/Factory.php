@@ -14,7 +14,7 @@
 /**
  * Фабрика формы
  * 
- * @package FormManager
+ * @package FormManager\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 final class FormManager_Field_Factory {

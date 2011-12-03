@@ -14,7 +14,7 @@
 /**
  * Фабрика формы
  * 
- * @package FormManager
+ * @package FormManager\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 final class FormManager_Collection_Factory {
