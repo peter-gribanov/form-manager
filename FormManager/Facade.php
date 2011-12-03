@@ -59,6 +59,17 @@ final class FormManager_Facade {
 	}
 
 	/**
+	 * Устанавливает идентификатор языковой темы
+	 * 
+	 * @param  string $id Id языковой темы
+	 * 
+	 * @return boolen Результат установки темы
+	 */
+	public static function setLanguageId($id) {
+		return FormManager_Language::setId($id);
+	}
+
+	/**
 	 * Добавляет новое поле к вопросу
 	 * 
 	 * @param FormManager_Model_Question_Interface $question Родительский вопрос
