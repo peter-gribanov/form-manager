@@ -20,58 +20,14 @@
 class FormManager_Filter_Exception extends FormManager_Exception {
 
 	/**
-	 * Объект поля формы
+	 * Создает исключение
 	 * 
-	 * @var FormManager_Model_Field_Abstract
+	 * @param string    $message  Текст сообщения
+	 * @param integer   $code     Код исключения
+	 * @param Exception $previous Предыдущее исключение
 	 */
-	private $field;
-
-	/**
-	 * Параметры фильтра
-	 * 
-	 * @var array
-	 */
-	private $filter;
-
-
-	/**
-	 * Конструктор
-	 * 
-	 * @param string                           $message Сообщение
-	 * @param FormManager_Model_Field_Abstract $field   Объект элемента
-	 * @param array                            $filter  Параметры фильтра
-	 */
-	public function __construct($message, FormManager_Model_Field_Abstract &$field, &$filter){
-		parent::__construct($message, 300);
-		$this->field = & $field;
-		$this->filter = & $filter;
-	}
-
-	/**
-	 * Возвращает объект поля формы
-	 * 
-	 * @return FormManager_Filter_Abstract Объект элемента
-	 */
-	public function getField(){
-		return $this->field;
-	}
-
-	/**
-	 * Возвращает имя фильтра
-	 * 
-	 * @return string Имя фильтра
-	 */
-	public function getFilterName(){
-		return $this->filter[0];
-	}
-
-	/**
-	 * Возвращает параметры фильтра
-	 * 
-	 * @return array Параметры фильтра
-	 */
-	public function getFilterParams(){
-		return $this->filter[1];
+	public function __construct($message = '', $code = 300, Exception $previous = null) {
+		parent::__construct($message, $code, $previous);
 	}
 
 }

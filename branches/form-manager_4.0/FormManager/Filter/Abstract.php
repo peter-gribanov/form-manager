@@ -80,17 +80,10 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * 
 	 * @return void
 	 */
-	final protected function trigger($key, array $params = array()){
-		// добавление сообщения из языковой темы и название поля
-		array_unshift($params, FormManager_Language::getMessage('filter-'.$key), $this->field->getTitle());
+	protected function trigger($key, array $params = array()){
+		// добавление сообщения из языковой темы
+		array_unshift($params, FormManager_Language::getMessage('filter-'.$key));
 		$this->errors[] = call_user_func_array('sprintf', $params);
-		/*
-		// создание исключения
-		throw new FormManager_Filter_Exception(
-			call_user_func_array('sprintf', $params),
-			$this,
-			$this->options
-		);*/
 	}
 
 	/**

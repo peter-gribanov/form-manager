@@ -25,12 +25,12 @@ class FormManager_Filter_Field_Boolen extends FormManager_Filter_Field_Abstract 
 	public function check(){
 		if (!is_bool($this->field->getValue())
 			&& (!is_numeric($this->field->getValue())
-				|| ($field->getValue() != 0 && $this->getValue() != 1))) {
+				|| ($this->field->getValue() != 0 && $this->field->getValue() != 1))) {
 
 			$param = $this->field->getViewParams();
 
-			if ( !empty($param['value_no']) && !empty($param['value_yes']) ) {
-				$this->trigger('boolen', array('('.$param['value_no'].', '.$param['value_yes'].')'));
+			if (!empty($this->options['value_no']) && !empty($this->options['value_yes'])) {
+				$this->trigger('boolen', array('('.$this->options['value_no'].', '.$this->options['value_yes'].')'));
 			} else {
 				$this->trigger('boolen', array(''));
 			}

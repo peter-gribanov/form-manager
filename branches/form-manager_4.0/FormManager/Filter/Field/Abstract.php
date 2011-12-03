@@ -49,4 +49,19 @@ abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abst
 		$this->options = $options;
 	}
 
+	/**
+	 * Генерирует исключение при проверки поля фильтром
+	 * 
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
+	 * 
+	 * @return void
+	 */
+	protected function trigger($key, array $params = array()){
+		// добавление текста вопроса
+		// TODO в options['question'] надо добавить текст вопроса
+		array_unshift($params, $this->options['question']);
+		parent::trigger($key, $params);
+	}
+
 }
