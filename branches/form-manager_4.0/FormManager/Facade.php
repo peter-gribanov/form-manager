@@ -162,6 +162,17 @@ final class FormManager_Facade {
 	}
 
 	/**
+	 * Ищет поле с указанным названием
+	 * 
+	 * @param string $name Имя поля
+	 * 
+	 * @return FormManager_Model_Field_Interface
+	 */
+	public function search($name) {
+		// TODO требуется реализация
+	}
+
+	/**
 	 * Выполняет проверку формы
 	 * 
 	 * @return boolen
