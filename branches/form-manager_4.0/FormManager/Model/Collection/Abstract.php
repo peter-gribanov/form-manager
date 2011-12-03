@@ -54,7 +54,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Возвращает название коллекции
 	 * 
-	 * @return	string
+	 * @return string
 	 */
 	public function getName(){
 		return $this->name;
@@ -75,7 +75,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Очищает список элементов
 	 * 
-	 * @return	FormManagerCollection	Объект коллекции
+	 * @return FormManagerCollection Объект коллекции
 	 */
 	public function clear(){
 		unset($this->items);
@@ -86,7 +86,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Проверяет пуста ли коллекция
 	 * 
-	 * @return	boolean	Результат проверки
+	 * @return boolean Результат проверки
 	 */
 	public function isEmpty(){
 		return !$this->items;
@@ -95,7 +95,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Метод для сериализации класса
 	 * 
-	 * @return	string	Сериализованная коллекция
+	 * @return string Сериализованная коллекция
 	 */
 	public function serialize(){
 		return serialize($this->export());
@@ -104,8 +104,9 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Метод для десериализации класса
 	 * 
-	 * @param	string	$data	Сериализованная коллекция
-	 * @return	void
+	 * @param string $data Сериализованная коллекция
+	 * 
+	 * @return void
 	 */
 	public function unserialize($data){
 		list(

@@ -28,18 +28,20 @@ class FormManager_AutoLoad_Exception extends Exception {
  * Pегистрируем ее через SPL, чтобы избежать конфликта с другими
  * функциями автозагрузки. Что, является хорошим тоном.
  * 
- * Второй параметр указывает что необходимо генерить исключени в случаи неуспеха
- * Третий что нашу функцию необходимо домавить в начала всех функций автозагрузок
+ * Второй параметр указывает что необходимо генерить исключени в случаи неуспеха.
+ * Третий что нашу функцию необходимо добавить в начала всех функций автозагрузок.
  * 
- * Внимание вызов у несуществующего класса константы, например Cms_Undefined::UNDEFINED
- * Вызовет PHP Fatal error:  Undefined class constant и невозможно будет перехватить
- * исключение
- * В тоже время Cms_Undefined::undefined() и Cms_Undefined::$undefined работать будут ожидаемо
+ * Внимание вызов у несуществующего класса константы, например FormManager_Undefined::UNDEFINED.
+ * Вызовет PHP Fatal error:  Undefined class constant и невозможно будет перехватить исключение.
+ * В тоже время FormManager_Undefined::undefined() и FormManager_Undefined::$undefined работать будут ожидаемо
  * 
  * @package AutoLoad
  * @author  Peter Gribanov <info@peter-gribanov.ru>
- * @throws  Cms_AutoLoad_Exception
- * @param   string $name
+ * 
+ * @throws  FormManager_AutoLoad_Exception
+ * 
+ * @param   string $name Имя класса/интерфейса
+ * 
  * @return  boolen
  */
 spl_autoload_register(function ($name) {
@@ -56,7 +58,7 @@ spl_autoload_register(function ($name) {
 
 	// проверка файла
 	if (!file_exists($file) || !is_readable($file)) {
-		throw new Cms_AutoLoad_Exception('File "'.$file.'" for '.$type.' "'.$name.'" not found', 101);
+		throw new FormManager_AutoLoad_Exception('File "'.$file.'" for '.$type.' "'.$name.'" not found', 101);
 	}
 
 	try {
@@ -64,13 +66,13 @@ spl_autoload_register(function ($name) {
 	} catch (Exception $exeption) {
 		// Костыль для php. При работе со статическими метада класса, без костыля
 		// будет фатальная ошибка и исключение не сгенерируется
-		throw new Cms_AutoLoad_Exception('The file "'.$file.'" error, '.$type.' "'.$name.'" impossible to determine: "'.$exeption->getMessage().'"'. 102);
+		throw new FormManager_AutoLoad_Exception('The file "'.$file.'" error, '.$type.' "'.$name.'" impossible to determine: "'.$exeption->getMessage().'"'. 102);
 	}
 
 	// проверка успошности загрузки
 	$is = $type.'_exists';
 	if (!$is($name, false)) {
-		throw new Cms_AutoLoad_Exception('The file "'.$file.'" '.$type.' "'.$name.'" not found', 103);
+		throw new FormManager_AutoLoad_Exception('The file "'.$file.'" '.$type.' "'.$name.'" not found', 103);
 	}
 	return true;
 }, true, true);
