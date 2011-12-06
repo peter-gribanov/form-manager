@@ -14,6 +14,8 @@
 /**
  * Класс описывает форму и позволяет ее динамически составлять
  * 
+ * TODO форма это частный случай коллекции
+ * 
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
@@ -104,8 +106,7 @@ class FormManager_Model_Form implements FormManager_Model_Interface {
 		$query = explode('&', $query);
 		foreach ($query as $var) {
 			if ( substr_count($var, '=') != 1 ) {
-				throw new FormManager_Exception_InvalidArgument(
-					'Cant add element because of improper URL query');
+				throw new FormManager_Model_Form_Exception('Cant add element because of improper URL query');
 			}
 
 			$var = explode('=', $var);
