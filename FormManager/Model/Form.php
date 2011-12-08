@@ -186,7 +186,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	/**
 	 * Проверяет есть ли поля обязательные для заполнения
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 *//*
 	public function isRequired() {
 		return $this->options['required'];
@@ -221,7 +221,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	/**
 	 * Форма уже отправлена
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 */
 	public function isAlreadySent() {
 		if ( !isset($_SERVER['HTTP_REFERER'])

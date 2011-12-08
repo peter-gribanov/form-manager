@@ -12,7 +12,7 @@
  */
 
 /**
- * Фильтра проверки на Boolen
+ * Фильтра проверки на Boolean
  * 
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>

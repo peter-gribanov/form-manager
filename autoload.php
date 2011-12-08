@@ -42,7 +42,7 @@ class FormManager_AutoLoad_Exception extends Exception {
  * 
  * @param   string $name Имя класса/интерфейса
  * 
- * @return  boolen
+ * @return  boolean
  */
 spl_autoload_register(function ($name) {
 	// аутолоадер используем только для FormManager_

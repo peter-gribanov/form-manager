@@ -38,7 +38,7 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param string|integer|boolen $value
+	 * @param string|integer|boolean $value
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
@@ -104,7 +104,7 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	/**
 	 * Проверяет является ли поле обязательным для заполнения
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 */
 	public function isRequired();
 

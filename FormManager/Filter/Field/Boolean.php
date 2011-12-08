@@ -12,12 +12,12 @@
  */
 
 /**
- * Фильтра проверки на Boolen
+ * Фильтра проверки на Boolean
  * 
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Field_Boolen extends FormManager_Filter_Field_Abstract {
+class FormManager_Filter_Field_Boolean extends FormManager_Filter_Field_Abstract {
 
 	/**
 	 * Проверяет поле
@@ -30,9 +30,9 @@ class FormManager_Filter_Field_Boolen extends FormManager_Filter_Field_Abstract 
 			$param = $this->field->getViewParams();
 
 			if (!empty($this->options['value_no']) && !empty($this->options['value_yes'])) {
-				$this->trigger('boolen', array('('.$this->options['value_no'].', '.$this->options['value_yes'].')'));
+				$this->trigger('boolean', array('('.$this->options['value_no'].', '.$this->options['value_yes'].')'));
 			} else {
-				$this->trigger('boolen', array(''));
+				$this->trigger('boolean', array(''));
 			}
 		}
 	}
