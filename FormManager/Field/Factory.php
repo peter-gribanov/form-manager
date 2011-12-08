@@ -24,7 +24,7 @@ final class FormManager_Field_Factory {
 	 * 
 	 * @param string $method Вызываемый метод
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function __call($method) {
 		$obj = $this->get($method);
@@ -35,17 +35,17 @@ final class FormManager_Field_Factory {
 	/**
 	 * Возвращает новый элимент формы
 	 * 
-	 * @throws FormManager_Model_Field_Exception
+	 * @throws FormManager_Exceptions_Model_Field
 	 * 
 	 * @param string $type Тип поля
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Field_'.$type;
 		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Model_Field_Interface)) {
-			throw new FormManager_Model_Field_Exception('', 1002);
+		if (!($obj instanceof FormManager_Interfaces_Model_Field)) {
+			throw new FormManager_Exceptions_Model_Field('', 1002);
 		}
 		return $obj;
 	}
