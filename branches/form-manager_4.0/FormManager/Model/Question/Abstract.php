@@ -19,7 +19,7 @@
  * @package FormManager\Model\Question
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Question_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Model_Question_Interface {
+abstract class FormManager_Model_Question_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Question {
 
 	/**
 	 * Заголовок для поля
@@ -39,15 +39,15 @@ abstract class FormManager_Model_Question_Abstract extends FormManager_Model_Col
 	/**
 	 * Устанавливает заголовок для поля
 	 * 
-	 * @throws FormManager_Model_Question_Exception
+	 * @throws FormManager_Exceptions_Model_Question
 	 * 
 	 * @param string $title Текст вопроса
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public function setTitle($title){
 		if (!is_string($title) || !trim($title)) {
-			throw new FormManager_Model_Question_Exception('Element title must be not empty string', 901);
+			throw new FormManager_Exceptions_Model_Question('Element title must be not empty string', 901);
 		}
 		$this->title = $title;
 		return $this;
@@ -65,15 +65,15 @@ abstract class FormManager_Model_Question_Abstract extends FormManager_Model_Col
 	/**
 	 * Устанавливает комментарий для поля
 	 * 
-	 * @throws FormManager_Model_Question_Exception
+	 * @throws FormManager_Exceptions_Model_Question
 	 * 
 	 * @param string $comment Текст комментария
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public function setComment($comment){
 		if (!is_string($comment) || !trim($comment)) {
-			throw new FormManager_Model_Question_Exception('Element comment must be not empty string', 902);
+			throw new FormManager_Exceptions_Model_Question('Element comment must be not empty string', 902);
 		}
 		$this->comment = $comment;
 		return $this;

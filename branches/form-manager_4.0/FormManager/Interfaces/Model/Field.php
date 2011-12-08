@@ -14,17 +14,17 @@
 /**
  * Интерфейс модели поля
  * 
- * @package FormManager\Model\Field
+ * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Field_Interface extends FormManager_Model_Collection_Item_Interface {
+interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model_Collection_Item {
 
 	/**
 	 * Устанавливает имя поля
 	 * 
 	 * @param string $name Имя
 	 * 
-	 * @return FormManager_Model_Field_Abstract Объект элемента
+	 * @return FormManager_Interfaces_Model_Field Объект элемента
 	 */
 	public function setName($name);
 
@@ -40,7 +40,7 @@ interface FormManager_Model_Field_Interface extends FormManager_Model_Collection
 	 * 
 	 * @param string|integer|boolen $value
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function setDefaultValue($value);
 
@@ -71,7 +71,7 @@ interface FormManager_Model_Field_Interface extends FormManager_Model_Collection
 	 * @param string $name
 	 * @param array  $params
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function setView($name, $params = null);
 
@@ -80,7 +80,7 @@ interface FormManager_Model_Field_Interface extends FormManager_Model_Collection
 	 * 
 	 * @param array $params
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function setViewParams($params = array());
 
@@ -90,14 +90,14 @@ interface FormManager_Model_Field_Interface extends FormManager_Model_Collection
 	 * @param string $name
 	 * @param array  $params
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function setFilter($name, $params = null);
 
 	/**
 	 * Устанавливает что поле является обязательным для заполнения
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function required();
 

@@ -17,7 +17,7 @@
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Model_Collection_Interface {
+abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Collection {
 
 	/**
 	 * Название коллекции
@@ -37,7 +37,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Устанавливает название коллекции
 	 * 
-	 * @throws FormManager_Model_Collection_Exception
+	 * @throws FormManager_Exceptions_Model_Collection
 	 * 
 	 * @param string $name Название коллекции
 	 * 
@@ -45,7 +45,7 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 */
 	public function setName($name){
 		if (!is_string($name) || !trim($name)) {
-			throw new FormManager_Model_Collection_Exception('Collection name must be not empty string', 601);
+			throw new FormManager_Exceptions_Model_Collection('Collection name must be not empty string', 601);
 		}
 		$this->name = $name;
 		return $this;
@@ -63,11 +63,11 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	/**
 	 * Добавляет элемент
 	 * 
-	 * @param FormManager_Model_Collection_Item_Interface $item Объект элимента
+	 * @param FormManager_Interfaces_Model_Collection_Item $item Объект элимента
 	 * 
 	 * @return FormManager_Model_Collection_Abstract Объект коллекции
 	 */
-	public function add(FormManager_Model_Collection_Item_Interface $item){
+	public function add(FormManager_Interfaces_Model_Collection_Item $item){
 		$this->items[] = $item->setForm($this->form);
 		return $this;
 	}

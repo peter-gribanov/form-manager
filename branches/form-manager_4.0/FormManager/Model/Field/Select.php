@@ -22,7 +22,7 @@ class FormManager_Model_Field_Select extends FormManager_Model_Field_Abstract {
 	/**
 	 * Устанавливает параметры вывода
 	 * 
-	 * @throws FormManager_Model_Field_Exception
+	 * @throws FormManager_Exceptions_Model_Field
 	 * 
 	 * @param array $params
 	 * 
@@ -37,10 +37,10 @@ class FormManager_Model_Field_Select extends FormManager_Model_Field_Abstract {
 		// заполнить опции интервалом чисел
 		if (isset($params['optionsByRange'])) {
 			if (!is_array($params['optionsByRange'])) {
-				throw new FormManager_Model_Field_Exception('Range is not an array');
+				throw new FormManager_Exceptions_Model_Field('Range is not an array');
 			}
 			if (count($params['optionsByRange']) < 2) {
-				throw new FormManager_Model_Field_Exception('Range shall consist of a start and end values');
+				throw new FormManager_Exceptions_Model_Field('Range shall consist of a start and end values');
 			}
 
 			$params['options'] = range($params['optionsByRange'][0], $params['optionsByRange'][1]);

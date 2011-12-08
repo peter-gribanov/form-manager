@@ -14,10 +14,10 @@
 /**
  * Интерфейс элемента коллекции
  * 
- * @package FormManager\Model\Collection\Item
+ * @package FormManager\Interfaces\Model\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Collection_Item_Interface extends FormManager_Model_Interface {
+interface FormManager_Interfaces_Model_Collection_Item extends FormManager_Interfaces_Model {
 
 	/**
 	 * Устанавливает форму
@@ -27,7 +27,7 @@ interface FormManager_Model_Collection_Item_Interface extends FormManager_Model_
 	 * 
 	 * @param FormManager_Model_Form $form Объект формы
 	 * 
-	 * @return FormManager_Model_Collection_Item_Interface Объект коллекции
+	 * @return FormManager_Interfaces_Model_Collection_Item Объект коллекции
 	 */
 	public function setForm(FormManager_Model_Form $form);
 

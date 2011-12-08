@@ -17,7 +17,7 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Model_Field_Interface {
+abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Field {
 
 	/**
 	 * Опции поля
@@ -43,14 +43,16 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает имя поля
 	 * 
-	 * @param	string	$name				Имя
-	 * @throws	InvalidArgumentException	Недопустимое имя
-	 * @return	FormManagerElement			Объект элемента
+	 * @throws	FormManager_Exceptions_Model_Field
+	 * 
+	 * @param string $name Имя
+	 * 
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setName($name){
-		if (!is_string($name) || !trim($name))
-			throw new InvalidArgumentException('Element name must be not empty string');
-
+		if (!is_string($name) || !trim($name)) {
+			throw new FormManager_Exceptions_Model_Field('Element name must be not empty string');
+		}
 		$this->options['name'] = $name;
 		return $this;
 	}
@@ -58,7 +60,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Возвращает имя поля
 	 * 
-	 * @return	string
+	 * @return string
 	 */
 	public function getName(){
 		return $this->options['name'];
@@ -67,8 +69,9 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param mixed $val
-	 * @return FormManagerElement
+	 * @param string|integer|float|boolean|array $val
+	 * 
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setDefaultValue($val){
 		$this->options['default'] = $val;
@@ -117,15 +120,17 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает вид для поля
 	 * 
-	 * @param  string                   $name
-	 * @param  array                    $params
-	 * @throws InvalidArgumentException
-	 * @return FormManagerElement
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
+	 * @param string $name
+	 * @param array  $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setView($name, $params=null){
-		if (!is_string($name) || !trim($name))
-			throw new InvalidArgumentException('Element view name must be not empty string');
-
+		if (!is_string($name) || !trim($name)) {
+			throw new FormManager_Exceptions_Model_Field('Element view name must be not empty string');
+		}
 		$params = $params ? $params : array();
 		$this->setViewParams($params);
 
@@ -136,13 +141,16 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает параметры вывода
 	 * 
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
 	 * @param  array              $params
-	 * @return FormManagerElement
+	 * 
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setViewParams($params=array()){
-		if (!is_array($params))
-			throw new InvalidArgumentException('Element view parametrs should be an array');
-
+		if (!is_array($params)) {
+			throw new FormManager_Exceptions_Model_Field('Element view parametrs should be an array');
+		}
 		$this->options['view'][1] = array_merge($this->options['view'][1], $params);
 
 		return $this;
@@ -161,7 +169,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Выводит поле
 	 * 
-	 * @return	void
+	 * @return void
 	 *//*
 	public function drawField(){
 		// загружаем параметру вывода по умолчанию
@@ -174,22 +182,24 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает фильтр для поля
 	 * 
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
 	 * @param string $name
-	 * @param array $params
-	 * @throws InvalidArgumentException
-	 * @return FormManagerElement
+	 * @param array  $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setFilter($name, $params=null){
-		if (!is_string($name) || !trim($name))
-			throw new InvalidArgumentException('Element filter name must be not empty string');
-
+		if (!is_string($name) || !trim($name)) {
+			throw new FormManager_Exceptions_Model_Field('Element filter name must be not empty string');
+		}
 		$params = $params ? $params : array();
-		if (!is_array($params))
-			throw new InvalidArgumentException('Element filter parametrs should be an array');
-
-		if (!file_exists(FORM_PATH.'/filters/'.$name.'.php'))
-			throw new InvalidArgumentException('File of element filter ('.$name.') do not exists');
-
+		if (!is_array($params)) {
+			throw new FormManager_Exceptions_Model_Field('Element filter parametrs should be an array');
+		}
+		if (!file_exists(FORM_PATH.'/filters/'.$name.'.php')) {
+			throw new FormManager_Exceptions_Model_Field('File of element filter ('.$name.') do not exists');
+		}
 		$this->options['filters'][] = array($name, $params);
 		// Обязательное для заполнения
 		if ($name=='empty'){
@@ -201,7 +211,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Производит проверку переданных данных по полю 
 	 * 
-	 * @return	void
+	 * @return void
 	 *//*
 	public function valid(){
 		// не проверять отключенные поля 
@@ -220,11 +230,10 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Генерирует исключение при проверки поля фильтром
 	 * 
-	 * @param string $post
-	 * @param array $params
-	 * @throws LogicException
 	 * @throws FormManagerFilterException
-	 * @return void
+	 * 
+	 * @param string $post
+	 * @param array  $params
 	 *//*
 	public function error($post, $params=array()){
 		if (!is_integer($this->filter_iterator)){
@@ -240,7 +249,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Устанавливает что поле является обязательным для заполнения
 	 * 
-	 * @return FormManagerElement
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function required(){
 		$this->options['required'] = true;
@@ -292,8 +301,9 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Возвращает реальный путь к шаблону элемента
 	 * 
-	 * @param	string	$view	Вид элемента
-	 * @return	string	Путь к шаблону элемента
+	 * @param string $view Вид элемента
+	 * 
+	 * @return string Путь к шаблону элемента
 	 *//*
 	public static function getTemplatePath($view){
 		return FormManagerForm::getTemplatePath('fields/'.$view.'/template.php');

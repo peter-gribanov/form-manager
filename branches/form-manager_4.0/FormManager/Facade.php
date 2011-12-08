@@ -72,13 +72,13 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новое поле к вопросу
 	 * 
-	 * @param FormManager_Model_Question_Interface $question Родительский вопрос
-	 * @param string                               $name     Название поля
-	 * @param string                               $type     Тип поля
+	 * @param FormManager_Interfaces_Model_Question $question Родительский вопрос
+	 * @param string                                $name     Название поля
+	 * @param string                                $type     Тип поля
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Interfaces_Model_Field
 	 */
-	public function addFieldTo(FormManager_Model_Question_Interface $question, $name, $type = 'Base') {
+	public function addFieldTo(FormManager_Interfaces_Model_Question $question, $name, $type = 'Base') {
 		$field = $this->getField($type);
 		$field->setName($name);
 		$question->add($field);
@@ -91,7 +91,7 @@ final class FormManager_Facade {
 	 * @param string $title   Заголовок вопроса
 	 * @param string $comment Коментарий к полю
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public function addQuestion($title, $comment = '') {
 		return $this->addQuestionTo($this->form, $title, $comment);
@@ -100,13 +100,13 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новый вопрос к коллекции
 	 * 
-	 * @param FormManager_Model_Collection_Interface $collection Родительская коллекция
-	 * @param string                                 $title      Заголовок вопроса
-	 * @param string                                 $comment    Коментарий к полю
+	 * @param FormManager_Interfaces_Model_Collection $collection Родительская коллекция
+	 * @param string                                  $title      Заголовок вопроса
+	 * @param string                                  $comment    Коментарий к полю
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
-	public function addQuestionTo(FormManager_Model_Collection_Interface $collection, $title, $comment = '') {
+	public function addQuestionTo(FormManager_Interfaces_Model_Question $collection, $title, $comment = '') {
 		$question = new FormManager_Model_Question_Base();
 		$question->setTitle($title);
 		$question->setComment($comment);
@@ -119,7 +119,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
 	public function addCollection($type = 'Base') {
 		return $this->addCollectionTo($this->form, $type);
@@ -128,12 +128,12 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новую коллекцию к другой коллекции
 	 * 
-	 * @param FormManager_Model_Collection_Interface $collection Родительская коллекция
-	 * @param string                                 $type       Тип коллекции
+	 * @param FormManager_Interfaces_Model_Collection $collection Родительская коллекция
+	 * @param string                                  $type       Тип коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
-	public function addCollectionTo(FormManager_Model_Collection_Interface $collection, $type = 'Base') {
+	public function addCollectionTo(FormManager_Interfaces_Model_Collection $collection, $type = 'Base') {
 		$coll = $this->getCollection($type);
 		$collection->add($coll);
 		return $coll;
@@ -144,7 +144,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Field_Factory|FormManager_Model_Field_Interface
+	 * @return FormManager_Field_Factory|FormManager_Interfaces_Model_Field
 	 */
 	public function getField($name = null){
 		return $name ? $this->field->get($name) : $this->field;
@@ -155,7 +155,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя коллекции
 	 * 
-	 * @return FormManager_Collection_Factory|FormManager_Model_Collection_Interface
+	 * @return FormManager_Collection_Factory|FormManager_Interfaces_Model_Collection
 	 */
 	public function getCollection($name = null){
 		return $name ? $this->collection->get($name) : $this->collection;
@@ -166,7 +166,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function search($name) {
 		// TODO требуется реализация

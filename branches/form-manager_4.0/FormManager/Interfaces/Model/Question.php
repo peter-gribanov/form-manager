@@ -14,17 +14,17 @@
 /**
  * Интерфейс модели вопроса
  * 
- * @package FormManager\Model\Question
+ * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Question_Interface extends FormManager_Model_Collection_Item_Interface {
+interface FormManager_Interfaces_Model_Question extends FormManager_Interfaces_Model_Collection_Item {
 
 	/**
 	 * Устанавливает заголовок для поля
 	 * 
 	 * @param string $title Текст вопроса
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public function setTitle($title);
 
@@ -40,7 +40,7 @@ interface FormManager_Model_Question_Interface extends FormManager_Model_Collect
 	 * 
 	 * @param string $comment Текст комментария
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public function setComment($comment);
 

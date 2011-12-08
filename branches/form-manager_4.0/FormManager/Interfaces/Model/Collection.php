@@ -14,19 +14,17 @@
 /**
  * Интерфейс коллекции полей
  * 
- * @package FormManager\Model\Collection
+ * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Model_Collection_Interface extends FormManager_Model_Collection_Item_Interface {
+interface FormManager_Interfaces_Model_Collection extends FormManager_Interfaces_Model_Collection_Item {
 
 	/**
 	 * Устанавливает название коллекции
 	 * 
-	 * @throws FormManager_Model_Collection_Exception
-	 * 
 	 * @param string $name Название коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface Объект коллекции
+	 * @return FormManager_Interfaces_Model_Collection Объект коллекции
 	 */
 	public function setName($name);
 
@@ -40,16 +38,16 @@ interface FormManager_Model_Collection_Interface extends FormManager_Model_Colle
 	/**
 	 * Добавляет элемент
 	 * 
-	 * @param FormManager_Model_Collection_Item_Interface $item Объект элимента
+	 * @param FormManager_Interfaces_Model_Collection_Item $item Объект элимента
 	 * 
-	 * @return FormManager_Model_Collection_Interface Объект коллекции
+	 * @return FormManager_Interfaces_Model_Collection Объект коллекции
 	 */
-	public function add(FormManager_Model_Collection_Item_Interface $item);
+	public function add(FormManager_Interfaces_Model_Collection_Item $item);
 
 	/**
 	 * Очищает список элементов
 	 * 
-	 * @return	FormManager_Model_Collection_Interface	Объект коллекции
+	 * @return	FormManager_Interfaces_Model_Collection	Объект коллекции
 	 */
 	public function clear();
 
