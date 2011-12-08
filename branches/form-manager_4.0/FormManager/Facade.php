@@ -63,7 +63,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param  string $id Id языковой темы
 	 * 
-	 * @return boolen Результат установки темы
+	 * @return boolean Результат установки темы
 	 */
 	public static function setLanguageId($id) {
 		return FormManager_Language::setId($id);
@@ -175,7 +175,7 @@ final class FormManager_Facade {
 	/**
 	 * Выполняет проверку формы
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 */
 	public function validate() {
 		// TODO требуется реализация

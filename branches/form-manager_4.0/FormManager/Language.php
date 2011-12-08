@@ -53,7 +53,7 @@ class FormManager_Language {
 	 * 
 	 * @param  string $id Id языковой темы
 	 * 
-	 * @return boolen Результат установки темы
+	 * @return boolean Результат установки темы
 	 */
 	public static function setId($id) {
 		// проверка списка
@@ -79,7 +79,7 @@ class FormManager_Language {
 	/**
 	 * Определяет является ли активная тема темой по умолчанию
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 */
 	public static function isDefaultId() {
 		return (self::$id == self::DEFAULT_ID);
@@ -120,7 +120,7 @@ class FormManager_Language {
 	 * 
 	 * @param string $id Id языковой темы
 	 * 
-	 * @return array|boolen Результат загрузки списка
+	 * @return array|boolean Результат загрузки списка
 	 */
 	private static function getMessagesList($id){
 		$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';

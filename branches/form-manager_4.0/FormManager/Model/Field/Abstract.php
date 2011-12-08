@@ -262,7 +262,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	/**
 	 * Проверяет является ли поле обязательным для заполнения
 	 * 
-	 * @return boolen
+	 * @return boolean
 	 */
 	public function isRequired(){
 		return $this->options['required'];
