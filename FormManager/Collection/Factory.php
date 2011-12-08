@@ -24,7 +24,7 @@ final class FormManager_Collection_Factory {
 	 * 
 	 * @param string $method Вызываемый метод
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
 	public function __call($method) {
 		$obj = $this->get($method);
@@ -39,12 +39,12 @@ final class FormManager_Collection_Factory {
 	 * 
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
 	public function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Collection_'.$type;
 		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Model_Collection_Interface)) {
+		if (!($obj instanceof FormManager_Interfaces_Model_Collection)) {
 			throw new FormManager_Model_Collection_Exception('', 1001);
 		}
 		return $obj;

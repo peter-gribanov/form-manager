@@ -29,7 +29,7 @@ class FormManager_Model_Field_Text extends FormManager_Model_Field_Abstract {
 	 * @return FormManager_Model_Field_Text
 	 */
 	public function setFilter($name, $params = null) {
-		if ( $name == 'length' && (isset($params['max']) || isset($params['eq'])) ) {
+		if ($name == 'length' && (isset($params['max']) || isset($params['eq']))) {
 			$this->setViewParams(array(
 				'length' => isset($params['max']) ? $params['max'] : $params['eq']
 			));

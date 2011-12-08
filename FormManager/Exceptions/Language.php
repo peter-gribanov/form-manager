@@ -14,9 +14,9 @@
 /**
  * Исключение для многоязычности
  * 
- * @package FormManager\Language
+ * @package FormManager\Exceptions
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Language_Exception extends FormManager_Exception {
+class FormManager_Exceptions_Language extends FormManager_Exception {
 
 }

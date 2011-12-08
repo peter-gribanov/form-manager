@@ -12,12 +12,12 @@
  */
 
 /**
- * Исключение для модели вопросов
+ * Класс исключений для фильтров
  * 
- * @package FormManager\Model\Question
+ * @package FormManager\Exceptions
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Question_Exception extends FormManager_Model_Exception {
+class FormManager_Exceptions_Filter extends FormManager_Exception {
 
 	/**
 	 * Создает исключение
@@ -26,7 +26,7 @@ class FormManager_Model_Question_Exception extends FormManager_Model_Exception {
 	 * @param integer   $code     Код исключения
 	 * @param Exception $previous Предыдущее исключение
 	 */
-	public function __construct($message = '', $code = 900, Exception $previous = null) {
+	public function __construct($message = '', $code = 300, Exception $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
 

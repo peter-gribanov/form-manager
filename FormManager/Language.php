@@ -88,7 +88,7 @@ class FormManager_Language {
 	/**
 	 * Возвращает одно или все языковые сообщения
 	 * 
-	 * @throws FormManager_Language_Exception
+	 * @throws FormManager_Exceptions_Language
 	 * 
 	 * @param string $id Id сообщения
 	 * 
@@ -101,9 +101,9 @@ class FormManager_Language {
 			// проверка результата загрузки
 			if (self::$mess === false) {
 				$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';
-				throw new FormManager_Language_Exception('File "'.$file.'" for linguistic theme "'.self::$id.'" not found', 401);
+				throw new FormManager_Exceptions_Language('File "'.$file.'" for linguistic theme "'.self::$id.'" not found', 401);
 			} elseif (!is_array(self::$mess) || !self::$mess) {
-				throw new FormManager_Language_Exception('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
+				throw new FormManager_Exceptions_Language('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
 			}
 		}
 		if ($id == null) {

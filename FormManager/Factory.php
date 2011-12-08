@@ -51,7 +51,7 @@ class FormManager_Factory {
 	 * @param string $name Имя коллекции
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
 	public static function getCollection($name, $type = 'default'){
 		$class_name = 'FormManager_Model_Collection_'.ucfirst($type);
@@ -67,7 +67,7 @@ class FormManager_Factory {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public static function getField($name = 'default'){
 		if (!self::$field_factory) {
@@ -83,7 +83,7 @@ class FormManager_Factory {
 	 * 
 	 * @param string $type Тип вопроса
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Interfaces_Model_Question
 	 */
 	public static function getQuestion($type = 'Base'){
 		$class_name = 'FormManager_Model_Question_'.$type;

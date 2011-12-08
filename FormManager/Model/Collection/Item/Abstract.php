@@ -17,7 +17,7 @@
  * @package FormManager\Model\Collection\Item
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Collection_Item_Abstract implements FormManager_Model_Collection_Item_Interface {
+abstract class FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Collection_Item {
 
 	/**
 	 * Объект формы
@@ -35,7 +35,7 @@ abstract class FormManager_Model_Collection_Item_Abstract implements FormManager
 	 * 
 	 * @param FormManager_Model_Form $form Объект формы
 	 * 
-	 * @return FormManager_Model_Collection_Primary Объект коллекции
+	 * @return FormManager_Model_Collection_Item_Abstract Объект коллекции
 	 */
 	public function setForm(FormManager_Model_Form $form){
 		$this->form = $form;
