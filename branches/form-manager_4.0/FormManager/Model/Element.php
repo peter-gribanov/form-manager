@@ -293,4 +293,49 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 		return !$this->childs;
 	}
 
+	/**
+	 * Метод для сериализации класса
+	 * 
+	 * @return string Сериализованная коллекция
+	 */
+	public function serialize(){
+		return serialize(array(
+			$this->childs,
+			$this->parent,
+			$this->root,
+			$this->name,
+			$this->comment
+		));
+	}
+
+	/**
+	 * Метод для десериализации класса
+	 * 
+	 * @param string $data Сериализованная коллекция
+	 */
+	public function unserialize($data){
+		list(
+			$this->childs,
+			$this->parent,
+			$this->root,
+			$this->name,
+			$this->comment
+		) = unserialize($data);
+	}
+
+	/**
+	 * Возвращает все данные
+	 * 
+	 * @return array
+	 */
+	public function export(){
+		return array(
+			'childs'  => $this->childs,
+			'parent'  => $this->parent,
+			'root'    => $this->root,
+			'name'    => $this->name,
+			'comment' => $this->comment
+		);
+	}
+
 }
