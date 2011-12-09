@@ -54,6 +54,20 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	private $comment = '';
 
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @var string
+	 */
+	private $title = '';
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @var array|null
+	 */
+	private $names_list = null;
+
 
 	/**
 	 * TODO добавить описание
@@ -84,7 +98,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @return FormManager_Model_Element
 	 */
-	protected function getParent() {
+	public function getParent() {
 		return $this->parent;
 	}
 
@@ -248,8 +262,23 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @return string
 	 */
-	protected function getName() {
+	public function getName() {
 		return $this->name;
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @return array
+	 */
+	public function getNamesList() {
+		if ($this->names_list === null) {
+			$this->names_list = array_merge(
+				array($this->name),
+				$this->getParent()->getNamesList()
+			);
+		}
+		return $this->names_list;
 	}
 
 	/**
@@ -274,6 +303,30 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	protected function getComment() {
 		return $this->comment;
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Element
+	 * 
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		if (!is_string($title) || !trim($title)) {
+			// TODO описать исключение
+			throw new FormManager_Exceptions_Model_Element();
+		}
+		$this->title = $title;
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @return string
+	 */
+	protected function getTitle() {
+		return $this->title;
 	}
 
 	/**
