@@ -20,6 +20,13 @@
 final class FormManager_Field_Factory {
 
 	/**
+	 * Инициализированные модели
+	 *
+	 * @var array
+	 */
+//	private $models = array();
+
+	/**
 	 * Возвращает новый элимент формы
 	 * 
 	 * @param string $method Вызываемый метод
@@ -31,6 +38,10 @@ final class FormManager_Field_Factory {
 		// TODO реализовать добавление метода в класс
 		return $obj;
 	}
+/*
+	protected function getCachedModel($name) {
+		return (isset($this->models[$name]) ? $this->models[$name] : null);
+	}*/
 
 	/**
 	 * Возвращает новый элимент формы
@@ -43,6 +54,22 @@ final class FormManager_Field_Factory {
 	 */
 	public function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Field_'.$type;
+		/*
+		try {
+			$model = new $class($db, $this, $this->factory->getEventDispatcher(), $this->cache);
+			$this->models[$name] = $model;
+		} catch (Cms_AutoLoad_Exception $exeption) {
+			try {
+				$model = new $classBase($db, $this, $this->factory->getEventDispatcher(), $this->cache);
+				$this->models[$name] = $model;
+			} catch (Cms_AutoLoad_Exception $exeption) {
+				$model=null;
+			}
+		}
+
+		if (! ( ($model instanceof $class) || ($model instanceof $classBase) ) ) {
+			throw new Cms_Model_Exception("Не удалось найти указанную модель: '$name'.");
+		}*/
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Interfaces_Model_Field)) {
 			throw new FormManager_Exceptions_Model_Field('', 1002);
