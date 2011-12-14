@@ -17,7 +17,7 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Field {
+abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Element implements FormManager_Interfaces_Model_Field {
 
 	/**
 	 * Опции поля
@@ -25,11 +25,11 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @var	array
 	 */
 	protected $options = array(
-		'name'		=> '',		// Имя поля
+//		'name'		=> '',		// Имя поля
 		'default'	=> '',		// Значение по умолчанию
 		'view'		=> array('text', array()),	// Вид поля
 		'filters'	=> array(),	// Фильтры проверки поля
-		'required'	=> false,	// Обязательное для заполнения
+//		'required'	=> false,	// Обязательное для заполнения
 	);
 
 	/**
@@ -37,8 +37,33 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * 
 	 * @var	integer
 	 */
-	private $filter_iterator;
+//	private $filter_iterator;
 
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
+	 * @param FormManager_Model_Element $element
+	 */
+	public function add(FormManager_Model_Element $element) {
+		// TODO описать исключение
+		throw new FormManager_Exceptions_Model_Field();
+	}
+
+	/**
+	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
+	 * Пример строки запроса: a=foo&b=bar
+	 *
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
+	 * @param string $query
+	 */
+	public function addByQuery($query) {
+		// TODO описать исключение
+		throw new FormManager_Exceptions_Model_Field();
+	}
 
 	/**
 	 * Устанавливает имя поля
@@ -48,23 +73,23 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @param string $name Имя
 	 * 
 	 * @return FormManager_Model_Field_Abstract
-	 */
+	 *//*
 	public function setName($name){
 		if (!is_string($name) || !trim($name)) {
 			throw new FormManager_Exceptions_Model_Field('Element name must be not empty string');
 		}
 		$this->options['name'] = $name;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает имя поля
 	 * 
 	 * @return string
-	 */
+	 *//*
 	public function getName(){
 		return $this->options['name'];
-	}
+	}*/
 
 	/**
 	 * Устанавливает значение поля
@@ -188,7 +213,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @param array  $params
 	 * 
 	 * @return FormManager_Model_Field_Abstract
-	 */
+	 *//*
 	public function setFilter($name, $params=null){
 		if (!is_string($name) || !trim($name)) {
 			throw new FormManager_Exceptions_Model_Field('Element filter name must be not empty string');
@@ -206,7 +231,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 			$this->required();
 		}
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Производит проверку переданных данных по полю 
@@ -250,23 +275,23 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * Устанавливает что поле является обязательным для заполнения
 	 * 
 	 * @return FormManager_Model_Field_Abstract
-	 */
+	 *//*
 	public function required(){
 		$this->options['required'] = true;
 		if ($this->form){
 			$this->form->required();
 		}
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Проверяет является ли поле обязательным для заполнения
 	 * 
 	 * @return boolean
-	 */
+	 *//*
 	public function isRequired(){
 		return $this->options['required'];
-	}
+	}*/
 
 	/**
 	 * Метод для сериализации класса
@@ -274,6 +299,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @return string
 	 */
 	public function serialize(){
+		// TODO требуется тестирование
 		return serialize($this->export());
 	}
 
@@ -285,6 +311,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @return FormManager_Model_Collection_Abstract
 	 */
 	public function unserialize($data){
+		// TODO требуется тестирование
 		$this->options = unserialize($data);
 		return $this;
 	}
@@ -295,6 +322,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Collec
 	 * @return array
 	 */
 	public function export(){
+		// TODO требуется тестирование
 		return $this->options;
 	}
 

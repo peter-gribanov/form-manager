@@ -52,7 +52,7 @@ final class FormManager_Field_Factory {
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
-	public function get($type = 'Base'){
+	public static function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Field_'.$type;
 		/*
 		try {

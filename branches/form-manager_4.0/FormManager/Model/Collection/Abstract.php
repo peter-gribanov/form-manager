@@ -17,21 +17,21 @@
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_Collection_Item_Abstract implements FormManager_Interfaces_Model_Collection {
+abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_Element {
 
 	/**
 	 * Название коллекции
 	 *
 	 * @var	string
 	 */
-	protected $name = '';
+//	protected $name = '';
 
 	/**
 	 * Список элементов
 	 *
 	 * @var	array
 	 */
-	protected $items = array();
+//	protected $items = array();
 
 
 	/**
@@ -42,23 +42,23 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 * @param string $name Название коллекции
 	 * 
 	 * @return FormManager_Model_Collection_Abstract Объект коллекции
-	 */
+	 *//*
 	public function setName($name){
 		if (!is_string($name) || !trim($name)) {
 			throw new FormManager_Exceptions_Model_Collection('Collection name must be not empty string', 601);
 		}
 		$this->name = $name;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает название коллекции
 	 * 
 	 * @return string
-	 */
+	 *//*
 	public function getName(){
 		return $this->name;
-	}
+	}*/
 
 	/**
 	 * Добавляет элемент
@@ -66,40 +66,40 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 * @param FormManager_Interfaces_Model_Collection_Item $item Объект элимента
 	 * 
 	 * @return FormManager_Model_Collection_Abstract Объект коллекции
-	 */
+	 *//*
 	public function add(FormManager_Interfaces_Model_Collection_Item $item){
 		$this->items[] = $item->setForm($this->form);
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Очищает список элементов
 	 * 
 	 * @return FormManagerCollection Объект коллекции
-	 */
+	 *//*
 	public function clear(){
 		unset($this->items);
 		$this->items = array();
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Проверяет пуста ли коллекция
 	 * 
 	 * @return boolean Результат проверки
-	 */
+	 *//*
 	public function isEmpty(){
 		return !$this->items;
-	}
+	}*/
 
 	/**
 	 * Метод для сериализации класса
 	 * 
 	 * @return string Сериализованная коллекция
-	 */
+	 *//*
 	public function serialize(){
 		return serialize($this->export());
-	}
+	}*/
 
 	/**
 	 * Метод для десериализации класса
@@ -107,24 +107,24 @@ abstract class FormManager_Model_Collection_Abstract extends FormManager_Model_C
 	 * @param string $data Сериализованная коллекция
 	 * 
 	 * @return void
-	 */
+	 *//*
 	public function unserialize($data){
 		list(
 			$this->name,
 			$this->items
 		) = unserialize($data);
-	}
+	}*/
 
 	/**
 	 * Возвращает все данные
 	 * 
 	 * @return array
-	 */
+	 *//*
 	public function export(){
 		return array(
 			$this->name,
 			$this->items,
 		);
-	}
+	}*/
 	
 }
