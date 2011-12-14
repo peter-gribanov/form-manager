@@ -26,14 +26,14 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	 * 
 	 * @return FormManager_Interfaces_Model_Field Объект элемента
 	 */
-	public function setName($name);
+//	public function setName($name);
 
 	/**
 	 * Возвращает имя поля
 	 * 
 	 * @return string
 	 */
-	public function getName();
+//	public function getName();
 
 	/**
 	 * Устанавливает значение поля

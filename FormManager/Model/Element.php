@@ -68,20 +68,68 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	private $names_list = null;
 
+	/**
+	 * Есть поля обязательные для заполнения
+	 * 
+	 * @var boolean
+	 */
+	private $required = false;
+
 
 	/**
 	 * TODO добавить описание
 	 * 
 	 * @param FormManager_Model_Element $element
+	 * 
+	 * @return FormManager_Model_Element
 	 */
 	public function add(FormManager_Model_Element $element) {
 		$element->setParent($this);
 		$element->setRoot($this->root);
 		$this->childs[] = $element;
+		return $element;
+	}
+
+	/**
+	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
+	 * Пример строки запроса: a=foo&b=bar
+	 *
+	 * @throws FormManager_Exceptions_Model_Element
+	 * 
+	 * @param string $query
+	 */
+	public function addByQuery($query) {
+		if (!is_string($query) || !trim($query)) {
+			// TODO описать исключение
+			throw new FormManager_Exceptions_Model_Element();
+		}
+
+		// выделение тела запроса если передан не только запрос
+		if (strpos($query, '?') !== false) {
+			if (substr_count($query, '?') > 1) {
+				// TODO описать исключение
+				throw new FormManager_Exceptions_Model_Element();
+			}
+			list(, $query) = explode('?', $query, 2);
+		}
+
+		$query = explode('&', $query);
+		foreach ($query as $param) {
+			if (substr_count($param, '=') != 1) {
+				throw new FormManager_Exceptions_Model_Element('Cant add element because of improper URL query');
+			}
+			list($name, $value) = explode('=', $param, 2);
+			$field = FormManager_Field_Factory::get('Hidden');
+			$field->setName($name);
+			$field->setDefaultValue($value);
+			$this->add($field);
+		}
 	}
 
 	/**
 	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Element
 	 * 
 	 * @param FormManager_Model_Element $element
 	 */
@@ -104,6 +152,8 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 
 	/**
 	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Element
 	 * 
 	 * @param FormManager_Model_Element $element
 	 */
@@ -157,8 +207,6 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
-	 * 
 	 * @param string $name
 	 * 
 	 * @return FormManager_Model_Element|boolean
@@ -169,6 +217,28 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 			return $this->childs[$id];
 		}
 		return false;
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @param FormManager_Model_Element $element
+	 * 
+	 * @return boolean
+	 */
+	public function isAdded(FormManager_Model_Element $element) {
+		return (bool)$this->search($element);
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @param string $name
+	 * 
+	 * @return boolean
+	 */
+	public function isAddedByName($name) {
+		return (bool)$this->searchByName($name);
 	}
 
 	/**
@@ -344,6 +414,54 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	public function isEmpty() {
 		return !$this->childs;
+	}
+
+	/**
+	 * Устанавливает флаг что есть поля обязательные для заполнения
+	 */
+	protected function required() {
+		$this->required = true;
+		$this->parent->required();
+	}
+
+	/**
+	 * Проверяет есть ли поля обязательные для заполнения
+	 * 
+	 * @return boolean
+	 */
+	public function isRequired() {
+		return $this->required;
+	}
+
+	/**
+	 * Устанавливает фильтр для поля
+	 * 
+	 * @throws FormManager_Exceptions_Model_Field
+	 * 
+	 * @param string $name
+	 * @param array  $params
+	 * 
+	 * @return FormManager_Model_Field_Abstract
+	 */
+	public function setFilter($name, $params = null) {
+		// TODO требуется реализация
+		/*
+		if (!is_string($name) || !trim($name)) {
+			throw new FormManager_Exceptions_Model_Field('Element filter name must be not empty string');
+		}
+		$params = $params ? $params : array();
+		if (!is_array($params)) {
+			throw new FormManager_Exceptions_Model_Field('Element filter parametrs should be an array');
+		}
+		if (!file_exists(FORM_PATH.'/filters/'.$name.'.php')) {
+			throw new FormManager_Exceptions_Model_Field('File of element filter ('.$name.') do not exists');
+		}
+		$this->options['filters'][] = array($name, $params);
+		// Обязательное для заполнения
+		if ($name=='empty'){
+			$this->required();
+		}
+		return $this;*/
 	}
 
 	/**

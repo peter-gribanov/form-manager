@@ -19,7 +19,7 @@
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Form implements FormManager_Interfaces_Model {
+class FormManager_Model_Form extends FormManager_Model_Element {
 
 	/**
 	 * Опции формы
@@ -29,9 +29,9 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	private $options = array(
 		'action'       => '',      // Адрес обработчика формы
 		'method'       => 'POST',  // Метод передачи данных
-		'name'         => '',      // Название формы
+//		'name'         => '',      // Название формы
 		'required'     => false,   // Есть поля обязательны для заполнения
-		'submit_title' => '',      // Заголовок для кнопки отправки формы
+//		'submit_title' => '',      // Заголовок для кнопки отправки формы
 //		'buttons'      => array(), // Список кнопок у формы
 	);
 
@@ -49,7 +49,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * 
 	 * @var FormManager_Model_Collection_Primary
 	 */
-	private $collection;
+//	private $collection;
 
 	/**
 	 * Список переданных параметров
@@ -63,17 +63,59 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * 
 	 * @var array
 	 */
-	private $lang_posts = array();
+//	private $lang_posts = array();
 
 
 	/**
 	 * Конструктор
 	 */
-	public function __construct() {
-		$this->collection = new FormManager_Model_Collection_Primary();
-		$this->collection->setForm($this);
+//	public function __construct() {
+//		$this->collection = new FormManager_Model_Collection_Primary();
+//		$this->collection->setForm($this);
 //		$this->setMethod('POST');
 //		$this->loadLangPosts();
+//	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Form
+	 * 
+	 * @param FormManager_Model_Element $element
+	 */
+	public function setParent(FormManager_Model_Element $element) {
+		// TODO описать исключение
+		throw FormManager_Exceptions_Model_Form();
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @return FormManager_Model_Element
+	 */
+	public function getParent() {
+		return $this;
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @throws FormManager_Exceptions_Model_Form
+	 * 
+	 * @param FormManager_Model_Element $element
+	 */
+	public function setRoot(FormManager_Model_Element $element) {
+		// TODO описать исключение
+		throw FormManager_Exceptions_Model_Form();
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @return FormManager_Model_Element
+	 */
+	protected function getRoot() {
+		return $this;
 	}
 
 	/**
@@ -82,11 +124,11 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @param FormManager_Item $item
 	 * 
 	 * @return FormManager_Model_Form
-	 */
+	 *//*
 	public function add(FormManager_Model_Form $item) {
 		$this->collection->add($item);
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
@@ -97,7 +139,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @param string $query
 	 * 
 	 * @return FormManager_Model_Form
-	 */
+	 *//*
 	public function addByQuery($query) {
 		if ( !$query ) {
 			return $this;
@@ -114,7 +156,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 				->setDefaultValue($var[1]));
 		}
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Вставляет кнопку на форму
@@ -170,26 +212,9 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * Возвращает коллекцию элиментов формы
 	 * 
 	 * @return FormManager_Model_Collection_Primary
-	 */
+	 *//*
 	public function getCollection() {
 		return $this->collection;
-	}
-
-	/**
-	 * Устанавливает флаг что есть поля обязательные для заполнения
-	 * Метод предназначен для внутреннего использования
-	 */
-	public function required() {
-		$this->options['required'] = true;
-	}
-
-	/**
-	 * Проверяет есть ли поля обязательные для заполнения
-	 * 
-	 * @return boolean
-	 *//*
-	public function isRequired() {
-		return $this->options['required'];
 	}*/
 
 	/**
@@ -205,8 +230,6 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 
 	/**
 	 * Очищает отправленные данные
-	 * 
-	 * @return FormManager_Model_Form
 	 */
 	public function clearSentValues() {
 		$method = '_'.$this->options['method'];
@@ -215,14 +238,13 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 		// создается не пустой массив
 		$GLOBALS[$method] = array(0);
 //		$this->inputs = & $GLOBALS[$method];
-		return $this;
 	}
 
 	/**
 	 * Форма уже отправлена
 	 * 
 	 * @return boolean
-	 */
+	 *//*
 	public function isAlreadySent() {
 		if ( !isset($_SERVER['HTTP_REFERER'])
 			|| !count($GLOBALS['_'.$this->options['method']])
@@ -240,7 +262,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 			.$_SERVER['HTTP_HOST'].'/';
 		// разрешен прием форм в пределах одного хоста
 		return strpos($_SERVER['HTTP_REFERER'], $current)===0;
-	}
+	}*/
 
 	/**
 	 * Устанавливает шаблон вида формы
@@ -305,14 +327,14 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @param string $post
 	 * 
 	 * @return string
-	 */
+	 *//*
 	public function getLangPost($post) {
 		if ( !isset($this->lang_posts[$post]) ) {
 			throw new FormManager_Exceptions_Model_Form('Selected message is not found in the language theme');
 		}
 
 		return $this->lang_posts[$post];
-	}
+	}*/
 
 	/**
 	 * Устанавливает адрес обработчика формы
@@ -320,16 +342,12 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @throws FormManager_Exceptions_Model_Form
 	 * 
 	 * @param string $action
-	 * 
-	 * @return FormManager_Model_Form
 	 */
 	public function setAction($action) {
-		if ( !is_string($action) || !trim($action) ) {
+		if (!is_string($action) || !trim($action)) {
 			throw new FormManager_Exceptions_Model_Form('Form action must be not empty string');
 		}
-
 		$this->options['action'] = $action;
-		return $this;
 	}
 
 	/**
@@ -352,17 +370,18 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 */
 	public function setMethod($method) {
 		$method = strtoupper($method);
-		if ( !in_array($method, array('POST', 'GET')) ) {
+		if ($method != 'POST' && $method != 'GET') {
 			throw new FormManager_Exceptions_Model_Form('Form method must be POST or GET');
 		}
 
 		$this->options['method'] = $method;
 		// добавление скрытого поля
-		if ( $method == 'GET' ) {
-			$this->add(
-				FormManager::Hidden('unique_key_already_sent')
-					->setDefaultValue('4ab24a54898e90ea76f23afc36a81819')
-			);
+		if ($method == 'GET' && !$this->getRoot()->isAddedByName('unique_key_already_sent')) {
+			// TODO должен накладываться фильтр
+			$field = FormManager_Field_Factory::get('Hidden');
+			$field->setName('unique_key_already_sent');
+			$field->setDefaultValue('4ab24a54898e90ea76f23afc36a81819');
+			$this->getRoot()->add($field);
 		}
 
 		return $this;
@@ -385,7 +404,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @param string $name
 	 * 
 	 * @return FormManager_Model_Form
-	 */
+	 *//*
 	public function setName($name) {
 		if ( !is_string($name) || !trim($name) ) {
 			throw new FormManager_Exceptions_Model_Form('Form name must be not empty string');
@@ -393,7 +412,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 
 		$this->options['name'] = $name;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает название формы
@@ -412,7 +431,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @param string $title
 	 * 
 	 * @return FormManager_Model_Form
-	 */
+	 *//*
 	public function setSubmitTitle($title) {
 		if ( !is_string($title) || !trim($title) ) {
 			throw new FormManager_Exceptions_Model_Form('Form submit title must be not empty string');
@@ -420,7 +439,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 
 		$this->options['submit_title'] = $title;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает заголовок для кнопки отправки формы
@@ -437,6 +456,7 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @return string
 	 */
 	public function serialize() {
+		// TODO требуется тестирование
 		return serialize($this->export());
 	}
 
@@ -448,9 +468,10 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @return FormManager_Model_Form
 	 */
 	public function unserialize($data) {
-		list($this->options, $this->collection) = unserialize($data);
-		$this->collection->setForm($this);
-		$this->loadLangPosts();
+		// TODO требуется тестирование
+		$options = unserialize($data);
+		$this->options = array_pop($options);
+		parent::unserialize(serialize($options));
 		return $this;
 	}
 
@@ -460,10 +481,10 @@ class FormManager_Model_Form implements FormManager_Interfaces_Model {
 	 * @return array
 	 */
 	public function export() {
-		return array(
-			$this->options,
-			$this->collection->export()
-		);
+		// TODO требуется тестирование
+		$return = parent::export();
+		$return[] = $this->options;
+		return $return;
 	}
 
 	/**

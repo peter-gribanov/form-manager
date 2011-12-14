@@ -26,14 +26,14 @@ interface FormManager_Interfaces_Model_Collection extends FormManager_Interfaces
 	 * 
 	 * @return FormManager_Interfaces_Model_Collection Объект коллекции
 	 */
-	public function setName($name);
+//	public function setName($name);
 
 	/**
 	 * Возвращает название коллекции
 	 * 
 	 * @return string
 	 */
-	public function getName();
+//	public function getName();
 
 	/**
 	 * Добавляет элемент
@@ -42,20 +42,20 @@ interface FormManager_Interfaces_Model_Collection extends FormManager_Interfaces
 	 * 
 	 * @return FormManager_Interfaces_Model_Collection Объект коллекции
 	 */
-	public function add(FormManager_Interfaces_Model_Collection_Item $item);
+//	public function add(FormManager_Interfaces_Model_Collection_Item $item);
 
 	/**
 	 * Очищает список элементов
 	 * 
 	 * @return	FormManager_Interfaces_Model_Collection	Объект коллекции
 	 */
-	public function clear();
+//	public function clear();
 
 	/**
 	 * Проверяет пуста ли коллекция
 	 * 
 	 * @return	boolean	Результат проверки
 	 */
-	public function isEmpty();
+//	public function isEmpty();
 
 }
