@@ -297,11 +297,10 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * Метод для сериализации класса
 	 *
 	 * @return string
-	 */
+	 *//*
 	public function serialize(){
-		// TODO требуется тестирование
 		return serialize($this->export());
-	}
+	}*/
 
 	/**
 	 * Метод для десериализации класса
@@ -322,8 +321,10 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * @return array
 	 */
 	public function export(){
-		// TODO требуется тестирование
-		return $this->options;
+		return array_merge(
+			$this->options.
+			parent::export()
+		);
 	}
 
 	/**
