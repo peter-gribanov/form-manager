@@ -92,10 +92,10 @@ final class FormManager_Facade {
 	 * @param string $comment Коментарий к полю
 	 * 
 	 * @return FormManager_Interfaces_Model_Question
-	 */
+	 *//*
 	public function addQuestion($title, $comment = '') {
 		return $this->addQuestionTo($this->form, $title, $comment);
-	}
+	}*/
 
 	/**
 	 * Добавляет новый вопрос к коллекции
@@ -105,14 +105,14 @@ final class FormManager_Facade {
 	 * @param string                                  $comment    Коментарий к полю
 	 * 
 	 * @return FormManager_Interfaces_Model_Question
-	 */
+	 *//*
 	public function addQuestionTo(FormManager_Interfaces_Model_Question $collection, $title, $comment = '') {
 		$question = new FormManager_Model_Question_Base();
 		$question->setTitle($title);
 		$question->setComment($comment);
 		$collection->add($question);
 		return $question;
-	}
+	}*/
 
 	/**
 	 * Добавляет новую коллекцию

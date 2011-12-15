@@ -17,23 +17,7 @@
  * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model_Collection_Item {
-
-	/**
-	 * Устанавливает имя поля
-	 * 
-	 * @param string $name Имя
-	 * 
-	 * @return FormManager_Interfaces_Model_Field Объект элемента
-	 */
-//	public function setName($name);
-
-	/**
-	 * Возвращает имя поля
-	 * 
-	 * @return string
-	 */
-//	public function getName();
+interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model {
 
 	/**
 	 * Устанавливает значение поля
@@ -93,19 +77,5 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function setFilter($name, $params = null);
-
-	/**
-	 * Устанавливает что поле является обязательным для заполнения
-	 * 
-	 * @return FormManager_Interfaces_Model_Field
-	 */
-	public function required();
-
-	/**
-	 * Проверяет является ли поле обязательным для заполнения
-	 * 
-	 * @return boolean
-	 */
-	public function isRequired();
 
 }

@@ -454,11 +454,10 @@ class FormManager_Model_Form extends FormManager_Model_Element {
 	 * Метод для сериализации класса
 	 *
 	 * @return string
-	 */
+	 *//*
 	public function serialize() {
-		// TODO требуется тестирование
 		return serialize($this->export());
-	}
+	}*/
 
 	/**
 	 * Метод для десериализации класса
