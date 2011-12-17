@@ -25,14 +25,13 @@ class FormManager_Filter_Field_Length extends FormManager_Filter_Field_Abstract 
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array()) {
+	public function __construct(FormManager_Interfaces_Model_Field $field, array $options = array()) {
 		parent::__construct($field, array_merge(
 			array(
 				'use_key'	=> false,
 				'options'	=> array(),
 				'multiple'	=> false,
 			),
-			$this->getViewParams(),
 			$options
 		));
 	}
@@ -46,17 +45,15 @@ class FormManager_Filter_Field_Length extends FormManager_Filter_Field_Abstract 
 		} else {
 			$values = array_values($this->options['options']);
 		}
-		// TODO непомню зачем это??
-		$values[] = 100;
 
 		if ($this->options['multiple']) {
-			foreach ($this->field->getValue() as $value) {
+			foreach ($this->element->getValue() as $value) {
 				if (!in_array($value, $values)) {
 					$this->trigger('select');
 				}
 			}
 
-		} elseif (!in_array($this->field->getValue(), $values)) {
+		} elseif (!in_array($this->element->getValue(), $values)) {
 			$this->trigger('select');
 		}
 	}

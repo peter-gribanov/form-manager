@@ -23,7 +23,7 @@ class FormManager_Filter_Field_Null extends FormManager_Filter_Field_Abstract {
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (!is_bool($this->field->getDefaultValue()) && $this->field->getSentValue() === null ) {
+		if (!is_bool($this->element->getDefaultValue()) && $this->element->getSentValue() === null ) {
 			$this->trigger('null);
 		}
 	}

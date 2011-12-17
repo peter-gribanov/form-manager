@@ -24,13 +24,13 @@ class FormManager_Filter_Field_Email extends FormManager_Filter_Field_Abstract {
 	 */
 	public function check(){
 		// Check for @ symbol
-		if (substr_count($this->field->getValue(), '@') != 1) {
+		if (substr_count($this->element->getValue(), '@') != 1) {
 			$this->trigger('email');
 		// Check Filter
-		} elseif (function_exists('filter_var') && !filter_var($this->field->getValue(), FILTER_VALIDATE_EMAIL)) {
+		} elseif (function_exists('filter_var') && !filter_var($this->element->getValue(), FILTER_VALIDATE_EMAIL)) {
 			$this->trigger('email');
 		// Check RegExp
-		} elseif (!preg_match('/^(?:[-a-z0-9])+@(?:[-a-z0-9]{2,}\.)+(?:[a-z]{2,4}|[0-9]{1,4})$/i', $this->field->getValue())) {
+		} elseif (!preg_match('/^(?:[-a-z0-9])+@(?:[-a-z0-9]{2,}\.)+(?:[a-z]{2,4}|[0-9]{1,4})$/i', $this->element->getValue())) {
 			$this->trigger('email');
 		}
 	}

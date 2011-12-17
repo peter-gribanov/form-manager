@@ -23,7 +23,7 @@ class FormManager_Filter_Field_Integer extends FormManager_Filter_Field_Abstract
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (!is_numeric($this->field->getValue()) || (int)$this->field->getValue() != $this->field->getValue()) {
+		if (!is_numeric($this->element->getValue()) || (int)$this->element->getValue() != $this->element->getValue()) {
 			$this->trigger('integer');
 		}
 	}

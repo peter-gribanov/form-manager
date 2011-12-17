@@ -25,7 +25,7 @@ class FormManager_Filter_Field_Length extends FormManager_Filter_Field_Abstract 
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array()) {
+	public function __construct(FormManager_Interfaces_Model_Field $field, array $options = array()) {
 		parent::__construct($field, array_merge(
 			array(
 				'min' => 0,
@@ -40,7 +40,7 @@ class FormManager_Filter_Field_Length extends FormManager_Filter_Field_Abstract 
 	 * Проверяет поле
 	 */
 	public function check(){
-		$len = strlen($this->field->getValue());
+		$len = strlen($this->element->getValue());
 
 		if ($params['min'] && $params['max'] && $params['min'] == $params['max']) {
 			$params['eq'] = $params['max'];

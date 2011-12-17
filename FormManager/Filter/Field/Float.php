@@ -23,7 +23,7 @@ class FormManager_Filter_Field_Float extends FormManager_Filter_Field_Abstract {
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (!is_numeric($this->field->getValue()) || (float)$this->field->getValue() != $this->field->getValue()) {
+		if (!is_numeric($this->element->getValue()) || (float)$this->element->getValue() != $this->element->getValue()) {
 			$this->trigger('float');
 		}
 	}
