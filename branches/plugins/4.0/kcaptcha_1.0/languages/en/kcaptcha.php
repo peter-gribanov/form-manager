@@ -12,7 +12,7 @@
  */
 
 return array(
-	'filter-kcaptcha'        => 'You have entered an incorrect verification code in the field - %s.',
-	'filter-kcaptcha-length' => 'Confirmation code consists of %s characters.',
-	'filter-kcaptcha-link'   => 'With poor legibility %supdate%s code.',
+	'code'   => 'You have entered an incorrect verification code in the field - %s.',
+	'length' => 'Confirmation code consists of %s characters.',
+	'link'   => 'With poor legibility %supdate%s code.',
 );
