@@ -203,35 +203,16 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @param integer $id
-	 * 
-	 * @return FormManager_Model_Element|null
-	 */
-	protected function getChildById($id) {
-		if (!is_integer($id)) {
-			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
-		}
-		return isset($this->childs[$id]) ? $this->childs[$id] : null;
-	}
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @throws FormManager_Exceptions_Model_Element
-	 * 
 	 * @param string $name
 	 * 
 	 * @return integer|boolean
 	 */
-	protected function getChildId($name) {
-		if (!is_string($name) || !trim($name)) {
-			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
-		}
-		foreach ($this->childs as $key=>$el) {
-			if ($el->getName() == $name) {
-				return $key;
+	private function getChildId($name) {
+		if (is_string($name) && trim($name)) {
+			foreach ($this->childs as $key=>$el) {
+				if ($el->getName() == $name) {
+					return $key;
+				}
 			}
 		}
 		return false;
