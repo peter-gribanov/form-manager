@@ -12,7 +12,7 @@
  */
 
 /**
- * Фабрика формы
+ * Фабрика коллекций
  * 
  * @package FormManager\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -43,20 +43,15 @@ final class FormManager_Collection_Factory {
 	 */
 	public function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Collection_'.$type;
-		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Interfaces_Model_Collection)) {
-			throw new FormManager_Model_Collection_Exception('', 1001);
+		try {
+			$collection = new $class_name();
+		} catch (Cms_AutoLoad_Exception $exeption) {
+			$collection = null;
 		}
-		return $obj;
-	}
-
-	/**
-	 * Создает коллекцию Base
-	 * 
-	 * @return FormManager_Model_Collection_Base
-	 */
-	public function Base(){
-		return new FormManager_Model_Collection_Base();
+		if (!(($collection instanceof $class_name) || ($collection instanceof FormManager_Model_Element))) {
+			throw new FormManager_Exceptions_Filter('Не удалось найти указанный тип коллекции: '.$type, 1001);
+		}
+		return $collection;
 	}
 
 	/**
@@ -65,16 +60,25 @@ final class FormManager_Collection_Factory {
 	 * @return FormManager_Model_Collection_Nested
 	 */
 	public function Nested(){
-		return new FormManager_Model_Collection_Nested();
+		return $this->get('Nested');
 	}
 
 	/**
-	 * Создает коллекцию Primary
+	 * Создает коллекцию Fieldset
 	 * 
-	 * @return FormManager_Model_Collection_Primary
+	 * @return FormManager_Model_Collection_Fieldset
 	 */
-	public function Primary(){
-		return new FormManager_Model_Collection_Primary();
+	public function Fieldset(){
+		return $this->get('Fieldset');
+	}
+
+	/**
+	 * Создает коллекцию Related
+	 * 
+	 * @return FormManager_Model_Collection_Related
+	 */
+	public function Related(){
+		return $this->get('Related');
 	}
 
 }
