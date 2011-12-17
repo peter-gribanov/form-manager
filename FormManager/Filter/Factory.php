@@ -41,13 +41,129 @@ final class FormManager_Filter_Factory {
 	 * 
 	 * @return FormManager_Interfaces_Filter
 	 */
-	public function get($type = 'Base'){
+	public function get($type){
 		$class_name = 'FormManager_Filter_'.$type;
-		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Interfaces_Filter)) {
-			throw new FormManager_Exceptions_Filter('', 302);
+		try {
+			$filter = new $class_name();
+		} catch (Cms_AutoLoad_Exception $exeption) {
+			$filter = null;
 		}
-		return $obj;
+		if (!(($filter instanceof $class_name) || ($filter instanceof FormManager_Interfaces_Filter))) {
+			throw new FormManager_Exceptions_Filter('Не удалось найти указанный тип фильтра: '.$type, 302);
+		}
+		return $filter;
+	}
+
+	/**
+	 * Создает поле Referer
+	 * 
+	 * @return FormManager_Filter_Referer
+	 */
+	public function Referer(){
+		return $this->get('Referer');
+	}
+
+	/**
+	 * Создает поле Bool
+	 * 
+	 * @return FormManager_Filter_Bool
+	 */
+	public function Bool(){
+		return $this->get('Bool');
+	}
+
+	/**
+	 * Создает поле Boolean
+	 * 
+	 * @return FormManager_Filter_Boolean
+	 */
+	public function Boolean(){
+		return $this->get('Boolean');
+	}
+
+	/**
+	 * Создает поле Date
+	 * 
+	 * @return FormManager_Filter_Date
+	 */
+	public function Date(){
+		return $this->get('Date');
+	}
+
+	/**
+	 * Создает поле Email
+	 * 
+	 * @return FormManager_Filter_Email
+	 */
+	public function Email(){
+		return $this->get('Email');
+	}
+
+	/**
+	 * Создает поле Empty
+	 * 
+	 * TODO недопустимое имя фильтра
+	 * 
+	 * @return FormManager_Filter_Empty
+	 */
+	public function _Empty(){
+		return $this->get('Empty');
+	}
+
+	/**
+	 * Создает поле Float
+	 * 
+	 * @return FormManager_Filter_Float
+	 */
+	public function Float(){
+		return $this->get('Float');
+	}
+
+	/**
+	 * Создает поле Int
+	 * 
+	 * @return FormManager_Filter_Int
+	 */
+	public function Int(){
+		return $this->get('Int');
+	}
+
+	/**
+	 * Создает поле Integer
+	 * 
+	 * @return FormManager_Filter_Integer
+	 */
+	public function Integer(){
+		return $this->get('Integer');
+	}
+
+	/**
+	 * Создает поле Length
+	 * 
+	 * @return FormManager_Filter_Length
+	 */
+	public function Length(){
+		return $this->get('Length');
+	}
+
+	/**
+	 * Создает поле Null
+	 * 
+	 * TODO недопустимое имя фильтра
+	 * 
+	 * @return FormManager_Filter_Null
+	 */
+	public function _Null(){
+		return $this->get('Null');
+	}
+
+	/**
+	 * Создает поле Select
+	 * 
+	 * @return FormManager_Filter_Select
+	 */
+	public function Select(){
+		return $this->get('Select');
 	}
 
 }
