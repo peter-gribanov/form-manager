@@ -15,8 +15,8 @@
 ?><div class="b-formmanager-kcaptcha">
 <img src="<?=FORM_MANAGER_HTTP_PATH?>templates/.default/fields/kcaptcha/image.php?_=<?=time()?>" class="b-formmanager-kcaptcha-image" alt="" />
 <br />
-<div class="g-formmanager-comment"><?=sprintf($this->getLangPost('captcha-length'), $params['length'])?><br />
-<?=sprintf($this->getLangPost('captcha-link'), '<a href="" class="b-formmanager-kcaptcha-button">', '</a>')?></div>
+<div class="g-formmanager-comment"><?=FormManager_Language::getMessage('kcaptcha-length', array($params['length']))?><br />
+<?=FormManager_Language::getMessage('kcaptcha-link', array('<a href="" class="b-formmanager-kcaptcha-button">', '</a>'))?></div>
 <input type="password" name="<?=$this->getName()?>" value="<?=$this->getValue()?>"<?=
 ($params['class'] ? ' class="'.$params['class'].'"' : '')?><?=
 ($params['id'] ? ' id="'.$params['id'].'"' : '')?><?=
