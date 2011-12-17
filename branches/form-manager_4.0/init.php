@@ -52,7 +52,7 @@ unset($http_path, $path);
  */
 if (!function_exists('p')) {
 	function p($var) {
-		return htmlspecialchars(print_r($var, true));
+		echo '<p style="border:1px #ccc dashed;background:#efe">'.highlight_string(print_r($var, true), true).'</p>';
 	}
 }
 
