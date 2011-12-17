@@ -38,14 +38,4 @@ class FormManager_Model_Field_Kcaptcha extends FormManager_Model_Field_Abstract 
 		//$this->setFilter('kcaptcha');
 	}
 
-	/**
-	 * Возвращает длинну кода строки
-	 * К константе не всегда можно обратится поэтому реализую статический метод
-	 * 
-	 * @return integer
-	 */
-	public static function getStringLength() {
-		return self::STRING_LENGTH;
-	}
-
 }

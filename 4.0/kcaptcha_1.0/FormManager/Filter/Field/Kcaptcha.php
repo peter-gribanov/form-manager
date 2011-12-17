@@ -23,7 +23,7 @@ class FormManager_Filter_Field_Kcaptcha extends FormManager_Filter_Field_Abstrac
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (empty($_SESSION['kcaptcha_keystring']) || $_SESSION['kcaptcha_keystring'] != $this->e->getValue()) {
+		if (empty($_SESSION['kcaptcha_keystring']) || $_SESSION['kcaptcha_keystring'] != $this->element->getValue()) {
 			$this->trigger('kcaptcha-code');
 		}
 	}
