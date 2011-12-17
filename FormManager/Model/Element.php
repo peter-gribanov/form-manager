@@ -29,14 +29,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @var FormManager_Model_Element
+	 * @var FormManager_Model_Element|null
 	 */
 	private $parent = null;
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @var FormManager_Model_Element
+	 * @var FormManager_Model_Element|null
 	 */
 	private $root = null;
 
@@ -85,7 +85,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	public function add(FormManager_Model_Element $element) {
 		$element->setParent($this);
-		$element->setRoot($this->root);
+		$element->setRoot($this->getRoot());
 		$this->childs[] = $element;
 		return $element;
 	}
@@ -119,7 +119,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 				throw new FormManager_Exceptions_Model_Element('Cant add element because of improper URL query');
 			}
 			list($name, $value) = explode('=', $param, 2);
-			$field = FormManager_Field_Factory::get('Hidden');
+			$field = new FormManager_Model_Field_Hidden();
 			$field->setName($name);
 			$field->setDefaultValue($value);
 			$this->add($field);
@@ -186,33 +186,12 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
-	 * 
-	 * @param integer $id
-	 * 
-	 * @return FormManager_Model_Element
-	 */
-	public function getChild($id) {
-		if (!is_integer($id)) {
-			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
-		}
-		if (!isset($this->childs[$id])) {
-			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
-		}
-		return $this->childs[$id];
-	}
-
-	/**
-	 * TODO добавить описание
-	 * 
 	 * @param string $name
 	 * 
 	 * @return FormManager_Model_Element|boolean
 	 */
-	public function getChildByName($name) {
-		$id = $this->search($element);
+	public function getChild($name) {
+		$id = $this->getChildId($element);
 		if ($id !== false) {
 			return $this->childs[$id];
 		}
@@ -222,41 +201,19 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @return boolean
+	 * @param integer $id
+	 * 
+	 * @return FormManager_Model_Element|null
 	 */
-	public function isAdded(FormManager_Model_Element $element) {
-		return (bool)$this->search($element);
-	}
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $name
-	 * 
-	 * @return boolean
-	 */
-	public function isAddedByName($name) {
-		return (bool)$this->searchByName($name);
-	}
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param FormManager_Model_Element $element
-	 * 
-	 * @return integer|boolean
-	 */
-	public function search(FormManager_Model_Element $element) {
-		foreach ($this->childs as $key=>$el) {
-			if ($el === $element) {
-				return $key;
-			}
+	protected function getChildById($id) {
+		if (!is_integer($id)) {
+			// TODO описать исключение
+			throw FormManager_Exceptions_Model_Element();
 		}
-		return false;
+		return isset($this->childs[$id]) ? $this->childs[$id] : null;
 	}
-
 
 	/**
 	 * TODO добавить описание
@@ -267,7 +224,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @return integer|boolean
 	 */
-	public function searchByName($name) {
+	protected function getChildId($name) {
 		if (!is_string($name) || !trim($name)) {
 			// TODO описать исключение
 			throw FormManager_Exceptions_Model_Element();
@@ -283,17 +240,12 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param string $name
 	 * 
 	 * @return boolean
 	 */
-	public function remove(FormManager_Model_Element $element) {
-		$id = $this->search($element);
-		if ($id !== false) {
-			unset($this->childs[$id]);
-			return true;
-		}
-		return false;
+	public function isAdded($name) {
+		return (bool)$this->getChildId($name);
 	}
 
 	/**
@@ -303,8 +255,8 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @return boolean
 	 */
-	public function removeByName($name) {
-		$id = $this->searchByName($name);
+	public function remove($element_name) {
+		$id = $this->getChildId($element_name);
 		if ($id !== false) {
 			unset($this->childs[$id]);
 			return true;
@@ -343,10 +295,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 */
 	public function getNamesList() {
 		if ($this->names_list === null) {
-			$this->names_list = array_merge(
-				array($this->name),
-				$this->getParent()->getNamesList()
-			);
+			$this->names_list = array($this->name);
+			// родительский элимент не доступен для FormManager_Model_Form
+			if ($this->getParent() instanceof FormManager_Model_Element) {
+				$this->names_list = array_merge(
+					$this->names_list,
+					$this->getParent()->getNamesList()
+				);
+			}
 		}
 		return $this->names_list;
 	}
@@ -403,7 +359,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * Очищает список элементов
 	 */
 	public function clear() {
-		unset($this->childs);
+		// могут быть проблемы с очисткой памяти
 		$this->childs = array();
 	}
 
@@ -419,9 +375,12 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * Устанавливает флаг что есть поля обязательные для заполнения
 	 */
-	protected function required() {
+	public function required() {
 		$this->required = true;
-		$this->parent->required();
+		// родительский элимент не доступен для FormManager_Model_Form
+		if ($this->getParent() instanceof FormManager_Model_Element) {
+			$this->getParent()->required();
+		}
 	}
 
 	/**
