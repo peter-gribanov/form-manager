@@ -24,7 +24,7 @@ $fontsdir = 'fonts';
 // CAPTCHA string length
 //$length = mt_rand(5,7); // random 5 or 6 or 7
 // CAPTCHA string length not be a random in package FormManager
-$length = FormManager_Model_Field_Kcaptcha::getStringLength();
+$length = FormManager_Model_Field_Kcaptcha::STRING_LENGTH;
 
 // CAPTCHA image size (you do not need to change it, this parameters is optimal)
 $width = 250;
