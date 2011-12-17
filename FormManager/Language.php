@@ -95,7 +95,7 @@ class FormManager_Language {
 	 * 
 	 * @return string|array Языковые сообщения
 	 */
-	public static function getMessage($id, $params = array()) {
+	public static function getMessage($id, array $params = array()) {
 		// загрузка списка сообщений если он еще не загружен
 		if (self::$mess === null) {
 			self::$mess = self::getMessagesList(self::$id);
@@ -125,13 +125,26 @@ class FormManager_Language {
 	 * @return array|boolean Результат загрузки списка
 	 */
 	private static function getMessagesList($id){
-		$file = FORM_MANAGER_PATH.'/languages/'.$id.'/.parameters.php';
+		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
+		// загрузка базового набора сообщений
+		$file = $dir.'.parameters.php';
 		// проверка файла
 		if (!file_exists($file) || !is_readable($file)) {
 			return false;
 		}
-		// загрузка списка сообщений
-		return include $file;
-		
+		// загрузка списка основных сообщений
+		$list = include $file;
+		// загрузка сообщений плагинов
+		$scan = scandir($dir);
+		foreach ($scan as $file) {
+			if ($file[0] != '.' && is_readable($dir.$file)) {
+				$name = pathinfo($file, PATHINFO_FILENAME);
+				$data = include $dir.$file;
+				foreach ($data as $key=>$mess) {
+					$list[$name.'-'.$key] = $mess;
+				}
+			}
+		}
+		return $list;
 	}
 }
