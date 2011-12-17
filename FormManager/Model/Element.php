@@ -79,6 +79,15 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
+	 * @return ForemManager_Iterator
+	 */
+	public function getIterator() {
+		return new ForemManager_Iterator($this->childs);
+	}
+
+	/**
+	 * TODO добавить описание
+	 * 
 	 * @param FormManager_Model_Element $element
 	 * 
 	 * @return FormManager_Model_Element
@@ -236,8 +245,8 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @return boolean
 	 */
-	public function remove($element_name) {
-		$id = $this->getChildId($element_name);
+	public function remove($name) {
+		$id = $this->getChildId($name);
 		if ($id !== false) {
 			unset($this->childs[$id]);
 			return true;
