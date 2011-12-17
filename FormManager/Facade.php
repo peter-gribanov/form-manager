@@ -34,6 +34,13 @@ final class FormManager_Facade {
 	private $collection = null;
 
 	/**
+	 * Фабрика фильтров
+	 * 
+	 * @var FormManager_Filter_Factory|null
+	 */
+	private $filter = null;
+
+	/**
 	 * Вид
 	 * 
 	 * @var FormManager_Viwe|null
@@ -56,6 +63,7 @@ final class FormManager_Facade {
 		$this->view = new FormManager_Viwe();
 		$this->field = new FormManager_Field_Factory();
 		$this->collection = new FormManager_Collection_Factory();
+		$this->filter = new FormManager_Filter_Factory();
 	}
 
 	/**
@@ -70,18 +78,30 @@ final class FormManager_Facade {
 	}
 
 	/**
-	 * Добавляет новое поле к вопросу
+	 * Добавляет новое поле
 	 * 
-	 * @param FormManager_Interfaces_Model_Question $question Родительский вопрос
-	 * @param string                                $name     Название поля
-	 * @param string                                $type     Тип поля
+	 * @param string $name Название поля
+	 * @param string $type Тип поля
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
-	public function addFieldTo(FormManager_Interfaces_Model_Question $question, $name, $type = 'Base') {
+	public function addField($name, $type = 'Text') {
+		return $this->addFieldTo($this->form, $name, $type);
+	}
+
+	/**
+	 * Добавляет новое поле в указанную коллекцию
+	 * 
+	 * @param FormManager_Interfaces_Model_Collection $collection Родительская колекция
+	 * @param string                                  $name       Название поля
+	 * @param string                                  $type       Тип поля
+	 * 
+	 * @return FormManager_Interfaces_Model_Field
+	 */
+	public function addFieldTo(FormManager_Interfaces_Model_Collection $collection, $name, $type = 'Text') {
 		$field = $this->getField($type);
 		$field->setName($name);
-		$question->add($field);
+		$collection->add($field);
 		return $field;
 	}
 
@@ -119,24 +139,22 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Element
 	 */
-	public function addCollection($type = 'Base') {
+	public function addCollection($type = 'Nested') {
 		return $this->addCollectionTo($this->form, $type);
 	}
 
 	/**
 	 * Добавляет новую коллекцию к другой коллекции
 	 * 
-	 * @param FormManager_Interfaces_Model_Collection $collection Родительская коллекция
-	 * @param string                                  $type       Тип коллекции
+	 * @param FormManager_Model_Element $collection Родительская коллекция
+	 * @param string                    $type       Тип коллекции
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Element
 	 */
-	public function addCollectionTo(FormManager_Interfaces_Model_Collection $collection, $type = 'Base') {
-		$coll = $this->getCollection($type);
-		$collection->add($coll);
-		return $coll;
+	public function addCollectionTo(FormManager_Model_Element $collection, $type = 'Nested') {
+		return $collection->add($this->getCollection($type));
 	}
 
 	/**
@@ -147,7 +165,7 @@ final class FormManager_Facade {
 	 * @return FormManager_Field_Factory|FormManager_Interfaces_Model_Field
 	 */
 	public function getField($name = null){
-		return $name ? $this->field->get($name) : $this->field;
+		return $name !== null ? $this->field->get($name) : $this->field;
 	}
 
 	/**
@@ -158,7 +176,18 @@ final class FormManager_Facade {
 	 * @return FormManager_Collection_Factory|FormManager_Interfaces_Model_Collection
 	 */
 	public function getCollection($name = null){
-		return $name ? $this->collection->get($name) : $this->collection;
+		return $name !== null ? $this->collection->get($name) : $this->collection;
+	}
+
+	/**
+	 * Возвращает новый фильтр или фабрику фильтров
+	 * 
+	 * @param string $name Имя фильтра
+	 * 
+	 * @return FormManager_Filter_Factory|FormManager_Interfaces_Filter
+	 */
+	public function getFilter($name = null){
+		return $name !== null ? $this->filter->get($name) : $this->filter;
 	}
 
 	/**
@@ -166,10 +195,37 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Element|boolean
 	 */
 	public function search($name) {
-		// TODO требуется реализация
+		// TODO протестировать
+		$result = $this->form->getChild($name);
+		if (!($result instanceof FormManager_Model_Element)) {
+			$result = $this->searchInChilds($this->form, $name);
+		}
+		return $result;
+	}
+
+	/**
+	 * Рекурсивно ищет в дочерних элементах элемент с указанным именем
+	 * 
+	 * @param FormManager_Model_Element $childs
+	 * @param string                    $name
+	 * 
+	 * @return FormManager_Model_Element|boolean
+	 */
+	private function searchInChilds(FormManager_Model_Element $childs, $name) {
+		foreach ($childs as $child) {
+			$result = $child->getChild($name);
+			if ($result instanceof FormManager_Model_Element) {
+				return $child;
+			}
+			$result = $this->searchInChilds($child, $name);
+			if ($result instanceof FormManager_Model_Element) {
+				return $child;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -187,6 +243,15 @@ final class FormManager_Facade {
 	 */
 	public function drow() {
 		// TODO требуется реализация
+	}
+
+	/**
+	 * Экспортирует объект формы
+	 * 
+	 * @return FormManager_Model_Form
+	 */
+	public function export() {
+		return $this->form;
 	}
 
 }
