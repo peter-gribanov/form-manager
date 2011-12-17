@@ -12,11 +12,11 @@
  */
 
 /**
- * Коллекция элиментов формы по умолчанию
+ * Коллекция элиментов формы вложенных в другую форму
  * 
  * @package FormManager\Model\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Collection_Base extends FormManager_Model_Element {
+class FormManager_Model_Collection_Nested extends FormManager_Model_Element {
 
 }
