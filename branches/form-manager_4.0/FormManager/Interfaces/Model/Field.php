@@ -17,7 +17,7 @@
  * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model {
+interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model_Element {
 
 	/**
 	 * Устанавливает значение поля
