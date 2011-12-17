@@ -91,15 +91,6 @@ class FormManager_Model_Form extends FormManager_Model_Element {
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Model_Element
-	 */
-	public function getParent() {
-		return $this;
-	}
-
-	/**
-	 * TODO добавить описание
-	 * 
 	 * @throws FormManager_Exceptions_Model_Form
 	 * 
 	 * @param FormManager_Model_Element $element
@@ -378,7 +369,7 @@ class FormManager_Model_Form extends FormManager_Model_Element {
 		// добавление скрытого поля
 		if ($method == 'GET' && !$this->getRoot()->isAddedByName('unique_key_already_sent')) {
 			// TODO должен накладываться фильтр
-			$field = FormManager_Field_Factory::get('Hidden');
+			$field = new FormManager_Model_Field_Hidden();
 			$field->setName('unique_key_already_sent');
 			$field->setDefaultValue('4ab24a54898e90ea76f23afc36a81819');
 			$this->getRoot()->add($field);
