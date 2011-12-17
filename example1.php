@@ -9,7 +9,6 @@
 //include('FormManager.php');
 include('init.php');
 
-FormManager_Factory::Form();
 //var_dump(is_dir('lang/en/'));
 exit;
 
