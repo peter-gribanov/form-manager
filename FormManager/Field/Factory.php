@@ -20,13 +20,6 @@
 final class FormManager_Field_Factory {
 
 	/**
-	 * Инициализированные модели
-	 *
-	 * @var array
-	 */
-//	private $models = array();
-
-	/**
 	 * Возвращает новый элимент формы
 	 * 
 	 * @param string $method Вызываемый метод
@@ -38,10 +31,6 @@ final class FormManager_Field_Factory {
 		// TODO реализовать добавление метода в класс
 		return $obj;
 	}
-/*
-	protected function getCachedModel($name) {
-		return (isset($this->models[$name]) ? $this->models[$name] : null);
-	}*/
 
 	/**
 	 * Возвращает новый элимент формы
@@ -52,38 +41,19 @@ final class FormManager_Field_Factory {
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
-	public static function get($type = 'Base'){
+	public static function get($type = 'Text'){
 		$class_name = 'FormManager_Model_Field_'.$type;
-		/*
 		try {
-			$model = new $class($db, $this, $this->factory->getEventDispatcher(), $this->cache);
-			$this->models[$name] = $model;
+			$field = new $class_name();
 		} catch (Cms_AutoLoad_Exception $exeption) {
-			try {
-				$model = new $classBase($db, $this, $this->factory->getEventDispatcher(), $this->cache);
-				$this->models[$name] = $model;
-			} catch (Cms_AutoLoad_Exception $exeption) {
-				$model=null;
-			}
+			$field = null;
 		}
 
-		if (! ( ($model instanceof $class) || ($model instanceof $classBase) ) ) {
-			throw new Cms_Model_Exception("Не удалось найти указанную модель: '$name'.");
-		}*/
-		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Interfaces_Model_Field)) {
-			throw new FormManager_Exceptions_Model_Field('', 1002);
+		if (!(($field instanceof $class_name) || ($field instanceof FormManager_Interfaces_Model_Field))) {
+			throw new FormManager_Exceptions_Model_Field('Не удалось найти указанный тип поля: '.$type, 1002);
 		}
-		return $obj;
-	}
 
-	/**
-	 * Создает поле Base
-	 * 
-	 * @return FormManager_Model_Field_Base
-	 */
-	public function Base(){
-		return new FormManager_Model_Field_Base();
+		return $field;
 	}
 
 	/**
@@ -92,7 +62,7 @@ final class FormManager_Field_Factory {
 	 * @return FormManager_Model_Field_Hidden
 	 */
 	public function Hidden(){
-		return new FormManager_Model_Field_Hidden();
+		return $this->get('Hidden');
 	}
 
 	/**
@@ -101,7 +71,7 @@ final class FormManager_Field_Factory {
 	 * @return FormManager_Model_Field_Radio
 	 */
 	public function Radio(){
-		return new FormManager_Model_Field_Radio();
+		return $this->get('Radio');
 	}
 
 	/**
@@ -110,7 +80,7 @@ final class FormManager_Field_Factory {
 	 * @return FormManager_Model_Field_Select
 	 */
 	public function Select(){
-		return new FormManager_Model_Field_Select();
+		return $this->get('Select');
 	}
 
 	/**
@@ -119,7 +89,7 @@ final class FormManager_Field_Factory {
 	 * @return FormManager_Model_Field_Text
 	 */
 	public function Text(){
-		return new FormManager_Model_Field_Text();
+		return $this->get('Text');
 	}
 
 }
