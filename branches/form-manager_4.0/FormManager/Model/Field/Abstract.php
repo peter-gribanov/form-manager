@@ -23,14 +23,21 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * Опции поля
 	 * 
 	 * @var	array
-	 */
+	 *//*
 	protected $options = array(
 //		'name'		=> '',		// Имя поля
 		'default'	=> '',		// Значение по умолчанию
-		'view'		=> array('text', array()),	// Вид поля
-		'filters'	=> array(),	// Фильтры проверки поля
+//		'view'		=> array('text', array()),	// Вид поля
+//		'filters'	=> array(),	// Фильтры проверки поля
 //		'required'	=> false,	// Обязательное для заполнения
-	);
+	);*/
+
+	/**
+	 * Значение по умолчанию
+	 * 
+	 * @var string|integer|float|boolean|array
+	 */
+	private $default = '';
 
 	/**
 	 * Итератор запуска фильтров при проверки поля
@@ -96,11 +103,11 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * 
 	 * @param string|integer|float|boolean|array $val
 	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @return boolean
 	 */
 	public function setDefaultValue($val){
-		$this->options['default'] = $val;
-		return $this;
+		$this->default = $val;
+		return true;
 	}
 
 	/**
@@ -109,11 +116,13 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * @return string
 	 */
 	public function getDefaultValue(){
-		return $this->options['default'];
+		return $this->default;
 	}
 
 	/**
 	 * Возвращает значение поля
+	 * 
+	 * TODO по хорошему этот метод больше не должен использоваться
 	 * 
 	 * @return string
 	 */
@@ -125,7 +134,8 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 		if (is_bool($this->getDefaultValue())){
 			if ($value=='on'){
 				$value = true;
-			} elseif ($value===null && $this->form->isAlreadySent()){
+				// FIXME isAlreadySent() больше нет
+			} elseif ($value===null && $this->getRoot()->isAlreadySent()){
 				$value = false;
 			}
 		}
@@ -139,11 +149,14 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * @return string
 	 */
 	public function &getSentValue(){
-		return $this->form->getSentValue($this->getName());
+		// FIXME getSentValue() больше нет
+		return $this->getRoot()->getSentValue($this->getName());
 	}
 
 	/**
 	 * Устанавливает вид для поля
+	 * 
+	 * TODO это должен быть FormManager_Model_Element::setDecorator()
 	 * 
 	 * @throws FormManager_Exceptions_Model_Field
 	 * 
@@ -151,7 +164,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * @param array  $params
 	 * 
 	 * @return FormManager_Model_Field_Abstract
-	 */
+	 *//*
 	public function setView($name, $params=null){
 		if (!is_string($name) || !trim($name)) {
 			throw new FormManager_Exceptions_Model_Field('Element view name must be not empty string');
@@ -161,17 +174,19 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 
 		$this->options['view'][0] = $name;
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Устанавливает параметры вывода
+	 * 
+	 * TODO это должен быть FormManager_Model_Element::setDecorator()
 	 * 
 	 * @throws FormManager_Exceptions_Model_Field
 	 * 
 	 * @param  array              $params
 	 * 
 	 * @return FormManager_Model_Field_Abstract
-	 */
+	 *//*
 	public function setViewParams($params=array()){
 		if (!is_array($params)) {
 			throw new FormManager_Exceptions_Model_Field('Element view parametrs should be an array');
@@ -179,7 +194,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 		$this->options['view'][1] = array_merge($this->options['view'][1], $params);
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Выводит поле
@@ -295,23 +310,28 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 
 	/**
 	 * Метод для сериализации класса
-	 *
+	 * 
 	 * @return string
-	 *//*
+	 */
 	public function serialize(){
-		return serialize($this->export());
-	}*/
+		// TODO требуется тестирование
+		return serialize(array(
+			$this->default,
+			parent::serialize()
+		));
+	}
 
 	/**
 	 * Метод для десериализации класса
-	 *
+	 * 
 	 * @param string $data
 	 * 
-	 * @return FormManager_Model_Collection_Abstract
+	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function unserialize($data){
 		// TODO требуется тестирование
-		$this->options = unserialize($data);
+		list($this->default, $data) = unserialize($data);
+		parent::unserialize($data);
 		return $this;
 	}
 
@@ -322,8 +342,8 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 */
 	public function export(){
 		return array_merge(
-			$this->options.
-			parent::export()
+			parent::export(),
+			array('default' => $this->default)
 		);
 	}
 
