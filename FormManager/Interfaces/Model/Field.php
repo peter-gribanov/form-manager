@@ -49,33 +49,4 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	 */
 	public function &getSentValue();
 
-	/**
-	 * Устанавливает вид для поля
-	 * 
-	 * @param string $name
-	 * @param array  $params
-	 * 
-	 * @return FormManager_Interfaces_Model_Field
-	 */
-	public function setView($name, $params = null);
-
-	/**
-	 * Устанавливает параметры вывода
-	 * 
-	 * @param array $params
-	 * 
-	 * @return FormManager_Interfaces_Model_Field
-	 */
-	public function setViewParams($params = array());
-
-	/**
-	 * Устанавливает фильтр для поля
-	 * 
-	 * @param string $name
-	 * @param array  $params
-	 * 
-	 * @return FormManager_Interfaces_Model_Field
-	 */
-	public function setFilter($name, $params = null);
-
 }
