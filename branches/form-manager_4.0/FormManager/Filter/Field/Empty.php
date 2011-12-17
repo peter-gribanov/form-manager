@@ -23,7 +23,7 @@ class FormManager_Filter_Field_Empty extends FormManager_Filter_Field_Abstract {
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (trim($this->field->getValue()) == '') {
+		if (trim($this->element->getValue()) == '') {
 			$this->trigger('empty');
 		}
 	}

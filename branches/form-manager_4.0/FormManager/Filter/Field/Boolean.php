@@ -23,11 +23,9 @@ class FormManager_Filter_Field_Boolean extends FormManager_Filter_Field_Abstract
 	 * Проверяет поле
 	 */
 	public function check(){
-		if (!is_bool($this->field->getValue())
-			&& (!is_numeric($this->field->getValue())
-				|| ($this->field->getValue() != 0 && $this->field->getValue() != 1))) {
-
-			$param = $this->field->getViewParams();
+		if (!is_bool($this->element->getValue())
+			&& (!is_numeric($this->element->getValue())
+				|| ($this->element->getValue() != 0 && $this->element->getValue() != 1))) {
 
 			if (!empty($this->options['value_no']) && !empty($this->options['value_yes'])) {
 				$this->trigger('boolean', array('('.$this->options['value_no'].', '.$this->options['value_yes'].')'));

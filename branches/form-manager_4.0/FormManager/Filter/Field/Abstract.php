@@ -20,33 +20,13 @@
 abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abstract {
 
 	/**
-	 * Объект поля формы
-	 * 
-	 * @var FormManager_Model_Field_Abstract
-	 */
-	protected $field;
-
-	/**
-	 * Параметры фильтра
-	 * 
-	 * @var array
-	 */
-	protected $options;
-
-
-	/**
 	 * Устанавливает объект поля формы
 	 * 
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array()) {
-		//@todo нужно реализовать проверку где происходит валидация
-//		if (!is_integer($this->filter_iterator)){
-//			throw new FormManager_Filter_Exception('Validate field is not running', 301);
-//		}
-		$this->field   = $field;
-		$this->options = $options;
+	public function __construct(FormManager_Interfaces_Model_Field $field, array $options = array()) {
+		parent::__construct($field, $options);
 	}
 
 	/**
@@ -59,8 +39,9 @@ abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abst
 	 */
 	protected function trigger($key, array $params = array()){
 		// добавление текста вопроса
-		// TODO в options['question'] надо добавить текст вопроса
-		array_unshift($params, $this->options['question']);
+		// TODO не очень хорошо что здесь выполняется export()
+		$field = $this->element->export();
+		array_unshift($params, $field['title']);
 		parent::trigger($key, $params);
 	}
 

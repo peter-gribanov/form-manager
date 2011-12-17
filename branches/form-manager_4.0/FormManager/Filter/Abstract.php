@@ -14,6 +14,8 @@
 /**
  * Интерфейс фильтра
  * 
+ * TODO структура фильтра полная охинея. нужно переделать
+ * 
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
@@ -22,9 +24,9 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormManager_Model_Field_Abstract
+	 * @var FormManager_Interfaces_Model_Element
 	 */
-	protected $field;
+	protected $element;
 
 	/**
 	 * Параметры фильтра
@@ -47,12 +49,12 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array()) {
-		//@todo нужно реализовать проверку где происходит валидация
+	public function __construct(FormManager_Interfaces_Model_Element $element, array $options = array()) {
+		// TODO нужно реализовать проверку где происходит валидация
 //		if (!is_integer($this->filter_iterator)){
 //			throw new FormManager_Filter_Exception('Validate field is not running', 301);
 //		}
-		$this->field   = $field;
+		$this->element = $element;
 		$this->options = $options;
 	}
 
@@ -82,8 +84,7 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 */
 	protected function trigger($key, array $params = array()){
 		// добавление сообщения из языковой темы
-		array_unshift($params, FormManager_Language::getMessage('filter-'.$key));
-		$this->errors[] = call_user_func_array('sprintf', $params);
+		$this->errors[] = FormManager_Language::getMessage('filter-'.$key, $params);
 	}
 
 	/**
