@@ -271,26 +271,6 @@ class FormManager_Factory {
 	}
 
 	/**
-	 * Создает новый элимент формы Captcha
-	 * 
-	 * @todo убрать параметр $length
-	 * 
-	 * @param string  $name   Имя поля
-	 * @param string  $title  Заголовок поля
-	 * @param integer $length Длинна кода
-	 * 
-	 * @return FormManager_Model_Field_Text
-	 */
-	public static function Kcaptcha($name, $title, $length = 6 ) {
-		return self::Text($name, $title)
-			->setView('kcaptcha')
-			->setComment(sprintf($this->getLangPost('kcaptcha-length'), $length))
-			->setFilter('empty')
-			->setFilter('length', array('min' => $length, 'max' => $length))
-			->setFilter('kcaptcha');
-	}
-
-	/**
 	 * Создает новый элимент формы Дата
 	 * 
 	 * @param string $name  Имя поля
