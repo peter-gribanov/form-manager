@@ -23,10 +23,11 @@ final class FormManager_Filter_Factory {
 	 * Возвращает новый фильтр
 	 * 
 	 * @param string $method Вызываемый метод
+	 * @param array  $args   Параметры метода
 	 * 
 	 * @return FormManager_Interfaces_Filter
 	 */
-	public function __call($method) {
+	public function __call($method, $args) {
 		$obj = $this->get($method);
 		// TODO реализовать добавление метода в класс
 		return $obj;
