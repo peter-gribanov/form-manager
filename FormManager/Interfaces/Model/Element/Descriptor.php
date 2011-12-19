@@ -14,7 +14,7 @@
 /**
  * Интерфейс модели элемента формулирующая описательную часть элементов
  * 
- * @package FormManager\Interfaces\Element
+ * @package FormManager\Interfaces\Model\Element
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 interface FormManager_Interfaces_Model_Element_Descriptor {

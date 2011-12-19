@@ -14,7 +14,7 @@
 /**
  * Интерфейс модели элемента формулирующая функциональную часть элементов
  * 
- * @package FormManager\Interfaces\Element
+ * @package FormManager\Interfaces\Model\Element
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 interface FormManager_Interfaces_Model_Element_Functional extends FormManager_Interfaces_Model {
