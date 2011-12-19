@@ -14,7 +14,7 @@
 /**
  * Интерфейс модели элемента
  * 
- * @package FormManager\Interfaces
+ * @package FormManager\Interfaces\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 interface FormManager_Interfaces_Model_Element extends
