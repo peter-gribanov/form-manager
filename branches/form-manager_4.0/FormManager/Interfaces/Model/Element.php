@@ -22,13 +22,6 @@ interface FormManager_Interfaces_Model_Element extends FormManager_Interfaces_Mo
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return Iterator
-	 */
-	public function getIterator();
-
-	/**
-	 * TODO добавить описание
-	 * 
 	 * @param FormManager_Model_Element $element
 	 * 
 	 * @return FormManager_Model_Element
@@ -180,26 +173,5 @@ interface FormManager_Interfaces_Model_Element extends FormManager_Interfaces_Mo
 	 * @return FormManager_Model_Field_Abstract
 	 */
 	public function setFilter($name, $params = null);
-
-	/**
-	 * Метод для сериализации класса
-	 * 
-	 * @return string Сериализованная коллекция
-	 */
-	public function serialize();
-
-	/**
-	 * Метод для десериализации класса
-	 * 
-	 * @param string $data Сериализованная коллекция
-	 */
-	public function unserialize($data);
-
-	/**
-	 * Возвращает все данные
-	 * 
-	 * @return array
-	 */
-	public function export();
 
 }
