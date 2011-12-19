@@ -25,15 +25,15 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * Опции формы
 	 * 
 	 * @var array
-	 */
+	 *//*
 	private $options = array(
 		'action'       => '',      // Адрес обработчика формы
 		'method'       => 'POST',  // Метод передачи данных
 //		'name'         => '',      // Название формы
-		'required'     => false,   // Есть поля обязательны для заполнения
+		'required'     => false,   // Есть полны для заполненияя обязатель
 //		'submit_title' => '',      // Заголовок для кнопки отправки формы
 //		'buttons'      => array(), // Список кнопок у формы
-	);
+	);*/
 
 	/**
 	 * Шаблон вида формы
@@ -81,9 +81,9 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * 
 	 * @throws FormManager_Exceptions_Model_Form
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 */
-	public function setParent(FormManager_Model_Element $element) {
+	public function setParent(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
 		throw FormManager_Exceptions_Model_Form();
 	}
@@ -93,9 +93,9 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * 
 	 * @throws FormManager_Exceptions_Model_Form
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 */
-	public function setRoot(FormManager_Model_Element $element) {
+	public function setRoot(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
 		throw FormManager_Exceptions_Model_Form();
 	}
@@ -103,9 +103,10 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Element
 	 */
 	protected function getRoot() {
+		// может возникнуть бесконечная рекурсия
 		return $this;
 	}
 
@@ -214,22 +215,24 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * @param string $name
 	 * 
 	 * @return string
-	 */
+	 *//*
 	public function &getSentValue($name) {
-		return $GLOBALS['_'.$this->options['method']][$name];
-	}
+		// TODO убрать отсюда
+		return $GLOBALS['_POST'][$name];
+	}*/
 
 	/**
 	 * Очищает отправленные данные
-	 */
+	 *//*
 	public function clearSentValues() {
-		$method = '_'.$this->options['method'];
+		// TODO убрать отсюда
+		$method = '_POST';
 		unset($GLOBALS[$method]);
 		// для корректной работы методов isAlreadySent
 		// создается не пустой массив
 		$GLOBALS[$method] = array(0);
 //		$this->inputs = & $GLOBALS[$method];
-	}
+	}*/
 
 	/**
 	 * Форма уже отправлена
@@ -237,6 +240,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * @return boolean
 	 *//*
 	public function isAlreadySent() {
+		// TODO убрать в фильтры
 		if ( !isset($_SERVER['HTTP_REFERER'])
 			|| !count($GLOBALS['_'.$this->options['method']])
 			// должен быть установлен уникальный ключ,
@@ -333,13 +337,13 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * @throws FormManager_Exceptions_Model_Form
 	 * 
 	 * @param string $action
-	 */
+	 *//*
 	public function setAction($action) {
 		if (!is_string($action) || !trim($action)) {
 			throw new FormManager_Exceptions_Model_Form('Form action must be not empty string');
 		}
 		$this->options['action'] = $action;
-	}
+	}*/
 
 	/**
 	 * Возвращает адрес обработчика формы
@@ -358,7 +362,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * @param string $method
 	 * 
 	 * @return FormManager_Model_Form
-	 */
+	 *//*
 	public function setMethod($method) {
 		$method = strtoupper($method);
 		if ($method != 'POST' && $method != 'GET') {
@@ -376,7 +380,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 		}
 
 		return $this;
-	}
+	}*/
 
 	/**
 	 * Возвращает метод передачи данных

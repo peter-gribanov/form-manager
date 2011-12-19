@@ -27,7 +27,7 @@ class FormManager_Model_Field_Select extends FormManager_Model_Field_Abstract {
 	 * @param array $params
 	 * 
 	 * @return FormManager_Model_Field_Select
-	 */
+	 *//*
 	public function setViewParams($params = array()) {
 		// установка ключа
 		if (!isset($this->options['view'][1]['use_key'])) {
@@ -49,6 +49,6 @@ class FormManager_Model_Field_Select extends FormManager_Model_Field_Abstract {
 		}
 
 		return parent::setViewParams($params);
-	}
+	}*/
 
 }
