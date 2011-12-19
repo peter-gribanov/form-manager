@@ -19,7 +19,7 @@
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Form extends FormManager_Model_Element {
+class FormManager_Model_Form extends FormManager_Model_Element implements FormManager_Interfaces_Model_Collection {
 
 	/**
 	 * Опции формы
