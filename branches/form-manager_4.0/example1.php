@@ -9,7 +9,13 @@
 //include('FormManager.php');
 include('init.php');
 
-//var_dump(is_dir('lang/en/'));
+$facade = new FormManager_Facade();
+$form = $facade->getForm();
+$form->setName('my-form');
+$form->setTitle('My test form');
+$facade->addField('text');
+$facade->addField('select', $facade->getField()->Select());
+p($facade->export());
 exit;
 
 
