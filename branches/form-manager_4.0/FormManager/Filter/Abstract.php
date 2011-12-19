@@ -46,7 +46,7 @@ abstract class FormManager_Filter_Abstract implements FormManager_Interfaces_Fil
 	/**
 	 * Устанавливает объект поля формы
 	 * 
-	 * @param FormManager_Model_Field_Interface $field   Объект поля
+	 * @param FormManager_Model_Field_Interface $element Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
 	public function __construct(FormManager_Interfaces_Model_Element $element, array $options = array()) {

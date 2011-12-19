@@ -41,16 +41,14 @@ define('FORM_MANAGER_HTTP_PATH', $http_path);
 
 unset($http_path, $path);
 
-/**
- * Функция отладки, обычно определяется во внешней библиотеке debuger
- * 
- * @todo Удалить на паблике
- * 
- * @author Peter Gribanov <info@peter-gribanov.ru>
- * 
- * @param $var Выводимая переменная
- */
 if (!function_exists('p')) {
+	/**
+	 * Функция отладки, обычно определяется во внешней библиотеке debuger
+	 * 
+	 * @author Peter Gribanov <info@peter-gribanov.ru>
+	 * 
+	 * @param $var Выводимая переменная
+	 */
 	function p($var) {
 		echo '<p style="border:1px #ccc dashed;background:#efe">'.highlight_string(print_r($var, true), true).'</p>';
 	}
