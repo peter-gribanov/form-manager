@@ -23,10 +23,11 @@ final class FormManager_Collection_Factory {
 	 * Возвращает новую коллекцию элиментов формы
 	 * 
 	 * @param string $method Вызываемый метод
+	 * @param array  $args   Параметры метода
 	 * 
 	 * @return FormManager_Interfaces_Model_Collection
 	 */
-	public function __call($method) {
+	public function __call($method, $args) {
 		$obj = $this->get($method);
 		// TODO реализовать добавление метода в класс
 		return $obj;
