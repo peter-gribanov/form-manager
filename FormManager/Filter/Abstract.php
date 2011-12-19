@@ -19,7 +19,7 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interface {
+abstract class FormManager_Filter_Abstract implements FormManager_Interfaces_Filter {
 
 	/**
 	 * Объект поля формы
