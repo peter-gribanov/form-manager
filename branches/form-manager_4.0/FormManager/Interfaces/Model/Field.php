@@ -43,10 +43,26 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	public function getValue();
 
 	/**
+	 * Устанавливает значение поля
+	 * 
+	 * @param string|integer|boolean $value
+	 * 
+	 * @return FormManager_Interfaces_Model_Field
+	 */
+//	public function setValue();
+
+	/**
 	 * Возвращает значение указанное пользователем
 	 * 
 	 * @return string
 	 */
 	public function &getSentValue();
+
+	/**
+	 * Определяет изменено ли поле
+	 * 
+	 * @return boolean
+	 */
+//	public function isChanged();
 
 }

@@ -52,9 +52,9 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * 
 	 * @throws FormManager_Exceptions_Model_Field
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 */
-	public function add(FormManager_Model_Element $element) {
+	public function add(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
 		throw new FormManager_Exceptions_Model_Field();
 	}

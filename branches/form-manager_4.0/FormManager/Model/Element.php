@@ -88,11 +88,11 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Element
 	 */
-	public function add(FormManager_Model_Element $element) {
+	public function add(FormManager_Interfaces_Model_Element $element) {
 		$element->setParent($this);
 		$element->setRoot($this->getRoot());
 		$this->childs[] = $element;
@@ -140,9 +140,9 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 */
-	public function setParent(FormManager_Model_Element $element) {
+	public function setParent(FormManager_Interfaces_Model_Element $element) {
 		if ($element === $this) {
 			// TODO описать исключение
 			throw FormManager_Exceptions_Model_Element();
@@ -153,7 +153,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Element
 	 */
 	public function getParent() {
 		return $this->parent;
@@ -164,9 +164,9 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @param FormManager_Model_Element $element
+	 * @param FormManager_Interfaces_Model_Element $element
 	 */
-	public function setRoot(FormManager_Model_Element $element) {
+	public function setRoot(FormManager_Interfaces_Model_Element $element) {
 		if ($element === $this->root) {
 			// TODO описать исключение
 			throw FormManager_Exceptions_Model_Element();
@@ -177,7 +177,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Element
 	 */
 	protected function getRoot() {
 		return $this->root;
@@ -197,7 +197,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @param string $name
 	 * 
-	 * @return FormManager_Model_Element|boolean
+	 * @return FormManager_Interfaces_Model_Element|boolean
 	 */
 	public function getChild($name) {
 		$id = $this->getChildId($element);
@@ -368,7 +368,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	public function required() {
 		$this->required = true;
 		// родительский элимент не доступен для FormManager_Model_Form
-		if ($this->getParent() instanceof FormManager_Model_Element) {
+		if ($this->getParent() instanceof FormManager_Interfaces_Model_Element) {
 			$this->getParent()->required();
 		}
 	}
@@ -385,14 +385,11 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * Устанавливает фильтр для поля
 	 * 
-	 * @throws FormManager_Exceptions_Model_Field
+	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @param string $name
-	 * @param array  $params
-	 * 
-	 * @return FormManager_Model_Field_Abstract
+	 * @param FormManager_Interfaces_Filter $filter Объект фильтра
 	 */
-	public function setFilter($name, $params = null) {
+	public function setFilter(FormManager_Interfaces_Filter $filter) {
 		// TODO требуется реализация
 		/*
 		if (!is_string($name) || !trim($name)) {
