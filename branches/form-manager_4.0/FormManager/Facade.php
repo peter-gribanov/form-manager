@@ -80,8 +80,8 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новое поле
 	 * 
-	 * @param string $name Название поля
-	 * @param string $type Тип поля
+	 * @param string                                    $name Название поля
+	 * @param FormManager_Interfaces_Model_Field|string $type Тип поля или объект поля
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
@@ -92,54 +92,29 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новое поле в указанную коллекцию
 	 * 
-	 * @param FormManager_Interfaces_Model_Collection $collection Родительская колекция
-	 * @param string                                  $name       Название поля
-	 * @param string                                  $type       Тип поля
+	 * @param FormManager_Interfaces_Model_Collection   $collection Родительская колекция
+	 * @param string                                    $name       Название поля
+	 * @param FormManager_Interfaces_Model_Field|string $type       Тип поля или объект поля
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
 	public function addFieldTo(FormManager_Interfaces_Model_Collection $collection, $name, $type = 'Text') {
-		$field = $this->getField($type);
+		if ($type instanceof FormManager_Interfaces_Model_Field) {
+			$field = $type;
+		} else {
+			$field = $this->getField($type);
+		}
 		$field->setName($name);
 		$collection->add($field);
 		return $field;
 	}
 
 	/**
-	 * Добавляет новый вопрос
-	 * 
-	 * @param string $title   Заголовок вопроса
-	 * @param string $comment Коментарий к полю
-	 * 
-	 * @return FormManager_Interfaces_Model_Question
-	 *//*
-	public function addQuestion($title, $comment = '') {
-		return $this->addQuestionTo($this->form, $title, $comment);
-	}*/
-
-	/**
-	 * Добавляет новый вопрос к коллекции
-	 * 
-	 * @param FormManager_Interfaces_Model_Collection $collection Родительская коллекция
-	 * @param string                                  $title      Заголовок вопроса
-	 * @param string                                  $comment    Коментарий к полю
-	 * 
-	 * @return FormManager_Interfaces_Model_Question
-	 *//*
-	public function addQuestionTo(FormManager_Interfaces_Model_Question $collection, $title, $comment = '') {
-		$question = new FormManager_Model_Question_Base();
-		$question->setTitle($title);
-		$question->setComment($comment);
-		$collection->add($question);
-		return $question;
-	}*/
-
-	/**
 	 * Добавляет новую коллекцию
 	 * 
-	 * @param string $type Тип коллекции
+	 * @param FormManager_Interfaces_Model_Collection|string $type Тип коллекции или объект коллекции
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
 	public function addCollection($type = 'Nested') {
 		return $this->addCollectionTo($this->form, $type);
@@ -148,13 +123,17 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новую коллекцию к другой коллекции
 	 * 
-	 * @param FormManager_Model_Element $collection Родительская коллекция
-	 * @param string                    $type       Тип коллекции
+	 * @param FormManager_Interfaces_Model_Collection        $collection Родительская коллекция
+	 * @param FormManager_Interfaces_Model_Collection|string $type       Тип коллекции или объект коллекции
 	 * 
-	 * @return FormManager_Model_Element
+	 * @return FormManager_Interfaces_Model_Collection
 	 */
-	public function addCollectionTo(FormManager_Model_Element $collection, $type = 'Nested') {
-		return $collection->add($this->getCollection($type));
+	public function addCollectionTo(FormManager_Interfaces_Model_Collection $collection, $type = 'Nested') {
+		if ($type instanceof FormManager_Interfaces_Model_Collection) {
+			return $collection->add($type);
+		} else {
+			return $collection->add($this->getCollection($type));
+		}
 	}
 
 	/**
@@ -188,6 +167,15 @@ final class FormManager_Facade {
 	 */
 	public function getFilter($name = null){
 		return $name !== null ? $this->filter->get($name) : $this->filter;
+	}
+
+	/**
+	 * Возвращает объект текущей формы
+	 * 
+	 * @return FormManager_Model_Form
+	 */
+	public function getForm(){
+		return $this->form;
 	}
 
 	/**
