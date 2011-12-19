@@ -28,6 +28,8 @@ class ForemManager_Iterator implements Iterator {
 
 
 	/**
+	 * Конструктор
+	 * 
 	 * @param array $list Итерируемый список
 	 */
 	public function __construct(array &$list) {

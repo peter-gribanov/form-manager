@@ -19,6 +19,9 @@
  */
 class FormManager_Model_Collection_Fieldset extends FormManager_Model_Element {
 
+	/**
+	 * Конструктор
+	 */
 	public function __construct() {
 		// TODO наложить шаблон с тегом fieldset
 	}
