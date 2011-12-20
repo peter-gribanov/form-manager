@@ -30,6 +30,8 @@ final class FormManager_Filter_Factory {
 	public function __call($method, $args) {
 		$obj = $this->get($method);
 		// TODO реализовать добавление метода в класс
+		// TODO проверять имя на ключевые слова http://www.php.net/manual/en/reserved.keywords.php
+		//trigger_error('Call to undefined method '.__CLASS__.'::'.$method.'()', E_USER_ERROR);
 		return $obj;
 	}
 
