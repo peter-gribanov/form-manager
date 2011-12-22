@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class ForemManager_Iterator implements Iterator {
+class FormManager_Iterator implements Iterator {
 
 	/**
 	 * Список элиментов
