@@ -73,32 +73,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	}
 
 	/**
-	 * Устанавливает имя поля
-	 * 
-	 * @throws	FormManager_Exceptions_Model_Field
-	 * 
-	 * @param string $name Имя
-	 * 
-	 * @return FormManager_Model_Field_Abstract
-	 *//*
-	public function setName($name){
-		if (!is_string($name) || !trim($name)) {
-			throw new FormManager_Exceptions_Model_Field('Element name must be not empty string');
-		}
-		$this->options['name'] = $name;
-		return $this;
-	}*/
-
-	/**
-	 * Возвращает имя поля
-	 * 
-	 * @return string
-	 *//*
-	public function getName(){
-		return $this->options['name'];
-	}*/
-
-	/**
 	 * Устанавливает значение поля
 	 * 
 	 * @param string|integer|float|boolean|array $val
@@ -287,28 +261,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	}*/
 
 	/**
-	 * Устанавливает что поле является обязательным для заполнения
-	 * 
-	 * @return FormManager_Model_Field_Abstract
-	 *//*
-	public function required(){
-		$this->options['required'] = true;
-		if ($this->form){
-			$this->form->required();
-		}
-		return $this;
-	}*/
-
-	/**
-	 * Проверяет является ли поле обязательным для заполнения
-	 * 
-	 * @return boolean
-	 *//*
-	public function isRequired(){
-		return $this->options['required'];
-	}*/
-
-	/**
 	 * Метод для сериализации класса
 	 * 
 	 * @return string
@@ -346,16 +298,5 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 			array('default' => $this->default)
 		);
 	}
-
-	/**
-	 * Возвращает реальный путь к шаблону элемента
-	 * 
-	 * @param string $view Вид элемента
-	 * 
-	 * @return string Путь к шаблону элемента
-	 *//*
-	public static function getTemplatePath($view){
-		return FormManagerForm::getTemplatePath('fields/'.$view.'/template.php');
-	}*/
 
 }

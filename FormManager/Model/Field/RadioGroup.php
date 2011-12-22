@@ -12,11 +12,18 @@
  */
 
 /**
- * Класс описывает элемент ввода радио кнопка
+ * Класс описывает список радио кнопок
  * 
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Radio extends FormManager_Model_Field_Abstract {
+class FormManager_Model_Field_RadioGroup extends FormManager_Model_Field_Abstract {
+
+	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		// TODO реализовать базовую инициализацию элемента
+	}
 
 }
