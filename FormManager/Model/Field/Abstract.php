@@ -33,11 +33,18 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	);*/
 
 	/**
-	 * Значение по умолчанию
+	 * Значение поля по умолчанию
 	 * 
 	 * @var string|integer|float|boolean|array
 	 */
 	private $default = '';
+
+	/**
+	 * Значение поля
+	 * 
+	 * @var string|integer|float|boolean|array
+	 */
+	private $value = '';
 
 	/**
 	 * Итератор запуска фильтров при проверки поля
@@ -125,6 +132,15 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	public function &getSentValue(){
 		// FIXME getSentValue() больше нет
 		return $this->getRoot()->getSentValue($this->getName());
+	}
+
+	/**
+	 * Определяет изменено ли поле
+	 * 
+	 * @return boolean
+	 */
+	public function isChanged() {
+		return $this->getValue() != $this->getDefaultValue();
 	}
 
 	/**
