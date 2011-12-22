@@ -135,14 +135,14 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 //	public function isValid();
 
 	/**
-	 * TODO добавить описание
+	 * Устанавливает имя элемента
 	 * 
-	 * @param string $name
+	 * @param string $name Имя элемента
 	 */
 	public function setName($name);
 
 	/**
-	 * TODO добавить описание
+	 * Возвращает имя элемента
 	 * 
 	 * @return string
 	 */

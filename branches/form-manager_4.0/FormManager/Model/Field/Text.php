@@ -17,8 +17,14 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Text extends FormManager_Model_Field_Abstract {
-	
+class FormManager_Model_Field_Text extends FormManager_Model_Field_ElementString {
+
+	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		// TODO реализовать базовую инициализацию элемента
+	}
 
 	/**
 	 * Устанавливает фильтр для поля

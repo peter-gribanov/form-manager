@@ -4,20 +4,20 @@
  * 
  * @package   FormManager
  * @author    Peter Gribanov <info@peter-gribanov.ru>
- * @version   4.0 SVN: $Revision$
- * @since     $Date$
+ * @version   4.0 SVN: $Revision: 155 $
+ * @since     $Date: 2011-12-19 23:08:15 +0400 (Mon, 19 Dec 2011) $
  * @link      http://peter-gribanov.ru/open-source/form-manager/4.0/
  * @copyright 2008 by Peter Gribanov
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 
 /**
- * Класс описывает элемент ввода формы
+ * Класс описывает множественный список выбора
  * 
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Select extends FormManager_Model_Field_Abstract {
+class FormManager_Model_Field_SelectMulti extends FormManager_Model_Field_Abstract {
 
 	/**
 	 * Конструктор
