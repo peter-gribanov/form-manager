@@ -63,6 +63,6 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	 * 
 	 * @return boolean
 	 */
-//	public function isChanged();
+	public function isChanged();
 
 }
