@@ -242,4 +242,26 @@ final class FormManager_Facade {
 		return $this->form;
 	}
 
+	/**
+	 * Устанавливает метод отправки формы
+	 * 
+	 * @param string $method
+	 * 
+	 * @throws FormManager_Exception
+	 */
+	public function setMethod($method) {
+		$method = strtolower($method);
+		if (!in_array($method, array('post', 'get'))) {
+			// TODO описать исключение
+			throw new FormManager_Exception();
+		}
+		$input = '_'.strtoupper($method);
+		foreach ($$input as $name => $value) {
+			$el = $this->search($name);
+			if ($el instanceof FormManager_Interfaces_Model_Field) {
+				$el->setValue($value);
+			}
+		}
+		// TODO добавить декоратор формы с методом
+	}
 }
