@@ -125,6 +125,15 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	}
 
 	/**
+	 * Устанавливает значение поля
+	 * 
+	 * @param string|integer|boolean $value
+	 */
+	public function setValue($value) {
+		$this->value = $value;
+	}
+
+	/**
 	 * Возвращает значение указанное пользователем
 	 * 
 	 * @return string

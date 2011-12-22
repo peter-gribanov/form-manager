@@ -46,10 +46,8 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	 * Устанавливает значение поля
 	 * 
 	 * @param string|integer|boolean $value
-	 * 
-	 * @return FormManager_Interfaces_Model_Field
 	 */
-//	public function setValue();
+	public function setValue($value);
 
 	/**
 	 * Возвращает значение указанное пользователем
