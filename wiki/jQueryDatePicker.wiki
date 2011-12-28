@@ -1,0 +1,21 @@
+= jQueryDatePicker=
+
+_Сейчас ведется разработка плагина версии 1.0_
+
+=Файлы для скачивания=
+
+*Актуальная версия*
+
+ * Version: 1.0
+ * [http://form-manager.googlecode.com/svn/branches/plugins/4.0/jquerydatepicker_1.0/] - SVN 
+
+*Последняя успешная*
+
+ * Version: 1.0
+ * [http://form-manager.googlecode.com/svn/branches/plugins/4.0/jquerydatepicker_1.0/] - SVN 
+
+
+=Зависимоти=
+Для плагина требуются внешние библиотеки:
+ * [http://jquery.com/ jQuery]
+ * [http://jqueryui.com/ jQuery UI]
