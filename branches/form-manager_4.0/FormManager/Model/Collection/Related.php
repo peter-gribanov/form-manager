@@ -22,7 +22,7 @@ class FormManager_Model_Collection_Related extends FormManager_Model_Element {
 	/**
 	 * Связанный элемент
 	 * 
-	 * @var FormManager_Model_Element|null
+	 * @var FormManager_Model_Field_Abstract|null
 	 */
 	private $related = null;
 
@@ -37,11 +37,13 @@ class FormManager_Model_Collection_Related extends FormManager_Model_Element {
 	/**
 	 * Добавляет связь
 	 * 
-	 * @param FormManager_Model_Element    $element
-	 * @param string|integer|floot|boolean $expected
+	 * @param FormManager_Model_Field_Abstract $field
+	 * @param mixid                            $expected
 	 */
-	public function setRelated(FormManager_Model_Element $element, $expected) {
-		$this->related = $element;
+	public function setRelated(FormManager_Model_Field_Abstract $field, $expected) {
+		$this->related = $field;
 		$this->expected = $expected;
 	}
+
+	// TODO требуется реализация связи
 }
