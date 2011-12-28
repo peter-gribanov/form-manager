@@ -74,14 +74,42 @@ class FormManager_Viwe {
 	}
 
 	/**
-	 * Хелпер возвращающий абсолютный путь
+	 * Хелпер возвращающий абсолютный HTTP путь
 	 * 
 	 * @param string $path Путь отнасительно корня шаблона
 	 * 
 	 * @return string
 	 */
 	public function path($path) {
-		return FORM_MANAGER_HTTP_PATH.'templates/'.$this->template.'/'.$path;
+		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.$path)) {
+			return FORM_MANAGER_HTTP_PATH.'templates/'.$this->template.$path;
+		}
+		return FORM_MANAGER_HTTP_PATH.'templates/'.self::DEFAULT_TEMPLATE.'/'.$path;
+	}
+
+	/**
+	 * Хелпер включающий другой шаблон
+	 * 
+	 * @param string $template Адрес шаблона
+	 * @param array  $vars     Переменные передаваемые в шаблон
+	 */
+	public function inc($template, array $vars = array()) {
+		extract($vars, EXTR_SKIP | EXTR_REFS);
+		include $this->getLocalPath($template);
+	}
+
+	/**
+	 * Возвращающий абсолютный путь
+	 * 
+	 * @param string $path Путь отнасительно корня шаблона
+	 * 
+	 * @return string
+	 */
+	private function getLocalPath($path) {
+		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.$path)) {
+			return FORM_MANAGER_PATH.'templates/'.$this->template.$path;
+		}
+		return FORM_MANAGER_PATH.'templates/'.self::DEFAULT_TEMPLATE.'/'.$path;
 	}
 
 	/**
@@ -90,8 +118,6 @@ class FormManager_Viwe {
 	 * @param FormManager_Model_Form $form Форма
 	 */
 	public function drow(FormManager_Model_Form $form) {
-		// TODO требуется реализация
-		$vars = $form->export();
-		include $this->template.'template.php';
+		$this->inc('template.php', $form->export());
 	}
 }
