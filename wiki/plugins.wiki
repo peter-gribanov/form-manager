@@ -1,4 +1,0 @@
-=Плагины=
-Библиотек поддерживает плагины. Для инсталляции плагина достаточно скопировать файлы плагина в корень библиотеки. Для библиотеки разработаны следующие плагины:
- * [http://code.google.com/p/form-manager/wiki/jQueryDatePicker jQueryDatePicker] 1.0 _(в разработке)_
- * [http://code.google.com/p/form-manager/wiki/Kcaptcha Kcaptcha] 1.0 _(в разработке)_
