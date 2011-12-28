@@ -69,15 +69,6 @@ final class FormManager_Field_Factory {
 	}
 
 	/**
-	 * Создает поле Radio
-	 * 
-	 * @return FormManager_Model_Field_Radio
-	 */
-	public function Radio(){
-		return $this->get('Radio');
-	}
-
-	/**
 	 * Создает поле Select
 	 * 
 	 * @return FormManager_Model_Field_Select
