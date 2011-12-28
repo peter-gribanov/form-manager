@@ -34,8 +34,6 @@ class FormManager_Viwe {
 	 */
 	const DEFAULT_TEMPLATE = '.default';
 
-	// TODO требуется реализация
-
 	/**
 	 * Устанавливает название шаблона
 	 * 
@@ -101,11 +99,17 @@ class FormManager_Viwe {
 	/**
 	 * Возвращающий абсолютный путь
 	 * 
+	 * @throws FormManager_Exception
+	 * 
 	 * @param string $path Путь отнасительно корня шаблона
 	 * 
 	 * @return string
 	 */
 	private function getLocalPath($path) {
+		if (!is_string($path) || !trim($path)) {
+			// TODO описать исключение
+			throw new FormManager_Exception();
+		}
 		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.$path)) {
 			return FORM_MANAGER_PATH.'templates/'.$this->template.$path;
 		}
