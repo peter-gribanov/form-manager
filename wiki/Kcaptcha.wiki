@@ -1,0 +1,20 @@
+= Kcaptcha =
+
+_Сейчас ведется разработка плагина версии 1.0_
+
+= Файлы для скачивания =
+
+*Актуальная версия*
+
+ * Version: 1.0
+ * [http://form-manager.googlecode.com/svn/branches/plugins/4.0/kcaptcha_1.0/] - SVN 
+
+*Последняя успешная*
+
+ * Version: 1.0
+ * [http://form-manager.googlecode.com/svn/branches/plugins/4.0/kcaptcha_1.0/] - SVN 
+
+
+= Зависимоти =
+Плагин использует внешние библиотеки:
+ * [http://www.captcha.ru/ Kcaptcha 2.0]
