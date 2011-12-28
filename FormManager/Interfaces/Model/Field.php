@@ -22,7 +22,7 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param string|integer|boolean $value
+	 * @param mixid $value
 	 * 
 	 * @return FormManager_Interfaces_Model_Field
 	 */
@@ -31,36 +31,22 @@ interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Mode
 	/**
 	 * Возвращает значение поля
 	 * 
-	 * @return string
+	 * @return mixid
 	 */
 	public function getDefaultValue();
 
 	/**
 	 * Возвращает значение поля
 	 * 
-	 * @return string
+	 * @return mixid
 	 */
 	public function getValue();
 
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param string|integer|boolean $value
+	 * @param mixid $value
 	 */
 	public function setValue($value);
-
-	/**
-	 * Возвращает значение указанное пользователем
-	 * 
-	 * @return string
-	 */
-	public function &getSentValue();
-
-	/**
-	 * Определяет изменено ли поле
-	 * 
-	 * @return boolean
-	 */
-	public function isChanged();
 
 }

@@ -35,14 +35,14 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	/**
 	 * Значение поля по умолчанию
 	 * 
-	 * @var string|integer|float|boolean|array
+	 * @var mixid
 	 */
 	private $default = '';
 
 	/**
 	 * Значение поля
 	 * 
-	 * @var string|integer|float|boolean|array
+	 * @var mixid
 	 */
 	private $value = '';
 
@@ -82,7 +82,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param string|integer|float|boolean|array $val
+	 * @param mixid $val
 	 * 
 	 * @return boolean
 	 */
@@ -94,7 +94,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	/**
 	 * Возвращает значение поля
 	 * 
-	 * @return string
+	 * @return mixid
 	 */
 	public function getDefaultValue(){
 		return $this->default;
@@ -105,7 +105,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * 
 	 * TODO по хорошему этот метод больше не должен использоваться
 	 * 
-	 * @return string
+	 * @return mixid
 	 */
 	public function getValue(){
 		// значение указанное пользователем
@@ -115,8 +115,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 		if (is_bool($this->getDefaultValue())){
 			if ($value=='on'){
 				$value = true;
-				// FIXME isAlreadySent() больше нет
-			} elseif ($value===null && $this->getRoot()->isAlreadySent()){
+			} elseif ($value===null && $this->getRoot()->isChanged()){
 				$value = false;
 			}
 		}
@@ -127,7 +126,7 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	/**
 	 * Устанавливает значение поля
 	 * 
-	 * @param string|integer|boolean $value
+	 * @param mixid $value
 	 */
 	public function setValue($value) {
 		$this->value = $value;
