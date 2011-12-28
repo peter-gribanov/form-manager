@@ -64,6 +64,13 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
+	 * @var array
+	 */
+	private $decorators = array();
+
+	/**
+	 * TODO добавить описание
+	 * 
 	 * @var array|null
 	 */
 	private $names_list = null;
@@ -383,6 +390,45 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	}
 
 	/**
+	 * Добавляет декоратор
+	 * 
+	 * @param string $name  Название
+	 * @param string $value Значение
+	 */
+	public function setDecorator($name, $value = null) {
+		if (!is_string($value) || !trim($value)) {
+			// TODO описать исключение
+			throw new FormManager_Exceptions_Model_Element();
+		}
+		$this->decorators[$name] = $value;
+	}
+
+	/**
+	 * Возвращает декоратор для указанного названия
+	 * 
+	 * @param string $name Название
+	 * 
+	 * @return string
+	 */
+	public function getDecorator($name) {
+		return isset($this->decorators[$name]) ? $this->decorators[$name] : '';
+	}
+
+	/**
+	 * Определяет изменены ли дочерние элементы
+	 * 
+	 * @return boolean
+	 */
+	public function isChanged() {
+		foreach ($this as $el) {
+			if (($res = $el->isChanged()) === true) {
+				return $res;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Устанавливает фильтр для поля
 	 * 
 	 * @throws FormManager_Exceptions_Model_Element
@@ -421,7 +467,10 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 			$this->parent,
 			$this->root,
 			$this->name,
-			$this->comment
+			$this->title,
+			$this->comment,
+			$this->required,
+			$this->decorators
 		));
 	}
 
@@ -436,7 +485,10 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 			$this->parent,
 			$this->root,
 			$this->name,
-			$this->comment
+			$this->title,
+			$this->comment,
+			$this->required,
+			$this->decorators
 		) = unserialize($data);
 	}
 
@@ -446,12 +498,18 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * @return array
 	 */
 	public function export(){
+		$childs = array();
+		foreach ($this as $element) {
+			$childs[] = $element->export();
+		}
 		return array(
-			'childs'  => $this->childs,
-			'parent'  => $this->parent,
-			'root'    => $this->root,
-			'name'    => $this->name,
-			'comment' => $this->comment
+			'changed'    => $this->isChanged(),
+			'required'   => $this->isRequired(),
+			'childs'     => $childs,
+			'name'       => $this->getName(),
+			'title'      => $this->getTitle(),
+			'comment'    => $this->getComment(),
+			'decorators' => $this->decorators
 		);
 	}
 

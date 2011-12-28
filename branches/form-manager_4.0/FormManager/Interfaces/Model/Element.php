@@ -113,19 +113,19 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 	/**
 	 * Добавляет декоратор
 	 * 
-	 * @param string $name  Название декораторв
-	 * @param string $value Значение декоратора
+	 * @param string $name  Название
+	 * @param string $value Значение
 	 */
-//	public function setDecorator($name, $value = null);
+	public function setDecorator($name, $value = null);
 
 	/**
 	 * Возвращает декоратор для указанного названия
 	 * 
-	 * @param string $name
+	 * @param string $name Название
 	 * 
 	 * @return string
 	 */
-//	public function getDecorator($name);
+	public function getDecorator($name);
 
 	/**
 	 * Проверяет на валидность элемент
@@ -133,6 +133,13 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 	 * @return boolean
 	 */
 //	public function isValid();
+
+	/**
+	 * Определяет изменено ли поле
+	 * 
+	 * @return boolean
+	 */
+	public function isChanged();
 
 	/**
 	 * Устанавливает имя элемента
