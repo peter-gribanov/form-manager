@@ -10,6 +10,6 @@
  * @copyright 2008 by Peter Gribanov
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-?>  <tr class="<? if(!empty($params['class'])):?>form-<?=$params['class']?>-field <? endif?>form-field-hidden">
-    <td rowspan="2"><? $this->drawField()?></td>
+?>  <tr class="<?if(!empty($params['class'])):?>form-<?=$params['class']?>-field <?endif?>form-field-hidden">
+    <td rowspan="2"><?$this->drawField()?></td>
   </tr>

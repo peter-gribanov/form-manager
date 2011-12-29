@@ -10,15 +10,15 @@
  * @copyright 2008 by Peter Gribanov
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
-?><? if($this->getName()):?>
+?><?if($this->getName()):?>
 <fieldset>
   <legend><?=$this->getName()?></legend>
-<? endif?>
+<?endif?>
 <table class="form-fields">
-<? foreach ($this as $item):?>
-<? $item->draw()?>
-<? endforeach?>
+<?foreach ($this as $item):?>
+<?$item->draw()?>
+<?endforeach?>
 </table>
-<? if($this->getName()):?>
+<?if($this->getName()):?>
 </fieldset>
-<? endif?>
+<?endif?>
