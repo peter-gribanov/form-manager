@@ -11,5 +11,5 @@
  * @license   http://peter-gribanov.ru/license	GNU GPL Version 3
  */
 ?>  <tr class="form-nested-collection">
-    <td colspan="2"><? parent::draw()?></td>
+    <td colspan="2"><?parent::draw()?></td>
   </tr>
