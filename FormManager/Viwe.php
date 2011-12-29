@@ -37,22 +37,22 @@ class FormManager_Viwe {
 	/**
 	 * Устанавливает название шаблона
 	 * 
-	 * @throws FormManager_Exception
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $template Название шаблона
 	 */
 	public function setTemplate($template) {
 		if (!is_string($template) || !trim($template)) {
 			// TODO описать исключение
-			throw new FormManager_Exception();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		if (strpos($template, DIRECTORY_SEPARATOR) !== false) {
 			// TODO описать исключение
-			throw new FormManager_Exception();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		if (!is_dir(FORM_MANAGER_PATH.'templates/'.$template)) {
 			// TODO описать исключение
-			throw new FormManager_Exception();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$this->template = $template;
 	}
@@ -99,7 +99,7 @@ class FormManager_Viwe {
 	/**
 	 * Возвращающий абсолютный путь
 	 * 
-	 * @throws FormManager_Exception
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $path Путь отнасительно корня шаблона
 	 * 
@@ -108,7 +108,7 @@ class FormManager_Viwe {
 	private function getLocalPath($path) {
 		if (!is_string($path) || !trim($path)) {
 			// TODO описать исключение
-			throw new FormManager_Exception();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.$path)) {
 			return FORM_MANAGER_PATH.'templates/'.$this->template.$path;

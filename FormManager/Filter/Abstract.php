@@ -75,8 +75,6 @@ abstract class FormManager_Filter_Abstract implements FormManager_Interfaces_Fil
 	/**
 	 * Генерирует исключение при проверки поля фильтром
 	 * 
-	 * @throws FormManager_Filter_Exception
-	 * 
 	 * @param string $key    Ключ сообщения
 	 * @param array  $params Параметры сообщения
 	 * 

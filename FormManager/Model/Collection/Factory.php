@@ -38,7 +38,7 @@ final class FormManager_Model_Collection_Factory {
 	/**
 	 * Возвращает новую коллекцию элиментов формы
 	 * 
-	 * @throws FormManager_Model_Collection_Exception
+	 * @throws FormManager_Exceptions_ObjectType
 	 * 
 	 * @param string $type Тип коллекции
 	 * 
@@ -52,7 +52,7 @@ final class FormManager_Model_Collection_Factory {
 			$collection = null;
 		}
 		if (!(($collection instanceof $class_name) || ($collection instanceof FormManager_Model_Element))) {
-			throw new FormManager_Exceptions_Filter('Не удалось найти указанный тип коллекции: '.$type, 1001);
+			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип коллекции: '.$type, 1001);
 		}
 		return $collection;
 	}

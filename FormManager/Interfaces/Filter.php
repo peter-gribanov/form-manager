@@ -36,8 +36,6 @@ interface FormManager_Interfaces_Filter {
 
 	/**
 	 * Проверяет поле
-	 * 
-	 * @throws FormManager_Exceptions_Filter
 	 */
 	public function check();
 

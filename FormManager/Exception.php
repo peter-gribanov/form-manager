@@ -25,11 +25,10 @@ class FormManager_Exception extends Exception {
 	 * Если не указано сообщение, но указан код то берет сообщение из языковой темы
 	 * Если в языковой теме не оказалось сообщения с указанным кодом то ищет сообщение с группой этого кода
 	 * 
-	 * @param string    $message  Текст сообщения
-	 * @param integer   $code     Код исключения
-	 * @param Exception $previous Предыдущее исключение
+	 * @param string  $message Текст сообщения
+	 * @param integer $code    Код исключения
 	 */
-	public function __construct($message = '', $code = null, Exception $previous = null) {
+	public function __construct($message = '', $code = null) {
 		// если указан код сообщения и выбрана языковая тема не по молчанию
 		// пытаемся получить сообщение из языковой темы
 		if ($code && (!$message || !FormManager_Language::isDefaultId())){
@@ -42,6 +41,6 @@ class FormManager_Exception extends Exception {
 				$message = FormManager_Language::getMessage('exception-'.$code[0].'00');
 			}
 		}
-		parent::__construct($message, $code, $previous);
+		parent::__construct($message, $code);
 	}
 }

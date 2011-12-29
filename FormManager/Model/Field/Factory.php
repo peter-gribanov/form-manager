@@ -38,7 +38,7 @@ final class FormManager_Model_Field_Factory {
 	/**
 	 * Возвращает новый элимент формы
 	 * 
-	 * @throws FormManager_Exceptions_Model_Field
+	 * @throws FormManager_Exceptions_ObjectType
 	 * 
 	 * @param string $type Тип поля
 	 * 
@@ -53,7 +53,7 @@ final class FormManager_Model_Field_Factory {
 		}
 
 		if (!(($field instanceof $class_name) || ($field instanceof FormManager_Interfaces_Model_Field))) {
-			throw new FormManager_Exceptions_Model_Field('Не удалось найти указанный тип поля: '.$type, 1002);
+			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип поля: '.$type, 1002);
 		}
 
 		return $field;
