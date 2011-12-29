@@ -22,12 +22,11 @@ class FormManager_Exceptions_Filter extends FormManager_Exception {
 	/**
 	 * Создает исключение
 	 * 
-	 * @param string    $message  Текст сообщения
-	 * @param integer   $code     Код исключения
-	 * @param Exception $previous Предыдущее исключение
+	 * @param string  $message Текст сообщения
+	 * @param integer $code    Код исключения
 	 */
-	public function __construct($message = '', $code = 300, Exception $previous = null) {
-		parent::__construct($message, $code, $previous);
+	public function __construct($message = '', $code = 300) {
+		parent::__construct($message, $code);
 	}
 
 }

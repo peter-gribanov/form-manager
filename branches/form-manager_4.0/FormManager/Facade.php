@@ -245,15 +245,15 @@ final class FormManager_Facade {
 	/**
 	 * Устанавливает метод отправки формы
 	 * 
-	 * @param string $method
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
-	 * @throws FormManager_Exception
+	 * @param string $method
 	 */
 	public function setMethod($method) {
 		$method = strtolower($method);
 		if (!in_array($method, array('post', 'get'))) {
 			// TODO описать исключение
-			throw new FormManager_Exception();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$input = '_'.strtoupper($method);
 		foreach ($$input as $name => $value) {

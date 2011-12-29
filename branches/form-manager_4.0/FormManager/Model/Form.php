@@ -79,25 +79,25 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Form
+	 * @throws FormManager_Exceptions_NoAction
 	 * 
 	 * @param FormManager_Interfaces_Model_Element $element
 	 */
 	public function setParent(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
-		throw FormManager_Exceptions_Model_Form();
+		throw FormManager_Exceptions_NoAction();
 	}
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Form
+	 * @throws FormManager_Exceptions_NoAction
 	 * 
 	 * @param FormManager_Interfaces_Model_Element $element
 	 */
 	public function setRoot(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
-		throw FormManager_Exceptions_Model_Form();
+		throw FormManager_Exceptions_NoAction();
 	}
 
 	/**

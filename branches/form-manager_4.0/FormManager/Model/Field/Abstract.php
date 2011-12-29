@@ -57,26 +57,26 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Field
+	 * @throws FormManager_Exceptions_NoAction
 	 * 
 	 * @param FormManager_Interfaces_Model_Element $element
 	 */
 	public function add(FormManager_Interfaces_Model_Element $element) {
 		// TODO описать исключение
-		throw new FormManager_Exceptions_Model_Field();
+		throw new FormManager_Exceptions_NoAction();
 	}
 
 	/**
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
 	 * Пример строки запроса: a=foo&b=bar
 	 *
-	 * @throws FormManager_Exceptions_Model_Field
+	 * @throws FormManager_Exceptions_NoAction
 	 * 
 	 * @param string $query
 	 */
 	public function addByQuery($query) {
 		// TODO описать исключение
-		throw new FormManager_Exceptions_Model_Field();
+		throw new FormManager_Exceptions_NoAction();
 	}
 
 	/**

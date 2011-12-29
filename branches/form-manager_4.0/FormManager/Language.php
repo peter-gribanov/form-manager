@@ -101,9 +101,9 @@ class FormManager_Language {
 			self::$mess = self::getMessagesList(self::$id);
 			// проверка результата загрузки
 			if (self::$mess === false) {
-				throw new FormManager_Exceptions_Language('File ".parameters.php" for linguistic theme "'.self::$id.'" not found', 401);
+				throw new FormManager_Exceptions_InvalidArgument('File ".parameters.php" for linguistic theme "'.self::$id.'" not found', 401);
 			} elseif (!is_array(self::$mess) || !self::$mess) {
-				throw new FormManager_Exceptions_Language('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
+				throw new FormManager_Exceptions_InvalidArgument('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
 			}
 		}
 		if (isset(self::$mess[$id])) {

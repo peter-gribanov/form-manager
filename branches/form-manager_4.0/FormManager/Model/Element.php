@@ -110,21 +110,21 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
 	 * Пример строки запроса: a=foo&b=bar
 	 *
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $query
 	 */
 	public function addByQuery($query) {
 		if (!is_string($query) || !trim($query)) {
 			// TODO описать исключение
-			throw new FormManager_Exceptions_Model_Element();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 
 		// выделение тела запроса если передан не только запрос
 		if (strpos($query, '?') !== false) {
 			if (substr_count($query, '?') > 1) {
 				// TODO описать исключение
-				throw new FormManager_Exceptions_Model_Element();
+				throw new FormManager_Exceptions_InvalidArgument();
 			}
 			list(, $query) = explode('?', $query, 2);
 		}
@@ -132,7 +132,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 		$query = explode('&', $query);
 		foreach ($query as $param) {
 			if (substr_count($param, '=') != 1) {
-				throw new FormManager_Exceptions_Model_Element('Cant add element because of improper URL query');
+				throw new FormManager_Exceptions_InvalidArgument('Cant add element because of improper URL query');
 			}
 			list($name, $value) = explode('=', $param, 2);
 			$field = new FormManager_Model_Field_Hidden();
@@ -145,14 +145,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_Logic
 	 * 
 	 * @param FormManager_Interfaces_Model_Element $element
 	 */
 	public function setParent(FormManager_Interfaces_Model_Element $element) {
 		if ($element === $this) {
 			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
+			throw FormManager_Exceptions_Logic();
 		}
 		$this->parent = $element;
 	}
@@ -169,14 +169,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_Logic
 	 * 
 	 * @param FormManager_Interfaces_Model_Element $element
 	 */
 	public function setRoot(FormManager_Interfaces_Model_Element $element) {
 		if ($element === $this->root) {
 			// TODO описать исключение
-			throw FormManager_Exceptions_Model_Element();
+			throw FormManager_Exceptions_Logic();
 		}
 		$this->root = $element;
 	}
@@ -216,8 +216,6 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 
 	/**
 	 * TODO добавить описание
-	 * 
-	 * @throws FormManager_Exceptions_Model_Element
 	 * 
 	 * @param string $name
 	 * 
@@ -264,14 +262,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $name
 	 */
 	public function setName($name) {
 		if (!is_string($name) || !trim($name)) {
 			// TODO описать исключение
-			throw new FormManager_Exceptions_Model_Element();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$this->name = $name;
 	}
@@ -307,14 +305,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $comment
 	 */
 	public function setComment($comment) {
 		if (!is_string($comment) || !trim($comment)) {
 			// TODO описать исключение
-			throw new FormManager_Exceptions_Model_Element();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$this->comment = $comment;
 	}
@@ -331,14 +329,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @throws FormManager_Exceptions_Model_Element
+	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $title
 	 */
 	public function setTitle($title) {
 		if (!is_string($title) || !trim($title)) {
 			// TODO описать исключение
-			throw new FormManager_Exceptions_Model_Element();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$this->title = $title;
 	}
@@ -392,13 +390,15 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * Добавляет декоратор
 	 * 
+	 * @throws FormManager_Exceptions_InvalidArgument
+	 * 
 	 * @param string $name  Название
 	 * @param string $value Значение
 	 */
 	public function setDecorator($name, $value = null) {
 		if (!is_string($value) || !trim($value)) {
 			// TODO описать исключение
-			throw new FormManager_Exceptions_Model_Element();
+			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$this->decorators[$name] = $value;
 	}

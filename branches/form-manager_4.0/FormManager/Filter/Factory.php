@@ -38,7 +38,7 @@ final class FormManager_Filter_Factory {
 	/**
 	 * Возвращает новый фильтр
 	 * 
-	 * @throws FormManager_Exceptions_Filter
+	 * @throws FormManager_Exceptions_ObjectType
 	 * 
 	 * @param string $type Тип поля
 	 * 
@@ -52,7 +52,7 @@ final class FormManager_Filter_Factory {
 			$filter = null;
 		}
 		if (!(($filter instanceof $class_name) || ($filter instanceof FormManager_Interfaces_Filter))) {
-			throw new FormManager_Exceptions_Filter('Не удалось найти указанный тип фильтра: '.$type, 302);
+			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип фильтра: '.$type, 302);
 		}
 		return $filter;
 	}

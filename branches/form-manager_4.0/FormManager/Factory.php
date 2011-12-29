@@ -46,7 +46,7 @@ class FormManager_Factory {
 	/**
 	 * Создает новую коллекцию элиментов формы
 	 * 
-	 * @throws FormManager_Exception
+	 * @throws FormManager_Exceptions_ObjectType
 	 * 
 	 * @param string $name Имя коллекции
 	 * @param string $type Тип коллекции
@@ -57,7 +57,7 @@ class FormManager_Factory {
 		$class_name = 'FormManager_Model_Collection_'.ucfirst($type);
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Model_Collection_Interface)) {
-			throw new FormManager_Exception('', 1001);
+			throw new FormManager_Exceptions_ObjectType('', 1001);
 		}
 		return $obj->setName($name);
 	}
@@ -79,7 +79,7 @@ class FormManager_Factory {
 	/**
 	 * Создает новый вопрос
 	 * 
-	 * @throws FormManager_Exception
+	 * @throws FormManager_Exceptions_ObjectType
 	 * 
 	 * @param string $type Тип вопроса
 	 * 
@@ -89,7 +89,7 @@ class FormManager_Factory {
 		$class_name = 'FormManager_Model_Question_'.$type;
 		$obj = new $class_name();
 		if (!($obj instanceof FormManager_Model_Question_Interface)) {
-			throw new FormManager_Exception('', 1003);
+			throw new FormManager_Exceptions_ObjectType('', 1003);
 		}
 		return $obj;
 	}
