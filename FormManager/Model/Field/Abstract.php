@@ -17,7 +17,7 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Element implements FormManager_Interfaces_Model_Field {
+abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Element implements FormManager_Model_Field_Interface {
 
 	/**
 	 * Опции поля
@@ -59,9 +59,9 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 * 
 	 * @throws FormManager_Exceptions_NoAction
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function add(FormManager_Interfaces_Model_Element $element) {
+	public function add(FormManager_Model_Element_Interface $element) {
 		// TODO описать исключение
 		throw new FormManager_Exceptions_NoAction();
 	}

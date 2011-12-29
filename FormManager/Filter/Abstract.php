@@ -19,12 +19,12 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Filter_Abstract implements FormManager_Interfaces_Filter {
+abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interface {
 
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormManager_Interfaces_Model_Element
+	 * @var FormManager_Model_Element_Interface
 	 */
 	protected $element;
 
@@ -49,7 +49,7 @@ abstract class FormManager_Filter_Abstract implements FormManager_Interfaces_Fil
 	 * @param FormManager_Model_Field_Interface $element Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Interfaces_Model_Element $element, array $options = array()) {
+	public function __construct(FormManager_Model_Field_Interface $element, array $options = array()) {
 		// TODO нужно реализовать проверку где происходит валидация
 //		if (!is_integer($this->filter_iterator)){
 //			throw new FormManager_Filter_Exception('Validate field is not running', 301);

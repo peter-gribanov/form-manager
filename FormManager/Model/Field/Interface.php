@@ -14,17 +14,17 @@
 /**
  * Интерфейс модели поля
  * 
- * @package FormManager\Interfaces\Model
+ * @package FormManager\Model\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model_Field extends FormManager_Interfaces_Model_Element {
+interface FormManager_Model_Field_Interface extends FormManager_Model_Element_Interface {
 
 	/**
 	 * Устанавливает значение поля
 	 * 
 	 * @param mixid $value
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Interface
 	 */
 	public function setDefaultValue($value);
 

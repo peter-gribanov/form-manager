@@ -25,7 +25,7 @@ abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abst
 	 * @param FormManager_Model_Field_Interface $field   Объект поля
 	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Interfaces_Model_Field $field, array $options = array()) {
+	public function __construct(FormManager_Model_Field_Interface $field, array $options = array()) {
 		parent::__construct($field, $options);
 	}
 

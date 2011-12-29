@@ -25,7 +25,7 @@ final class FormManager_Filter_Factory {
 	 * @param string $method Вызываемый метод
 	 * @param array  $args   Параметры метода
 	 * 
-	 * @return FormManager_Interfaces_Filter
+	 * @return FormManager_Filter_Interface
 	 */
 	public function __call($method, $args) {
 		$obj = $this->get($method);
@@ -42,7 +42,7 @@ final class FormManager_Filter_Factory {
 	 * 
 	 * @param string $type Тип поля
 	 * 
-	 * @return FormManager_Interfaces_Filter
+	 * @return FormManager_Filter_Interface
 	 */
 	public function get($type){
 		$class_name = 'FormManager_Filter_'.$type;
@@ -51,7 +51,7 @@ final class FormManager_Filter_Factory {
 		} catch (Cms_AutoLoad_Exception $exeption) {
 			$filter = null;
 		}
-		if (!(($filter instanceof $class_name) || ($filter instanceof FormManager_Interfaces_Filter))) {
+		if (!(($filter instanceof $class_name) || ($filter instanceof FormManager_Filter_Interface))) {
 			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип фильтра: '.$type, 302);
 		}
 		return $filter;
