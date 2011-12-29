@@ -25,7 +25,7 @@ final class FormManager_Model_Collection_Factory {
 	 * @param string $method Вызываемый метод
 	 * @param array  $args   Параметры метода
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Interface
 	 */
 	public function __call($method, $args) {
 		$obj = $this->get($method);
@@ -42,7 +42,7 @@ final class FormManager_Model_Collection_Factory {
 	 * 
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Interface
 	 */
 	public function get($type = 'Base'){
 		$class_name = 'FormManager_Model_Collection_'.$type;

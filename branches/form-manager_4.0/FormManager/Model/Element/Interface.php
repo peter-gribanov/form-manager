@@ -14,19 +14,19 @@
 /**
  * Интерфейс модели элемента
  * 
- * @package FormManager\Interfaces\Model
+ * @package FormManager\Model\Element
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormManager_Interfaces_Model {
+interface FormManager_Model_Element_Interface extends IteratorAggregate, FormManager_Model_Interface {
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Element_Interface
 	 */
-	public function add(FormManager_Interfaces_Model_Element $element);
+	public function add(FormManager_Model_Element_Interface $element);
 
 	/**
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
@@ -39,23 +39,23 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setParent(FormManager_Interfaces_Model_Element $element);
+	public function setParent(FormManager_Model_Element_Interface $element);
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Element_Interface
 	 */
 	public function getParent();
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setRoot(FormManager_Interfaces_Model_Element $element);
+	public function setRoot(FormManager_Model_Element_Interface $element);
 
 	/**
 	 * TODO добавить описание
@@ -69,7 +69,7 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 	 * 
 	 * @param string $name
 	 * 
-	 * @return FormManager_Interfaces_Model_Element|boolean
+	 * @return FormManager_Model_Element_Interface|boolean
 	 */
 	public function getChild($name);
 
@@ -106,9 +106,9 @@ interface FormManager_Interfaces_Model_Element extends IteratorAggregate, FormMa
 	/**
 	 * Устанавливает фильтр для поля
 	 * 
-	 * @param FormManager_Interfaces_Filter $filter Объект фильтра
+	 * @param FormManager_Filter_Interface $filter Объект фильтра
 	 */
-	public function setFilter(FormManager_Interfaces_Filter $filter);
+	public function setFilter(FormManager_Filter_Interface $filter);
 
 	/**
 	 * Добавляет декоратор

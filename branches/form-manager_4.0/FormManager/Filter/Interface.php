@@ -14,18 +14,18 @@
 /**
  * Интерфейс фильтра
  * 
- * @package FormManager\Interfaces
+ * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Filter {
+interface FormManager_Filter_Interface {
 
 	/**
 	 * Устанавливает объект поля формы
 	 * 
-	 * @param FormManager_Interfaces_Model_Field $field   Объект поля
-	 * @param array                              $options Параметры фильтра
+	 * @param FormManager_Model_Field_Interface $field   Объект поля
+	 * @param array                             $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Interfaces_Model_Field &$field, array $options = array());
+	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array());
 
 	/**
 	 * Возвращает список ошибок

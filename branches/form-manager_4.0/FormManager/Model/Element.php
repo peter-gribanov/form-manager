@@ -17,7 +17,7 @@
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Model_Element implements FormManager_Interfaces_Model {
+abstract class FormManager_Model_Element implements FormManager_Model_Interface {
 
 	/**
 	 * TODO добавить описание
@@ -29,14 +29,14 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @var FormManager_Model_Element|null
+	 * @var FormManager_Model_Element_Interface|null
 	 */
 	private $parent = null;
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @var FormManager_Model_Element|null
+	 * @var FormManager_Model_Element_Interface|null
 	 */
 	private $root = null;
 
@@ -95,11 +95,11 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Element_Interface
 	 */
-	public function add(FormManager_Interfaces_Model_Element $element) {
+	public function add(FormManager_Model_Element_Interface $element) {
 		$element->setParent($this);
 		$element->setRoot($this->getRoot());
 		$this->childs[] = $element;
@@ -147,9 +147,9 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Logic
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setParent(FormManager_Interfaces_Model_Element $element) {
+	public function setParent(FormManager_Model_Element_Interface $element) {
 		if ($element === $this) {
 			// TODO описать исключение
 			throw FormManager_Exceptions_Logic();
@@ -160,7 +160,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Element_Interface
 	 */
 	public function getParent() {
 		return $this->parent;
@@ -171,9 +171,9 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Logic
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setRoot(FormManager_Interfaces_Model_Element $element) {
+	public function setRoot(FormManager_Model_Element_Interface $element) {
 		if ($element === $this->root) {
 			// TODO описать исключение
 			throw FormManager_Exceptions_Logic();
@@ -184,7 +184,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Element_Interface
 	 */
 	protected function getRoot() {
 		return $this->root;
@@ -204,7 +204,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @param string $name
 	 * 
-	 * @return FormManager_Interfaces_Model_Element|boolean
+	 * @return FormManager_Model_Element_Interface|boolean
 	 */
 	public function getChild($name) {
 		$id = $this->getChildId($element);
@@ -373,7 +373,7 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	public function required() {
 		$this->required = true;
 		// родительский элимент не доступен для FormManager_Model_Form
-		if ($this->getParent() instanceof FormManager_Interfaces_Model_Element) {
+		if ($this->getParent() instanceof FormManager_Model_Element_Interface) {
 			$this->getParent()->required();
 		}
 	}
@@ -433,9 +433,9 @@ abstract class FormManager_Model_Element implements FormManager_Interfaces_Model
 	 * 
 	 * @throws FormManager_Exceptions_Model_Element
 	 * 
-	 * @param FormManager_Interfaces_Filter $filter Объект фильтра
+	 * @param FormManager_Filter_Interface $filter Объект фильтра
 	 */
-	public function setFilter(FormManager_Interfaces_Filter $filter) {
+	public function setFilter(FormManager_Filter_Interface $filter) {
 		// TODO требуется реализация
 		/*
 		if (!is_string($name) || !trim($name)) {

@@ -14,10 +14,10 @@
 /**
  * Интерфейс модели
  * 
- * @package FormManager\Interfaces
+ * @package FormManager\Model
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model extends Serializable {
+interface FormManager_Model_Interface extends Serializable {
 
 	/**
 	 * Возвращает все данные

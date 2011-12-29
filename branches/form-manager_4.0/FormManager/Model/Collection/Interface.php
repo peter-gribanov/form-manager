@@ -14,9 +14,9 @@
 /**
  * Интерфейс модели коллекции элиментов
  * 
- * @package FormManager\Interfaces\Model
+ * @package FormManager\Model\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Interfaces_Model_Collection extends FormManager_Interfaces_Model_Element {
+interface FormManager_Model_Collection_Interface extends FormManager_Model_Element_Interface {
 
 }

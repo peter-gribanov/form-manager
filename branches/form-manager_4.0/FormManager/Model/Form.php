@@ -19,7 +19,7 @@
  * @package FormManager\Model
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Form extends FormManager_Model_Element implements FormManager_Interfaces_Model_Collection {
+class FormManager_Model_Form extends FormManager_Model_Element implements FormManager_Model_Collection_Interface {
 
 	/**
 	 * Опции формы
@@ -81,9 +81,9 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * 
 	 * @throws FormManager_Exceptions_NoAction
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setParent(FormManager_Interfaces_Model_Element $element) {
+	public function setParent(FormManager_Model_Element_Interface $element) {
 		// TODO описать исключение
 		throw FormManager_Exceptions_NoAction();
 	}
@@ -93,9 +93,9 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * 
 	 * @throws FormManager_Exceptions_NoAction
 	 * 
-	 * @param FormManager_Interfaces_Model_Element $element
+	 * @param FormManager_Model_Element_Interface $element
 	 */
-	public function setRoot(FormManager_Interfaces_Model_Element $element) {
+	public function setRoot(FormManager_Model_Element_Interface $element) {
 		// TODO описать исключение
 		throw FormManager_Exceptions_NoAction();
 	}
@@ -103,7 +103,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @return FormManager_Interfaces_Model_Element
+	 * @return FormManager_Model_Form
 	 */
 	protected function getRoot() {
 		// может возникнуть бесконечная рекурсия

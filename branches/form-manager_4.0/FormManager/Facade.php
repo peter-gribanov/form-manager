@@ -80,10 +80,10 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новое поле
 	 * 
-	 * @param string                                    $name Название поля
-	 * @param FormManager_Interfaces_Model_Field|string $type Тип поля или объект поля
+	 * @param string                                   $name Название поля
+	 * @param FormManager_Model_Field_Interface|string $type Тип поля или объект поля
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Interface
 	 */
 	public function addField($name, $type = 'Text') {
 		return $this->addFieldTo($this->form, $name, $type);
@@ -92,14 +92,14 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новое поле в указанную коллекцию
 	 * 
-	 * @param FormManager_Interfaces_Model_Collection   $collection Родительская колекция
-	 * @param string                                    $name       Название поля
-	 * @param FormManager_Interfaces_Model_Field|string $type       Тип поля или объект поля
+	 * @param FormManager_Model_Collection_Interface   $collection Родительская колекция
+	 * @param string                                   $name       Название поля
+	 * @param FormManager_Model_Field_Interface|string $type       Тип поля или объект поля
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Interface
 	 */
-	public function addFieldTo(FormManager_Interfaces_Model_Collection $collection, $name, $type = 'Text') {
-		if ($type instanceof FormManager_Interfaces_Model_Field) {
+	public function addFieldTo(FormManager_Model_Collection_Interface $collection, $name, $type = 'Text') {
+		if ($type instanceof FormManager_Model_Field_Interface) {
 			$field = $type;
 		} else {
 			$field = $this->getField($type);
@@ -112,9 +112,9 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новую коллекцию
 	 * 
-	 * @param FormManager_Interfaces_Model_Collection|string $type Тип коллекции или объект коллекции
+	 * @param FormManager_Model_Collection_Interface|string $type Тип коллекции или объект коллекции
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Interface
 	 */
 	public function addCollection($type = 'Nested') {
 		return $this->addCollectionTo($this->form, $type);
@@ -123,13 +123,13 @@ final class FormManager_Facade {
 	/**
 	 * Добавляет новую коллекцию к другой коллекции
 	 * 
-	 * @param FormManager_Interfaces_Model_Collection        $collection Родительская коллекция
-	 * @param FormManager_Interfaces_Model_Collection|string $type       Тип коллекции или объект коллекции
+	 * @param FormManager_Model_Collection_Interface        $collection Родительская коллекция
+	 * @param FormManager_Model_Collection_Interface|string $type       Тип коллекции или объект коллекции
 	 * 
-	 * @return FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Interface
 	 */
-	public function addCollectionTo(FormManager_Interfaces_Model_Collection $collection, $type = 'Nested') {
-		if ($type instanceof FormManager_Interfaces_Model_Collection) {
+	public function addCollectionTo(FormManager_Model_Collection_Interface $collection, $type = 'Nested') {
+		if ($type instanceof FormManager_Model_Collection_Interface) {
 			return $collection->add($type);
 		} else {
 			return $collection->add($this->getCollection($type));
@@ -141,7 +141,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Model_Field_Factory|FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Factory|FormManager_Model_Field_Interface
 	 */
 	public function getField($name = null){
 		return $name !== null ? $this->field->get($name) : $this->field;
@@ -152,7 +152,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Factory|FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Factory|FormManager_Model_Collection_Interface
 	 */
 	public function getCollection($name = null){
 		return $name !== null ? $this->collection->get($name) : $this->collection;
@@ -163,7 +163,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя фильтра
 	 * 
-	 * @return FormManager_Filter_Factory|FormManager_Interfaces_Filter
+	 * @return FormManager_Filter_Factory|FormManager_Filter_Interface
 	 */
 	public function getFilter($name = null){
 		return $name !== null ? $this->filter->get($name) : $this->filter;
@@ -258,7 +258,7 @@ final class FormManager_Facade {
 		$input = '_'.strtoupper($method);
 		foreach ($$input as $name => $value) {
 			$el = $this->search($name);
-			if ($el instanceof FormManager_Interfaces_Model_Field) {
+			if ($el instanceof FormManager_Model_Field_Interface) {
 				$el->setValue($value);
 			}
 		}

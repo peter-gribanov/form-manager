@@ -25,7 +25,7 @@ final class FormManager_Model_Field_Factory {
 	 * @param string $method Вызываемый метод
 	 * @param array  $args   Параметры метода
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Interface
 	 */
 	public function __call($method, $args) {
 		$obj = $this->get($method);
@@ -42,7 +42,7 @@ final class FormManager_Model_Field_Factory {
 	 * 
 	 * @param string $type Тип поля
 	 * 
-	 * @return FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Interface
 	 */
 	public static function get($type = 'Text'){
 		$class_name = 'FormManager_Model_Field_'.$type;
@@ -52,7 +52,7 @@ final class FormManager_Model_Field_Factory {
 			$field = null;
 		}
 
-		if (!(($field instanceof $class_name) || ($field instanceof FormManager_Interfaces_Model_Field))) {
+		if (!(($field instanceof $class_name) || ($field instanceof FormManager_Model_Field_Interface))) {
 			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип поля: '.$type, 1002);
 		}
 
