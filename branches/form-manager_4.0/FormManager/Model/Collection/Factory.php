@@ -14,10 +14,10 @@
 /**
  * Фабрика коллекций
  * 
- * @package FormManager\Collection
+ * @package FormManager\Model\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Collection_Factory {
+final class FormManager_Model_Collection_Factory {
 
 	/**
 	 * Возвращает новую коллекцию элиментов формы

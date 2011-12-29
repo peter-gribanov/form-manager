@@ -22,14 +22,14 @@ final class FormManager_Facade {
 	/**
 	 * Фабрика полей
 	 * 
-	 * @var FormManager_Field_Factory|null
+	 * @var FormManager_Model_Field_Factory|null
 	 */
 	private $field = null;
 
 	/**
 	 * Фабрика коллекций
 	 * 
-	 * @var FormManager_Collection_Factory|null
+	 * @var FormManager_Model_Collection_Factory|null
 	 */
 	private $collection = null;
 
@@ -61,8 +61,8 @@ final class FormManager_Facade {
 	public function __construct() {
 		$this->form = new FormManager_Model_Form();
 		$this->view = new FormManager_Viwe();
-		$this->field = new FormManager_Field_Factory();
-		$this->collection = new FormManager_Collection_Factory();
+		$this->field = new FormManager_Model_Field_Factory();
+		$this->collection = new FormManager_Model_Collection_Factory();
 		$this->filter = new FormManager_Filter_Factory();
 	}
 
@@ -141,7 +141,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Field_Factory|FormManager_Interfaces_Model_Field
+	 * @return FormManager_Model_Field_Factory|FormManager_Interfaces_Model_Field
 	 */
 	public function getField($name = null){
 		return $name !== null ? $this->field->get($name) : $this->field;
@@ -152,7 +152,7 @@ final class FormManager_Facade {
 	 * 
 	 * @param string $name Имя коллекции
 	 * 
-	 * @return FormManager_Collection_Factory|FormManager_Interfaces_Model_Collection
+	 * @return FormManager_Model_Collection_Factory|FormManager_Interfaces_Model_Collection
 	 */
 	public function getCollection($name = null){
 		return $name !== null ? $this->collection->get($name) : $this->collection;
