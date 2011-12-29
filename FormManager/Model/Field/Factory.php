@@ -14,10 +14,10 @@
 /**
  * Фабрика формы
  * 
- * @package FormManager\Field
+ * @package FormManager\Model\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Field_Factory {
+final class FormManager_Model_Field_Factory {
 
 	/**
 	 * Возвращает новый элимент формы
