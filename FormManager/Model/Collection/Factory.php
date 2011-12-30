@@ -17,22 +17,16 @@
  * @package FormManager\Model\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Model_Collection_Factory {
+final class FormManager_Model_Collection_Factory extends FormManager_Loader {
 
 	/**
-	 * Возвращает новую коллекцию элиментов формы
+	 * Конструктор
 	 * 
-	 * @param string $method Вызываемый метод
-	 * @param array  $args   Параметры метода
-	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * Устанавливающий адрес класса и коментарий для метода
 	 */
-	public function __call($method, $args) {
-		$obj = $this->get($method);
-		// TODO реализовать добавление метода в класс
-		// TODO проверять имя на ключевые слова http://www.php.net/manual/en/reserved.keywords.php
-		//trigger_error('Call to undefined method '.__CLASS__.'::'.$method.'()', E_USER_ERROR);
-		return $obj;
+	public function __construct() {
+		$this->setClassFile(__FILE__);
+		$this->setMethodComment('Возвращает коллекцию %s');
 	}
 
 	/**
@@ -45,20 +39,15 @@ final class FormManager_Model_Collection_Factory {
 	 * @return FormManager_Model_Collection_Interface
 	 */
 	public function get($type = 'Base'){
-		$class_name = 'FormManager_Model_Collection_'.$type;
-		try {
-			$collection = new $class_name();
-		} catch (Cms_AutoLoad_Exception $exeption) {
-			$collection = null;
-		}
-		if (!(($collection instanceof $class_name) || ($collection instanceof FormManager_Model_Element))) {
+		$collection = parent::get('FormManager_Model_Collection_'.$type);
+		if (!($collection instanceof $class_name)) {
 			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип коллекции: '.$type, 1001);
 		}
 		return $collection;
 	}
 
 	/**
-	 * Создает коллекцию Nested
+	 * Возвращает коллекцию Nested
 	 * 
 	 * @return FormManager_Model_Collection_Nested
 	 */
@@ -67,7 +56,7 @@ final class FormManager_Model_Collection_Factory {
 	}
 
 	/**
-	 * Создает коллекцию Fieldset
+	 * Возвращает коллекцию Fieldset
 	 * 
 	 * @return FormManager_Model_Collection_Fieldset
 	 */
@@ -76,7 +65,7 @@ final class FormManager_Model_Collection_Factory {
 	}
 
 	/**
-	 * Создает коллекцию Related
+	 * Возвращает коллекцию Related
 	 * 
 	 * @return FormManager_Model_Collection_Related
 	 */

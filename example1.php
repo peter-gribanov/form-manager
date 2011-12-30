@@ -15,6 +15,8 @@ $form->setName('my-form');
 $form->setTitle('My test form');
 $facade->addField('text');
 $facade->addField('select', $facade->getField()->Select());
+$facade->addField('foo', $facade->getField()->ElementString());
+$facade->addField('bar');
 p($facade->export());
 exit;
 
