@@ -37,7 +37,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 */
 	public function setParent(FormManager_Model_Element_Interface $element) {
 		// TODO описать исключение
-		throw FormManager_Exceptions_NoAction();
+		throw new FormManager_Exceptions_NoAction();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 */
 	public function setRoot(FormManager_Model_Element_Interface $element) {
 		// TODO описать исключение
-		throw FormManager_Exceptions_NoAction();
+		throw new FormManager_Exceptions_NoAction();
 	}
 
 	/**

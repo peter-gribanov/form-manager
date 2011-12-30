@@ -156,7 +156,7 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 	public function setParent(FormManager_Model_Element_Interface $element) {
 		if ($element === $this) {
 			// TODO описать исключение
-			throw FormManager_Exceptions_Logic();
+			throw new FormManager_Exceptions_Logic();
 		}
 		$this->parent = $element;
 	}
@@ -180,7 +180,7 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 	public function setRoot(FormManager_Model_Element_Interface $element) {
 		if ($element === $this->root) {
 			// TODO описать исключение
-			throw FormManager_Exceptions_Logic();
+			throw new FormManager_Exceptions_Logic();
 		}
 		$this->root = $element;
 	}
@@ -393,8 +393,6 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 
 	/**
 	 * Добавляет декоратор
-	 * 
-	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $name  Название
 	 * @param mixid  $value Значение
