@@ -114,9 +114,9 @@ interface FormManager_Model_Element_Interface extends IteratorAggregate, FormMan
 	 * Добавляет декоратор
 	 * 
 	 * @param string $name  Название
-	 * @param string $value Значение
+	 * @param mixid  $value Значение
 	 */
-	public function setDecorator($name, $value = null);
+	public function setDecorator($name, $value);
 
 	/**
 	 * Возвращает декоратор для указанного названия
