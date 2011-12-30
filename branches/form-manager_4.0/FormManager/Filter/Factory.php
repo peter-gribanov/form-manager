@@ -17,22 +17,16 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Filter_Factory {
+final class FormManager_Filter_Factory extends FormManager_Loader {
 
 	/**
-	 * Возвращает новый фильтр
+	 * Конструктор
 	 * 
-	 * @param string $method Вызываемый метод
-	 * @param array  $args   Параметры метода
-	 * 
-	 * @return FormManager_Filter_Interface
+	 * Устанавливающий адрес класса и коментарий для метода
 	 */
-	public function __call($method, $args) {
-		$obj = $this->get($method);
-		// TODO реализовать добавление метода в класс
-		// TODO проверять имя на ключевые слова http://www.php.net/manual/en/reserved.keywords.php
-		//trigger_error('Call to undefined method '.__CLASS__.'::'.$method.'()', E_USER_ERROR);
-		return $obj;
+	public function __construct() {
+		$this->setClassFile(__FILE__);
+		$this->setMethodComment('Возвращает фильтр %s');
 	}
 
 	/**
@@ -45,20 +39,15 @@ final class FormManager_Filter_Factory {
 	 * @return FormManager_Filter_Interface
 	 */
 	public function get($type){
-		$class_name = 'FormManager_Filter_'.$type;
-		try {
-			$filter = new $class_name();
-		} catch (Cms_AutoLoad_Exception $exeption) {
-			$filter = null;
-		}
-		if (!(($filter instanceof $class_name) || ($filter instanceof FormManager_Filter_Interface))) {
+		$filter = parent::get('FormManager_Filter_'.$type);
+		if (!($filter instanceof FormManager_Filter_Interface)) {
 			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип фильтра: '.$type, 302);
 		}
 		return $filter;
 	}
 
 	/**
-	 * Создает поле Referer
+	 * Возвращает фильтр Referer
 	 * 
 	 * @return FormManager_Filter_Referer
 	 */
@@ -67,7 +56,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Bool
+	 * Возвращает фильтр Bool
 	 * 
 	 * @return FormManager_Filter_Bool
 	 */
@@ -76,7 +65,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Boolean
+	 * Возвращает фильтр Boolean
 	 * 
 	 * @return FormManager_Filter_Boolean
 	 */
@@ -85,7 +74,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Date
+	 * Возвращает фильтр Date
 	 * 
 	 * @return FormManager_Filter_Date
 	 */
@@ -94,7 +83,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Email
+	 * Возвращает фильтр Email
 	 * 
 	 * @return FormManager_Filter_Email
 	 */
@@ -103,18 +92,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Empty
-	 * 
-	 * TODO недопустимое имя фильтра
-	 * 
-	 * @return FormManager_Filter_Empty
-	 */
-	public function _Empty(){
-		return $this->get('Empty');
-	}
-
-	/**
-	 * Создает поле Float
+	 * Возвращает фильтр Float
 	 * 
 	 * @return FormManager_Filter_Float
 	 */
@@ -123,7 +101,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Int
+	 * Возвращает фильтр Int
 	 * 
 	 * @return FormManager_Filter_Int
 	 */
@@ -132,7 +110,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Integer
+	 * Возвращает фильтр Integer
 	 * 
 	 * @return FormManager_Filter_Integer
 	 */
@@ -141,7 +119,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Length
+	 * Возвращает фильтр Length
 	 * 
 	 * @return FormManager_Filter_Length
 	 */
@@ -150,18 +128,7 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
-	 * Создает поле Null
-	 * 
-	 * TODO недопустимое имя фильтра
-	 * 
-	 * @return FormManager_Filter_Null
-	 */
-	public function _Null(){
-		return $this->get('Null');
-	}
-
-	/**
-	 * Создает поле Select
+	 * Возвращает фильтр Select
 	 * 
 	 * @return FormManager_Filter_Select
 	 */

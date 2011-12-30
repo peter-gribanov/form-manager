@@ -17,22 +17,16 @@
  * @package FormManager\Model\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Model_Field_Factory {
+final class FormManager_Model_Field_Factory extends FormManager_Loader {
 
 	/**
-	 * Возвращает новый элимент формы
+	 * Конструктор
 	 * 
-	 * @param string $method Вызываемый метод
-	 * @param array  $args   Параметры метода
-	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * Устанавливающий адрес класса и коментарий для метода
 	 */
-	public function __call($method, $args) {
-		$obj = $this->get($method);
-		// TODO реализовать добавление метода в класс
-		// TODO проверять имя на ключевые слова http://www.php.net/manual/en/reserved.keywords.php
-		//trigger_error('Call to undefined method '.__CLASS__.'::'.$method.'()', E_USER_ERROR);
-		return $obj;
+	public function __construct() {
+		$this->setClassFile(__FILE__);
+		$this->setMethodComment('Возвращает поле %s');
 	}
 
 	/**
@@ -44,23 +38,16 @@ final class FormManager_Model_Field_Factory {
 	 * 
 	 * @return FormManager_Model_Field_Interface
 	 */
-	public static function get($type = 'Text'){
-		$class_name = 'FormManager_Model_Field_'.$type;
-		try {
-			$field = new $class_name();
-		} catch (Cms_AutoLoad_Exception $exeption) {
-			$field = null;
-		}
-
-		if (!(($field instanceof $class_name) || ($field instanceof FormManager_Model_Field_Interface))) {
+	public function get($type = 'Text'){
+		$field = parent::get('FormManager_Model_Field_'.$type);
+		if (!($field instanceof FormManager_Model_Field_Interface)) {
 			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип поля: '.$type, 1002);
 		}
-
 		return $field;
 	}
 
 	/**
-	 * Создает поле Hidden
+	 * Возвращает поле Hidden
 	 * 
 	 * @return FormManager_Model_Field_Hidden
 	 */
@@ -69,7 +56,7 @@ final class FormManager_Model_Field_Factory {
 	}
 
 	/**
-	 * Создает поле Select
+	 * Возвращает поле Select
 	 * 
 	 * @return FormManager_Model_Field_Select
 	 */
@@ -78,12 +65,21 @@ final class FormManager_Model_Field_Factory {
 	}
 
 	/**
-	 * Создает поле Text
+	 * Возвращает поле Text
 	 * 
 	 * @return FormManager_Model_Field_Text
 	 */
 	public function Text(){
 		return $this->get('Text');
+	}
+
+	/**
+	 * Возвращает поле ElementString
+	 * 
+	 * @return FormManager_Model_Field_ElementString
+	 */
+	public function ElementString(){
+		return $this->get('ElementString');
 	}
 
 }
