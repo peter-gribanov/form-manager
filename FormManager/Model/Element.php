@@ -67,8 +67,9 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 	 * @var array
 	 */
 	private $decorators = array(
-		'id'    => '',
-		'class' => ''
+		'template' => '',
+		'id'       => '',
+		'class'    => ''
 	);
 
 	/**
