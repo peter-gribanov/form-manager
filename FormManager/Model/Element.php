@@ -66,7 +66,10 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 	 * 
 	 * @var array
 	 */
-	private $decorators = array();
+	private $decorators = array(
+		'id'    => '',
+		'class' => ''
+	);
 
 	/**
 	 * TODO добавить описание
@@ -393,13 +396,9 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 	 * @throws FormManager_Exceptions_InvalidArgument
 	 * 
 	 * @param string $name  Название
-	 * @param string $value Значение
+	 * @param mixid  $value Значение
 	 */
-	public function setDecorator($name, $value = null) {
-		if (!is_string($value) || !trim($value)) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
+	public function setDecorator($name, $value) {
 		$this->decorators[$name] = $value;
 	}
 
@@ -416,6 +415,9 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 
 	/**
 	 * Определяет изменены ли дочерние элементы
+	 * 
+	 * Проходит по дочерним элементам проверяя изменялись ли они
+	 * В дочериних элементах должна быть реализована проверка
 	 * 
 	 * @return boolean
 	 */
@@ -502,14 +504,17 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 		foreach ($this as $element) {
 			$childs[] = $element->export();
 		}
-		return array(
-			'changed'    => $this->isChanged(),
-			'required'   => $this->isRequired(),
-			'childs'     => $childs,
-			'name'       => $this->getName(),
-			'title'      => $this->getTitle(),
-			'comment'    => $this->getComment(),
-			'decorators' => $this->decorators
+		return array_merge(
+			$this->decorators,
+			array(
+				'is_changed'  => $this->isChanged(),
+				'is_required' => $this->isRequired(),
+				'childs'      => $childs,
+				'name'        => $this->getName(),
+				'names_list'  => $this->getNamesList(),
+				'title'       => $this->getTitle(),
+				'comment'     => $this->getComment()
+			)
 		);
 	}
 

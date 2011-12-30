@@ -20,19 +20,6 @@
 abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Element implements FormManager_Model_Field_Interface {
 
 	/**
-	 * Опции поля
-	 * 
-	 * @var	array
-	 *//*
-	protected $options = array(
-//		'name'		=> '',		// Имя поля
-		'default'	=> '',		// Значение по умолчанию
-//		'view'		=> array('text', array()),	// Вид поля
-//		'filters'	=> array(),	// Фильтры проверки поля
-//		'required'	=> false,	// Обязательное для заполнения
-	);*/
-
-	/**
 	 * Значение поля по умолчанию
 	 * 
 	 * @var mixid
@@ -46,13 +33,13 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	 */
 	private $value = '';
 
-	/**
-	 * Итератор запуска фильтров при проверки поля
-	 * 
-	 * @var	integer
-	 */
-//	private $filter_iterator;
 
+	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		$this->setDecorator('disabled', false);
+	}
 
 	/**
 	 * TODO добавить описание
@@ -150,72 +137,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 	public function isChanged() {
 		return $this->getValue() != $this->getDefaultValue();
 	}
-
-	/**
-	 * Устанавливает вид для поля
-	 * 
-	 * TODO это должен быть FormManager_Model_Element::setDecorator()
-	 * 
-	 * @throws FormManager_Exceptions_Model_Field
-	 * 
-	 * @param string $name
-	 * @param array  $params
-	 * 
-	 * @return FormManager_Model_Field_Abstract
-	 *//*
-	public function setView($name, $params=null){
-		if (!is_string($name) || !trim($name)) {
-			throw new FormManager_Exceptions_Model_Field('Element view name must be not empty string');
-		}
-		$params = $params ? $params : array();
-		$this->setViewParams($params);
-
-		$this->options['view'][0] = $name;
-		return $this;
-	}*/
-
-	/**
-	 * Устанавливает параметры вывода
-	 * 
-	 * TODO это должен быть FormManager_Model_Element::setDecorator()
-	 * 
-	 * @throws FormManager_Exceptions_Model_Field
-	 * 
-	 * @param  array              $params
-	 * 
-	 * @return FormManager_Model_Field_Abstract
-	 *//*
-	public function setViewParams($params=array()){
-		if (!is_array($params)) {
-			throw new FormManager_Exceptions_Model_Field('Element view parametrs should be an array');
-		}
-		$this->options['view'][1] = array_merge($this->options['view'][1], $params);
-
-		return $this;
-	}*/
-
-	/**
-	 * Выводит поле
-	 * 
-	 * @return void
-	 *//*
-	public function draw(){
-		$params = $this->options['view'][1];
-		include FormManagerForm::getTemplatePath('element.php');
-	}*/
-
-	/**
-	 * Выводит поле
-	 * 
-	 * @return void
-	 *//*
-	public function drawField(){
-		// загружаем параметру вывода по умолчанию
-		include FormManagerForm::getTemplatePath('fields/'.$this->options['view'][0].'/.parameters.php');
-		$params = array_merge($this->options['view'][1], $params);
-		// выводим шаблон
-		include self::getTemplatePath($this->options['view'][0]);
-	}*/
 
 	/**
 	 * Устанавливает фильтр для поля
