@@ -69,12 +69,13 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	/**
 	 * Конструктор
 	 */
-//	public function __construct() {
+	public function __construct() {
+		$this->setDecorator('action', '');
 //		$this->collection = new FormManager_Model_Collection_Primary();
 //		$this->collection->setForm($this);
 //		$this->setMethod('POST');
 //		$this->loadLangPosts();
-//	}
+	}
 
 	/**
 	 * TODO добавить описание
@@ -473,13 +474,13 @@ class FormManager_Model_Form extends FormManager_Model_Element implements FormMa
 	 * Возвращает все данные
 	 * 
 	 * @return array
-	 */
+	 *//*
 	public function export() {
 		// TODO требуется тестирование
 		$return = parent::export();
 		$return[] = $this->options;
 		return $return;
-	}
+	}*/
 
 	/**
 	 * Заружает языковые сообщения
