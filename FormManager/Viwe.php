@@ -86,6 +86,26 @@ class FormManager_Viwe {
 	}
 
 	/**
+	 * Хелпер включающий шаблон поля
+	 * 
+	 * @param string $type Название поля
+	 * @param array  $vars Переменные передаваемые в шаблон
+	 */
+	public function field($type, array $vars = array()) {
+		$this->inc('fields/'.$type.'/template.php', $vars);
+	}
+
+	/**
+	 * Хелпер включающий шаблон колекции
+	 * 
+	 * @param string $type Название колекции
+	 * @param array  $vars Переменные передаваемые в шаблон
+	 */
+	public function collection($type, array $vars = array()) {
+		$this->inc('collections/'.$type.'/template.php', $vars);
+	}
+
+	/**
 	 * Хелпер включающий другой шаблон
 	 * 
 	 * @param string $template Адрес шаблона
@@ -110,8 +130,8 @@ class FormManager_Viwe {
 			// TODO описать исключение
 			throw new FormManager_Exceptions_InvalidArgument();
 		}
-		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.$path)) {
-			return FORM_MANAGER_PATH.'templates/'.$this->template.$path;
+		if (file_exists(FORM_MANAGER_PATH.'templates/'.$this->template.'/'.$path)) {
+			return FORM_MANAGER_PATH.'templates/'.$this->template.'/'.$path;
 		}
 		return FORM_MANAGER_PATH.'templates/'.self::DEFAULT_TEMPLATE.'/'.$path;
 	}
