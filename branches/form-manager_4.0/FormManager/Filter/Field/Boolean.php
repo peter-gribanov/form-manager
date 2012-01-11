@@ -28,9 +28,12 @@ class FormManager_Filter_Field_Boolean extends FormManager_Filter_Field_Abstract
 				|| ($this->element->getValue() != 0 && $this->element->getValue() != 1))) {
 
 			if (!empty($this->options['value_no']) && !empty($this->options['value_yes'])) {
-				$this->trigger('boolean', array('('.$this->options['value_no'].', '.$this->options['value_yes'].')'));
+				$this->trigger('boolean-values', array(
+					$this->options['value_no'],
+					$this->options['value_yes']
+				));
 			} else {
-				$this->trigger('boolean', array(''));
+				$this->trigger('boolean');
 			}
 		}
 	}
