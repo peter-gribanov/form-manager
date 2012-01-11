@@ -17,6 +17,6 @@
  * @package FormManager\Exceptions
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Exceptions_LoadLanguageTheme extends FormManager_Exception {
+class FormManager_Exceptions_LoadLanguageTheme extends FormManager_Exceptions_Error {
 
 }
