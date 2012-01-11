@@ -22,10 +22,9 @@ interface FormManager_Filter_Interface {
 	/**
 	 * Устанавливает объект поля формы
 	 * 
-	 * @param FormManager_Model_Field_Interface $field   Объект поля
-	 * @param array                             $options Параметры фильтра
+	 * @param array $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface &$field, array $options = array());
+	public function __construct(array $options = array());
 
 	/**
 	 * Возвращает список ошибок
@@ -35,15 +34,40 @@ interface FormManager_Filter_Interface {
 	public function getErrors();
 
 	/**
-	 * Проверяет поле
+	 * Добавляет ошибку
+	 * 
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
 	 */
-	public function check();
+	public function addError($key, array $params = array());
 
 	/**
-	 * Возвращает все данные
+	 * Возвращает список уведомлений
 	 * 
 	 * @return array
 	 */
-	public function export();
+	public function getNotices();
+
+	/**
+	 * Добавляет уведомление
+	 * 
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
+	 */
+	public function addNotice($key, array $params = array());
+
+	/**
+	 * Устанавливает проверяемый елемент
+	 * 
+	 * @param FormManager_Model_Element_Interface $element Проверяемый елемент
+	 */
+	public function setElement(FormManager_Model_Element_Interface $element);
+
+	/**
+	 * Собирает елемент
+	 * 
+	 * @return array
+	 */
+	public function assemble();
 
 }

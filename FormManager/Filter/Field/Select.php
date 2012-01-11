@@ -22,11 +22,10 @@ class FormManager_Filter_Field_Length extends FormManager_Filter_Field_Abstract 
 	/**
 	 * Устанавливает объект поля формы
 	 * 
-	 * @param FormManager_Model_Field_Interface $field   Объект поля
-	 * @param array                             $options Параметры фильтра
+	 * @param array $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface $field, array $options = array()) {
-		parent::__construct($field, array_merge(
+	public function __construct(array $options = array()) {
+		parent::__construct(array_merge(
 			array(
 				'use_key'	=> false,
 				'options'	=> array(),
