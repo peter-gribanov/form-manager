@@ -77,8 +77,6 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * 
 	 * @param string $key    Ключ сообщения
 	 * @param array  $params Параметры сообщения
-	 * 
-	 * @return void
 	 */
 	protected function trigger($key, array $params = array()){
 		// добавление сообщения из языковой темы

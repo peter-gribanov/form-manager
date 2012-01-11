@@ -32,10 +32,7 @@ abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abst
 	/**
 	 * Генерирует исключение при проверки поля фильтром
 	 * 
-	 * @param string $key    Ключ сообщения
-	 * @param array  $params Параметры сообщения
-	 * 
-	 * @return void
+	 * @see FormManager_Filter_Abstract::trigger()
 	 */
 	protected function trigger($key, array $params = array()){
 		// добавление текста вопроса
