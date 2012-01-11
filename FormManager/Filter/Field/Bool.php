@@ -12,8 +12,9 @@
  */
 
 /**
- * Фильтра проверки на Boolean
+ * Алеас для фильтра Boolean
  * 
+ * @see     FormManager_Filter_Field_Boolean
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
