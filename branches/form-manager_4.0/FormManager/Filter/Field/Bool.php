@@ -17,6 +17,6 @@
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Field_Bool extends FormManager_Filter_Field_Abstract {
+class FormManager_Filter_Field_Bool extends FormManager_Filter_Field_Boolean {
 
 }
