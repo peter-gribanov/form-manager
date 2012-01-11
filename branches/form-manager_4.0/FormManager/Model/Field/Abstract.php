@@ -169,8 +169,6 @@ abstract class FormManager_Model_Field_Abstract extends FormManager_Model_Elemen
 
 	/**
 	 * Производит проверку переданных данных по полю 
-	 * 
-	 * @return void
 	 *//*
 	public function valid(){
 		// не проверять отключенные поля 
