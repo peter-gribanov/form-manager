@@ -18,6 +18,7 @@ return array(
 	'filter-empty'           => 'You have not filled the field - %s.',
 	'filter-integer'         => 'You have specified an integer field - %s.',
 	'filter-float'           => 'You have specified floating-point number in the field - %s.',
+	'filter-string'          => 'You have specified an string field - %s.',
 	'filter-boolean'         => 'You specify the value is not a boolean for field - %1$s.',
 	'filter-boolean-values'  => 'You specify the value is not one of the two permissible (%2$s, %3$s) for field - %1$s.',
 	'filter-length'          => 'You specify a value less than %2$s or more than %3$s characters for the field - %1$s.',
