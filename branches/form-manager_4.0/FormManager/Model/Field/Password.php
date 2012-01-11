@@ -17,13 +17,14 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Password extends FormManager_Model_Field_ElementString {
+class FormManager_Model_Field_Password extends FormManager_Model_Field_Text {
 
 	/**
 	 * Конструктор
 	 */
 	public function __construct() {
-		// TODO реализовать базовую инициализацию элемента
+		parent::__construct();
+		$this->setDecorator('template', 'password');
 	}
 
 }

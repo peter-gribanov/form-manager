@@ -73,13 +73,4 @@ final class FormManager_Model_Field_Factory extends FormManager_Loader {
 		return $this->get('Text');
 	}
 
-	/**
-	 * Возвращает поле ElementString
-	 * 
-	 * @return FormManager_Model_Field_ElementString
-	 */
-	public function ElementString(){
-		return $this->get('ElementString');
-	}
-
 }

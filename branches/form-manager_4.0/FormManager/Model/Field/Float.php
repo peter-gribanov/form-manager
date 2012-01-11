@@ -12,11 +12,19 @@
  */
 
 /**
- * Класс описывает поле число с дробью
+ * Класс описывает базовое поле число с дробью
  * 
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Float extends FormManager_Model_Field_ElementFloat {
+class FormManager_Model_Field_Float extends FormManager_Model_Field_Abstract {
+
+	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->setFilter(new FormManager_Filter_Field_Float());
+	}
 
 }

@@ -23,6 +23,8 @@ class FormManager_Model_Field_Hidden extends FormManager_Model_Field_Abstract {
 	 * Конструктор
 	 */
 	public function __construct() {
+		parent::__construct();
+		$this->setDecorator('template', 'hidden');
 		// TODO реализовать базовую инициализацию элемента
 	}
 

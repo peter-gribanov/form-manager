@@ -12,11 +12,19 @@
  */
 
 /**
- * Класс описывает поле число
+ * Класс описывает базовое поле число
  * 
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Integer extends FormManager_Model_Field_ElementInteger {
+class FormManager_Model_Field_Integer extends FormManager_Model_Field_Abstract {
+
+	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->setFilter(new FormManager_Filter_Field_Integer());
+	}
 
 }

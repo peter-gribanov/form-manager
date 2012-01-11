@@ -17,12 +17,14 @@
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_Text extends FormManager_Model_Field_ElementString {
+class FormManager_Model_Field_Text extends FormManager_Model_Field_String {
 
 	/**
 	 * Конструктор
 	 */
 	public function __construct() {
+		parent::__construct();
+		$this->setDecorator('template', 'text');
 		// TODO реализовать базовую инициализацию элемента
 	}
 
