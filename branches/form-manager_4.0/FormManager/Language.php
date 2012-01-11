@@ -29,7 +29,7 @@ class FormManager_Language {
 	/**
 	 * Список сообщений языковой темы
 	 * 
-	 * @var array
+	 * @var array|null
 	 */
 	private static $mess = null;
 
@@ -60,10 +60,8 @@ class FormManager_Language {
 		if (($mess=self::getMessagesList($id)) === false) {
 			return false;
 		}
-
 		self::$id = $id;
 		self::$mess = $mess;
-
 		return true;
 	}
 
@@ -82,18 +80,18 @@ class FormManager_Language {
 	 * @return boolean
 	 */
 	public static function isDefaultId() {
-		return (self::$id == self::DEFAULT_ID);
+		return self::$id == self::DEFAULT_ID;
 	}
 
 	/**
 	 * Возвращает одно или все языковые сообщения
 	 * 
-	 * @throws FormManager_Exceptions_Language
+	 * @throws FormManager_Exceptions_LoadLanguageTheme
 	 * 
 	 * @param string $id     Id сообщения
 	 * @param array  $params Параметры сообщения
 	 * 
-	 * @return string|array Языковые сообщения
+	 * @return string|boolean Языковые сообщения
 	 */
 	public static function getMessage($id, array $params = array()) {
 		// загрузка списка сообщений если он еще не загружен
@@ -101,19 +99,19 @@ class FormManager_Language {
 			self::$mess = self::getMessagesList(self::$id);
 			// проверка результата загрузки
 			if (self::$mess === false) {
-				throw new FormManager_Exceptions_InvalidArgument('File ".parameters.php" for linguistic theme "'.self::$id.'" not found', 401);
+				throw new FormManager_Exceptions_LoadLanguageTheme('File ".parameters.php" for linguistic theme "'.self::$id.'" not found');
 			} elseif (!is_array(self::$mess) || !self::$mess) {
-				throw new FormManager_Exceptions_InvalidArgument('List of messages for linguistic theme "'.self::$id.'" is empty', 402);
+				throw new FormManager_Exceptions_LoadLanguageTheme('List of messages for linguistic theme "'.self::$id.'" is empty');
 			}
 		}
-		if (isset(self::$mess[$id])) {
-			if (!empty($params)) {
-				return call_user_func('sprintf', array_merge(array(self::$mess[$id]), $params));
-			} else {
-				return self::$mess[$id];
-			}
+		// нет сообщения для данного ключа
+		if (!isset(self::$mess[$id])) {
+			return false;
+		}
+		if (!empty($params)) { // сборка сообщения
+			return call_user_func('sprintf', array(self::$mess[$id]) + $params);
 		} else {
-			return null;
+			return self::$mess[$id];
 		}
 	}
 
@@ -124,7 +122,7 @@ class FormManager_Language {
 	 * 
 	 * @return array|boolean Результат загрузки списка
 	 */
-	private static function getMessagesList($id){
+	private static function getMessagesList($id) {
 		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
 		// загрузка базового набора сообщений
 		$file = $dir.'.parameters.php';
@@ -140,7 +138,7 @@ class FormManager_Language {
 			if ($file[0] != '.' && is_readable($dir.$file)) {
 				$name = pathinfo($file, PATHINFO_FILENAME);
 				$data = include $dir.$file;
-				foreach ($data as $key=>$mess) {
+				foreach ($data as $key => $mess) {
 					$list[$name.'-'.$key] = $mess;
 				}
 			}
