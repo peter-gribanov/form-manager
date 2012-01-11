@@ -20,26 +20,31 @@
 abstract class FormManager_Filter_Field_Abstract extends FormManager_Filter_Abstract {
 
 	/**
-	 * Устанавливает объект поля формы
+	 * Добавляет ошибку
 	 * 
-	 * @param FormManager_Model_Field_Interface $field   Объект поля
-	 * @param array                             $options Параметры фильтра
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
 	 */
-	public function __construct(FormManager_Model_Field_Interface $field, array $options = array()) {
-		parent::__construct($field, $options);
-	}
-
-	/**
-	 * Генерирует исключение при проверки поля фильтром
-	 * 
-	 * @see FormManager_Filter_Abstract::trigger()
-	 */
-	protected function trigger($key, array $params = array()){
+	public function addError($key, array $params = array()) {
 		// добавление текста вопроса
 		// TODO не очень хорошо что здесь выполняется export()
 		$field = $this->element->export();
 		array_unshift($params, $field['title']);
-		parent::trigger($key, $params);
+		parent::addError($key, $params);
+	}
+
+	/**
+	 * Добавляет уведомление
+	 * 
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
+	 */
+	public function addNotice($key, array $params = array()) {
+		// добавление текста вопроса
+		// TODO не очень хорошо что здесь выполняется export()
+		$field = $this->element->export();
+		array_unshift($params, $field['title']);
+		parent::addNotice($key, $params);
 	}
 
 }

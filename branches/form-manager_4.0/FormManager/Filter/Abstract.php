@@ -42,19 +42,24 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 */
 	private $errors = array();
 
+	/**
+	 * Список уведомлений
+	 * 
+	 * @var array
+	 */
+	private $notices = array();
+
 
 	/**
 	 * Устанавливает объект поля формы
 	 * 
-	 * @param FormManager_Model_Field_Interface $element Объект поля
-	 * @param array                             $options Параметры фильтра
+	 * @param array $options Параметры фильтра
 	 */
-	public function __construct(FormManager_Model_Field_Interface $element, array $options = array()) {
+	public function __construct(array $options = array()) {
 		// TODO нужно реализовать проверку где происходит валидация
 //		if (!is_integer($this->filter_iterator)){
-//			throw new FormManager_Filter_Exception('Validate field is not running', 301);
+//			throw new FormManager_Exceptions_Error('Validate field is not running', 301);
 //		}
-		$this->element = $element;
 		$this->options = $options;
 	}
 
@@ -68,27 +73,51 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	}
 
 	/**
-	 * Проверяет поле
-	 */
-	abstract public function check();
-
-	/**
-	 * Генерирует исключение при проверки поля фильтром
+	 * Добавляет ошибку
 	 * 
 	 * @param string $key    Ключ сообщения
 	 * @param array  $params Параметры сообщения
 	 */
-	protected function trigger($key, array $params = array()){
+	public function addError($key, array $params = array()) {
 		// добавление сообщения из языковой темы
 		$this->errors[] = FormManager_Language::getMessage('filter-'.$key, $params);
 	}
 
 	/**
-	 * Возвращает все данные
+	 * Возвращает список уведомлений
 	 * 
 	 * @return array
 	 */
-	public function export(){
-		return $this->errors;
+	public function getNotices() {
+		return $this->notices;
+	}
+
+	/**
+	 * Добавляет уведомление
+	 * 
+	 * @param string $key    Ключ сообщения
+	 * @param array  $params Параметры сообщения
+	 */
+	public function addNotice($key, array $params = array()) {
+		// добавление сообщения из языковой темы
+		$this->notices[] = FormManager_Language::getMessage('filter-'.$key, $params);
+	}
+
+	/**
+	 * Устанавливает проверяемый елемент
+	 * 
+	 * @param FormManager_Model_Element_Interface $element Проверяемый елемент
+	 */
+	public function setElement(FormManager_Model_Element_Interface $element) {
+		$this->element = $element;
+	}
+
+	/**
+	 * Собирает результаты проверки
+	 * 
+	 * @return array
+	 */
+	public function assemble(){
+		return $this->element;
 	}
 }
