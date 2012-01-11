@@ -23,6 +23,7 @@ class FormManager_Model_Field_SelectMulti extends FormManager_Model_Field_Select
 	 * Конструктор
 	 */
 	public function __construct() {
+		parent::__construct();
 		// TODO реализовать базовую инициализацию элемента
 	}
 

@@ -23,6 +23,7 @@ class FormManager_Model_Field_CheckBoxGroup extends FormManager_Model_Field_Sele
 	 * Конструктор
 	 */
 	public function __construct() {
+		parent::__construct();
 		// TODO реализовать базовую инициализацию элемента
 	}
 

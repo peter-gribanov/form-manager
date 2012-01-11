@@ -23,6 +23,7 @@ class FormManager_Model_Field_DatePicker extends FormManager_Model_Field_SelectM
 	 * Конструктор
 	 */
 	public function __construct() {
+		parent::__construct();
 		// TODO реализовать базовую инициализацию элемента
 	}
 

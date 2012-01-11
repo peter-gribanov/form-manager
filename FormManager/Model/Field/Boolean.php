@@ -12,18 +12,19 @@
  */
 
 /**
- * Класс описывает базовое поле строка
+ * Класс описывает базовое логическое поле
  * 
  * @package FormManager\Model\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Model_Field_ElementString extends FormManager_Model_Field_Abstract {
+class FormManager_Model_Field_Boolean extends FormManager_Model_Field_Abstract {
 
 	/**
 	 * Конструктор
 	 */
 	public function __construct() {
-		// TODO реализовать базовую инициализацию элемента
+		parent::__construct();
+		$this->setFilter(new FormManager_Filter_Field_Boolean());
 	}
 
 }
