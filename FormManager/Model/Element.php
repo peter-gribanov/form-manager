@@ -296,11 +296,8 @@ abstract class FormManager_Model_Element implements FormManager_Model_Interface 
 		if ($this->names_list === null) {
 			$this->names_list = array($this->name);
 			// родительский элимент не доступен для FormManager_Model_Form
-			if ($this->getParent() instanceof FormManager_Model_Element) {
-				$this->names_list = array_merge(
-					$this->names_list,
-					$this->getParent()->getNamesList()
-				);
+			if ($this->getParent()) {
+				$this->names_list = $this->names_list + $this->getParent()->getNamesList();
 			}
 		}
 		return $this->names_list;
