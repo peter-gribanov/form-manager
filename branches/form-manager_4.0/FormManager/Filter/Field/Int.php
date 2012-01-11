@@ -12,8 +12,9 @@
  */
 
 /**
- * Фильтра проверки на Integer
+ * Алеас для фильтра Integer
  * 
+ * @see     FormManager_Filter_Field_Integer
  * @package FormManager\Filter\Field
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
