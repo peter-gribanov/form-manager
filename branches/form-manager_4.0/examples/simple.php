@@ -7,7 +7,7 @@
 </head>
 <body><?php
 //include('FormManager.php');
-include('init.php');
+include('../init.php');
 
 $facade = new FormManager_Facade();
 $form = $facade->getForm();

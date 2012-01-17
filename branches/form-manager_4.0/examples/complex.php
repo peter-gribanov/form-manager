@@ -12,7 +12,7 @@
 </head>
 <body><?php
 
-include('FormManager.php');
+include('../FormManager.php');
 
 
 try {
