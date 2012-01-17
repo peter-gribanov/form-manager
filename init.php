@@ -41,6 +41,14 @@ define('FORM_MANAGER_HTTP_PATH', $http_path);
 
 unset($http_path, $path);
 
+/**
+ * Версия менеджера форм
+ * 
+ * @var string
+ */
+define('FORM_MANAGER_VERSION', '4.0');
+
+
 if (!function_exists('p')) {
 	/**
 	 * Функция отладки, обычно определяется во внешней библиотеке debuger
