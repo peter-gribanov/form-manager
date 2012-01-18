@@ -16,7 +16,7 @@
  * 
  * TODO на текущий момент нигде не используется. возможно стоит от него отказаться
  * 
- * @package FormManager\Exceptions
+ * @package FormManager\Language
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
 class FormManager_Language_TranslationExceptions {

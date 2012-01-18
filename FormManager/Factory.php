@@ -22,7 +22,7 @@ class FormManager_Factory {
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @var FormManager_Model_Field_Factory|null
+	 * @var FormManager_Field_Factory|null
 	 */
 	private static $field_factory = null;
 
@@ -36,10 +36,10 @@ class FormManager_Factory {
 	/**
 	 * Создает новую форму
 	 * 
-	 * @return FormManager_Model_Form
+	 * @return FormManager_Form
 	 */
 	public static function Form() {
-		$form = new FormManager_Model_Form();
+		$form = new FormManager_Form();
 		return $form;
 	}
 
@@ -51,12 +51,12 @@ class FormManager_Factory {
 	 * @param string $name Имя коллекции
 	 * @param string $type Тип коллекции
 	 * 
-	 * @return FormManager_Model_Collection_Interface
+	 * @return FormManager_Collection_Interface
 	 */
 	public static function getCollection($name, $type = 'default'){
-		$class_name = 'FormManager_Model_Collection_'.ucfirst($type);
+		$class_name = 'FormManager_Collection_'.ucfirst($type);
 		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Model_Collection_Interface)) {
+		if (!($obj instanceof FormManager_Collection_Interface)) {
 			throw new FormManager_Exceptions_ObjectType('', 1001);
 		}
 		return $obj->setName($name);
@@ -67,11 +67,11 @@ class FormManager_Factory {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Model_Field_Interface
+	 * @return FormManager_Field_Interface
 	 */
 	public static function getField($name = 'default'){
 		if (!self::$field_factory) {
-			self::$field_factory = new FormManager_Model_Field_Factory();
+			self::$field_factory = new FormManager_Field_Factory();
 		}
 		return self::$field_factory->get($name);
 	}
@@ -83,12 +83,12 @@ class FormManager_Factory {
 	 * 
 	 * @param string $type Тип вопроса
 	 * 
-	 * @return FormManager_Model_Question_Interface
+	 * @return FormManager_Question_Interface
 	 */
 	public static function getQuestion($type = 'Base'){
-		$class_name = 'FormManager_Model_Question_'.$type;
+		$class_name = 'FormManager_Question_'.$type;
 		$obj = new $class_name();
-		if (!($obj instanceof FormManager_Model_Question_Interface)) {
+		if (!($obj instanceof FormManager_Question_Interface)) {
 			throw new FormManager_Exceptions_ObjectType('', 1003);
 		}
 		return $obj;
@@ -100,10 +100,10 @@ class FormManager_Factory {
 	 * @param string $name Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field
+	 * @return FormManager_Field
 	 */
 	public static function Field($name, $title) {
-		$el = new FormManager_Model_Field();
+		$el = new FormManager_Field();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -113,10 +113,10 @@ class FormManager_Factory {
 	/**
 	 * Создает новую коллекцию элиментов формы
 	 * 
-	 * @return FormManager_Model_Collection_Nested
+	 * @return FormManager_Collection_Nested
 	 */
 	public static function Collection() {
-		return new FormManager_Model_Collection_Nested();
+		return new FormManager_Collection_Nested();
 	}
 
 	/**
@@ -125,10 +125,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field_Text
+	 * @return FormManager_Field_Text
 	 */
 	public static function Text($name, $title) {
-		$el = new FormManager_Model_Field_Text();
+		$el = new FormManager_Field_Text();
 		return $el
 			->setName($name)
 			->setTitle($title);
@@ -140,7 +140,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field_Text
+	 * @return FormManager_Field_Text
 	 */
 	public static function Password($name = 'password', $title = 'Password') {
 		return self::Text($name, $title)
@@ -153,10 +153,10 @@ class FormManager_Factory {
 	 * 
 	 * @param string $name Имя поля
 	 * 
-	 * @return FormManager_Model_Field_Hidden
+	 * @return FormManager_Field_Hidden
 	 */
 	public static function Hidden($name) {
-		$el = new FormManager_Model_Field_Hidden();
+		$el = new FormManager_Field_Hidden();
 		return $el
 			->setName($name)
 			->setView('hidden');
@@ -168,10 +168,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field_Radio
+	 * @return FormManager_Field_Radio
 	 */
 	public static function Radio($name, $title) {
-		$el = new FormManager_Model_Field_Radio();
+		$el = new FormManager_Field_Radio();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -184,7 +184,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field
+	 * @return FormManager_Field
 	 */
 	public static function CheckBox($name, $title) {
 		return self::Element($name, $title)
@@ -199,7 +199,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field
+	 * @return FormManager_Field
 	 */
 	public static function TextArea($name, $title) {
 		return self::Element($name, $title)
@@ -213,10 +213,10 @@ class FormManager_Factory {
 	 * @param string $title     Заголовок поля
 	 * @param string $parametrs Параметры списка
 	 * 
-	 * @return FormManager_Model_Field_Select
+	 * @return FormManager_Field_Select
 	 */
 	public static function Select($name, $title, $parametrs = array()) {
-		$el = new FormManager_Model_Field_Select();
+		$el = new FormManager_Field_Select();
 		return $el
 			->setName($name)
 			->setTitle($title)
@@ -231,7 +231,7 @@ class FormManager_Factory {
 	 * @param string $title     Заголовок поля
 	 * @param string $parametrs Параметры списка
 	 * 
-	 * @return FormManager_Model_Field_Select
+	 * @return FormManager_Field_Select
 	 */
 	public static function MultiSelect($name, $title, $parametrs = array()) {
 		$parametrs = array_merge(array(
@@ -248,10 +248,10 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field
+	 * @return FormManager_Field
 	 */
 	public static function File($name, $title){
-		$el = new FormManager_Model_Field();
+		$el = new FormManager_Field();
 		return $el->setName($name)
 			->setTitle($title)
 			->setView('file');
@@ -263,7 +263,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field_Text
+	 * @return FormManager_Field_Text
 	 */
 	public static function Email($name, $title){
 		return self::Text($name, $title)
@@ -276,7 +276,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field_Text
+	 * @return FormManager_Field_Text
 	 */
 	public static function Date($name, $title) {
 		return self::Text($name, $title)
@@ -291,7 +291,7 @@ class FormManager_Factory {
 	 * @param string $name  Имя поля
 	 * @param string $title Заголовок поля
 	 * 
-	 * @return FormManager_Model_Field
+	 * @return FormManager_Field
 	 */
 	public static function YesNo($name, $title) {
 		return self::Element($name, $title)

@@ -59,9 +59,9 @@ interface FormManager_Filter_Interface {
 	/**
 	 * Устанавливает проверяемый елемент
 	 * 
-	 * @param FormManager_Model_Element_Interface $element Проверяемый елемент
+	 * @param FormManager_Element_Interface $element Проверяемый елемент
 	 */
-	public function setElement(FormManager_Model_Element_Interface $element);
+	public function setElement(FormManager_Element_Interface $element);
 
 	/**
 	 * Собирает елемент
