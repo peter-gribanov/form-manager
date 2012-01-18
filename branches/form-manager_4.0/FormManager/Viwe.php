@@ -139,9 +139,9 @@ class FormManager_Viwe {
 	/**
 	 * Рисует форму
 	 * 
-	 * @param FormManager_Model_Form $form Форма
+	 * @param FormManager_Form $form Форма
 	 */
-	public function drow(FormManager_Model_Form $form) {
+	public function drow(FormManager_Form $form) {
 		$this->inc('template.php', $form->export());
 	}
 }

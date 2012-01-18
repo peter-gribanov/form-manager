@@ -24,7 +24,7 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	/**
 	 * Объект поля формы
 	 * 
-	 * @var FormManager_Model_Element_Interface
+	 * @var FormManager_Element_Interface
 	 */
 	protected $element;
 
@@ -106,9 +106,9 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	/**
 	 * Устанавливает проверяемый елемент
 	 * 
-	 * @param FormManager_Model_Element_Interface $element Проверяемый елемент
+	 * @param FormManager_Element_Interface $element Проверяемый елемент
 	 */
-	public function setElement(FormManager_Model_Element_Interface $element) {
+	public function setElement(FormManager_Element_Interface $element) {
 		$this->element = $element;
 	}
 

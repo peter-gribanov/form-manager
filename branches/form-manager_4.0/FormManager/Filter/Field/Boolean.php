@@ -27,7 +27,7 @@ class FormManager_Filter_Field_Boolean extends FormManager_Filter_Field_Abstract
 			&& (!is_numeric($this->element->getValue())
 				|| ($this->element->getValue() != 0 && $this->element->getValue() != 1))) {
 
-			// FIXME метод FormManager_Model_Element_Interface::setValue отсутствует. необходимо подумать над реализацией фильтрации
+			// FIXME метод FormManager_Element_Interface::setValue отсутствует. необходимо подумать над реализацией фильтрации
 			// приведение типов
 			$this->element->setValue((bool)$this->element->getValue());
 
