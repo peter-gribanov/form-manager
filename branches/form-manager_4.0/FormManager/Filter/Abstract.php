@@ -22,20 +22,6 @@
 abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interface {
 
 	/**
-	 * Объект поля формы
-	 * 
-	 * @var FormManager_Element_Interface
-	 */
-	protected $element;
-
-	/**
-	 * Параметры фильтра
-	 * 
-	 * @var array
-	 */
-	protected $options;
-
-	/**
 	 * Список ошибок
 	 * 
 	 * @var array
@@ -51,17 +37,12 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 
 
 	/**
-	 * Устанавливает объект поля формы
+	 * Префикс для ключа языковых сообщений
 	 * 
-	 * @param array $options Параметры фильтра
+	 * @var string
 	 */
-	public function __construct(array $options = array()) {
-		// TODO нужно реализовать проверку где происходит валидация
-//		if (!is_integer($this->filter_iterator)){
-//			throw new FormManager_Exceptions_Error('Validate field is not running', 301);
-//		}
-		$this->options = $options;
-	}
+	const MESSAGE_PREFIX = 'filter:';
+
 
 	/**
 	 * Возвращает список ошибок
@@ -78,9 +59,9 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * @param string $key    Ключ сообщения
 	 * @param array  $params Параметры сообщения
 	 */
-	public function addError($key, array $params = array()) {
+	protected function addError($key, array $params = array()) {
 		// добавление сообщения из языковой темы
-		$this->errors[] = FormManager_Language::getMessage('filter-'.$key, $params);
+		$this->errors[] = FormManager_Language::getMessage(self::MESSAGE_PREFIX.$key, $params);
 	}
 
 	/**
@@ -98,26 +79,58 @@ abstract class FormManager_Filter_Abstract implements FormManager_Filter_Interfa
 	 * @param string $key    Ключ сообщения
 	 * @param array  $params Параметры сообщения
 	 */
-	public function addNotice($key, array $params = array()) {
+	protected function addNotice($key, array $params = array()) {
 		// добавление сообщения из языковой темы
-		$this->notices[] = FormManager_Language::getMessage('filter-'.$key, $params);
+		$this->notices[] = FormManager_Language::getMessage(self::MESSAGE_PREFIX.$key, $params);
 	}
 
 	/**
-	 * Устанавливает проверяемый елемент
+	 * Фильтровать и проверить ненадёжные данные и влзвращает результат
 	 * 
+	 * @param mixed                         $value   Проверяемые данные
 	 * @param FormManager_Element_Interface $element Проверяемый елемент
+	 * 
+	 * @return mixed Отфильтрованное $value
 	 */
-	public function setElement(FormManager_Element_Interface $element) {
-		$this->element = $element;
+	public function exec($value, FormManager_Element_Interface $element) {
+		return $value;
 	}
 
 	/**
 	 * Собирает результаты проверки
 	 * 
-	 * @return array
+	 * @return array {errors:[],notices:[]}
 	 */
 	public function assemble(){
-		return $this->element;
+		return array(
+			'errors'  => $this->errors,
+			'notices' => $this->notices
+		);
 	}
+
+	/**
+	 * Очистить состояние фильтра
+	 */
+	public function reset() {
+		$this->errors = array();
+		$this->notices = array();
+	}
+
+	/**
+	 * Метод для сериализации класса
+	 * 
+	 * @return string
+	 */
+	public function serialize(){
+		return '';
+	}
+
+	/**
+	 * Метод для десериализации класса
+	 * 
+	 * @param string $data
+	 */
+	public function unserialize($data){
+	}
+
 }
