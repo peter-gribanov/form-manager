@@ -114,7 +114,7 @@ abstract class FormManager_Loader {
 	public function get($class_name){
 		try {
 			$objects = new $class_name();
-		} catch (Cms_AutoLoad_Exception $e) {
+		} catch (FormManager_AutoLoad_Exception $e) {
 			$objects = null;
 		}
 		if (!($objects instanceof $class_name)) {

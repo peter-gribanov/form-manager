@@ -46,4 +46,22 @@ final class FormManager_Field_Factory extends FormManager_Loader {
 		return $field;
 	}
 
+	/**
+	 * Возвращает поле Select
+	 * 
+	 * @return FormManager_Field_Select
+	 */
+	public function Select(){
+		return $this->get('Select');
+	}
+
+	/**
+	 * Возвращает поле String
+	 * 
+	 * @return FormManager_Field_String
+	 */
+	public function String(){
+		return $this->get('String');
+	}
+
 }

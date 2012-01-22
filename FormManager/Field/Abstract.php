@@ -51,7 +51,7 @@ abstract class FormManager_Field_Abstract extends FormManager_Element_Abstract i
 	 *
 	 * @param mixed $value TODO добавить описание параметра
 	 *
-	 * @return Cms_Form_Element_Interface
+	 * @return FormManager_Field_Abstract
 	 */
 	public function setDefaultValue($value) {
 		// TODO требуется реализация
