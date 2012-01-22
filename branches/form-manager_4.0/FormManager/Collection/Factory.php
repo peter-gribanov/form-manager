@@ -46,31 +46,4 @@ final class FormManager_Collection_Factory extends FormManager_Loader {
 		return $collection;
 	}
 
-	/**
-	 * Возвращает коллекцию Nested
-	 * 
-	 * @return FormManager_Collection_Nested
-	 */
-	public function Nested(){
-		return $this->get('Nested');
-	}
-
-	/**
-	 * Возвращает коллекцию Fieldset
-	 * 
-	 * @return FormManager_Collection_Fieldset
-	 */
-	public function Fieldset(){
-		return $this->get('Fieldset');
-	}
-
-	/**
-	 * Возвращает коллекцию Related
-	 * 
-	 * @return FormManager_Collection_Related
-	 */
-	public function Related(){
-		return $this->get('Related');
-	}
-
 }
