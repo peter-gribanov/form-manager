@@ -20,15 +20,40 @@
 class FormManager_Filter_Form_Referer extends FormManager_Filter_Abstract {
 
 	/**
-	 * Проверяет поле
+	 * Адрес предыдущей страници
+	 *
+	 * @var string
 	 */
-	public function check(){
-		// получение тикущего хотса
-		$current = ($_SERVER['SERVER_PROTOCOL'][4]=='S' ? 'https' : 'http').'://'
-			.$_SERVER['HTTP_HOST'].'/';
-		// разрешен прием форм в пределах одного хоста
-		if (strpos($_SERVER['HTTP_REFERER'], $current) !== 0) {
-			$this->trigger('form-referer');
+	private $referer = '';
+
+	/**
+	 * Адрес сервера
+	 *
+	 * @var string
+	 */
+	private $server = '';
+
+
+	/**
+	 * Конструктор
+	 *
+	 * @param string $referer Адрес предыдущей страници
+	 * @param string $server  Адрес сервера
+	 */
+	public function __construct($referer, $server) {
+		$this->referer = preg_replace('https?:\/\/', '', $referer);
+		$this->server = preg_replace('https?:\/\/', '', $server);
+	}
+
+	/**
+	 * Фильтровать и проверить ненадёжные данные
+	 * 
+	 * @param mixed                         $value   Проверяемые данные
+	 * @param FormManager_Element_Interface $element Проверяемый елемент
+	 */
+	public function exec($value, $element){
+		if (strpos($this->referer, $this->server) !== 0) {
+			$this->addError('bad_referer');
 		}
 	}
 

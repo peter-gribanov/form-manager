@@ -17,14 +17,7 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Filter_Interface {
-
-	/**
-	 * Устанавливает объект поля формы
-	 * 
-	 * @param array $options Параметры фильтра
-	 */
-	public function __construct(array $options = array());
+interface FormManager_Filter_Interface extends Serializable {
 
 	/**
 	 * Возвращает список ошибок
@@ -34,14 +27,6 @@ interface FormManager_Filter_Interface {
 	public function getErrors();
 
 	/**
-	 * Добавляет ошибку
-	 * 
-	 * @param string $key    Ключ сообщения
-	 * @param array  $params Параметры сообщения
-	 */
-	public function addError($key, array $params = array());
-
-	/**
 	 * Возвращает список уведомлений
 	 * 
 	 * @return array
@@ -49,19 +34,14 @@ interface FormManager_Filter_Interface {
 	public function getNotices();
 
 	/**
-	 * Добавляет уведомление
+	 * Фильтровать и проверить ненадёжные данные и возвращает результат
 	 * 
-	 * @param string $key    Ключ сообщения
-	 * @param array  $params Параметры сообщения
-	 */
-	public function addNotice($key, array $params = array());
-
-	/**
-	 * Устанавливает проверяемый елемент
-	 * 
+	 * @param mixed                         $value   Проверяемые данные
 	 * @param FormManager_Element_Interface $element Проверяемый елемент
+	 * 
+	 * @return mixed Отфильтрованное $value
 	 */
-	public function setElement(FormManager_Element_Interface $element);
+	public function exec($value, FormManager_Element_Interface $element);
 
 	/**
 	 * Собирает елемент
@@ -69,5 +49,10 @@ interface FormManager_Filter_Interface {
 	 * @return array
 	 */
 	public function assemble();
+
+	/**
+	 * Очистить состояние фильтра
+	 */
+	public function reset();
 
 }
