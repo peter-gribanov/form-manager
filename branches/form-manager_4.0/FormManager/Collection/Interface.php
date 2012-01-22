@@ -17,6 +17,59 @@
  * @package FormManager\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Collection_Interface extends FormManager_Element_Interface {
+interface FormManager_Collection_Interface extends FormManager_Element_Interface, Countable, IteratorAggregate {
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @param FormManager_Element_Interface $element
+	 * 
+	 * @return FormManager_Element_Interface
+	 */
+	public function addChild(FormManager_Element_Interface $element);
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @param string $name
+	 * 
+	 * @return FormManager_Element_Interface|boolean
+	 */
+	public function getChild($name);
+
+	/**
+	 * TODO добавить описание
+	 * 
+	 * @param string $name
+	 * 
+	 * @return boolean
+	 */
+	public function remove($name);
+
+	/**
+	 * Волшебная функция для реализации $obj->value
+	 * 
+	 * @param string $name TODO добавить описание параметра
+	 * 
+	 * @return FormManager_Element_Interface|null
+	 */
+	public function __get($name);
+
+	/**
+	 * Изменение данных
+	 * 
+	 * @param string                        $name    TODO добавить описание параметра
+	 * @param FormManager_Element_Interface $element TODO добавить описание параметра
+	 */
+	public function __set($name, FormManager_Element_Interface $element);
+
+	/**
+	 * Поддержка isset()
+	 * 
+	 * @param string $name TODO добавить описание параметра
+	 * 
+	 * @return boolean
+	 */
+	public function __isset($name);
 
 }
