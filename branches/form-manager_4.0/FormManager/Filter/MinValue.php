@@ -45,7 +45,7 @@ class FormManager_Filter_MinValue extends FormManager_Filter_Abstract {
 	 */
 	public function exec($value, FormManager_Element_Interface $element) {
 		if (!empty($value) && $value < $this->min) {
-			$this->addError('invalid_min', array('min' => $this->min));
+			$this->addError('beyond_min', array('min' => $this->min));
 		}
 		return $value;
 	}

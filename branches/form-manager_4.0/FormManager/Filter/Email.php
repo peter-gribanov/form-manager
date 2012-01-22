@@ -32,13 +32,13 @@ class FormManager_Filter_Email extends FormManager_Filter_Abstract {
 			$this->addError('is_empty');
 		// Check for @ symbol
 		} elseif (substr_count($value, '@') != 1) {
-			$this->addError('invalid_email');
+			$this->addError('bad_email');
 		// Check Filter
 		} elseif (function_exists('filter_var') && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-			$this->addError('invalid_email');
+			$this->addError('bad_email');
 		// Check RegExp
 		} elseif (!preg_match('/^(?:[-a-z0-9])+@(?:[-a-z0-9]{2,}\.)+(?:[a-z]{2,4}|[0-9]{1,4})$/i', $value)) {
-			$this->addError('invalid_email');
+			$this->addError('bad_email');
 		}
 		return $value;
 	}
