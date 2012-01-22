@@ -273,7 +273,7 @@ abstract class FormManager_Element_Abstract implements FormManager_Element_Inter
 	public function assemble(){
 		$decorators = array();
 		foreach ($this->decorators as $key => $decorator) {
-			if ($decorator instanceof Cms_Form_Decorator_Interface) {
+			if ($decorator instanceof FormManager_Decorator_Interface) {
 				$decorators[$key] = $decorator->assemble();
 			} else {
 				$decorators[$key] = $decorator;

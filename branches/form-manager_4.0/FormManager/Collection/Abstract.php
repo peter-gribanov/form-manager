@@ -78,7 +78,7 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	 *
 	 * @param mixed $value TODO добавить описание параметра
 	 *
-	 * @return Cms_Form_Element_Interface
+	 * @return FormManager_Collection_Abstract
 	 */
 	public function setDefaultValue($value) {
 		// TODO требуется реализация
@@ -89,7 +89,7 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	 * 
 	 * @param FormManager_Element_Interface $element
 	 * 
-	 * @return FormManager_Element_Interface
+	 * @return FormManager_Collection_Abstract
 	 */
 	public function addChild(FormManager_Element_Interface $element) {
 		$this->childs[] = $element->setParent($this);
@@ -281,7 +281,7 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	/**
 	 * Вернуть массив данных элемента элемента
 	 * 
-	 * @see Cms_Form_Element_Abstract::assemble()
+	 * @see FormManager_Element_Abstract::assemble()
 	 * 
 	 * @return array
 	 */

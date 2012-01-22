@@ -45,7 +45,7 @@ interface FormManager_Element_Interface extends Serializable {
 	 *
 	 * @param mixed $value TODO добавить описание параметра
 	 *
-	 * @return Cms_Form_Element_Interface
+	 * @return FormManager_Element_Interface
 	 */
 	public function setDefaultValue($value);
 
