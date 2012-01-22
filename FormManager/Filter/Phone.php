@@ -29,7 +29,7 @@ class FormManager_Filter_Phone extends FormManager_Filter_Abstract {
 	 */
 	public function exec($value, FormManager_Element_Interface $element) {
 		if (!empty($value) && !preg_match('/^\+?\d*\(?\d{0,4}\)?\d{4,8}$/', $value)) {
-			$this->addError('invalid_phone');
+			$this->addError('phone');
 		}
 		return $value;
 	}

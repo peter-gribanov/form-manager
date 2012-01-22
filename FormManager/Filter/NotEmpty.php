@@ -29,7 +29,7 @@ class FormManager_Filter_NotEmpty extends FormManager_Filter_Abstract {
 	 */
 	public function exec($value, FormManager_Element_Interface $element) {
 		if ($value === '' || $value === array() || $value === null) {
-			$this->addError('not_empty');
+			$this->addError('is_empty');
 			return null;
 		}
 		return $value;

@@ -55,7 +55,7 @@ class FormManager_Filter_RangeValue extends FormManager_Filter_Abstract {
 	 */
 	public function exec($value, FormManager_Element_Interface $element) {
 		if (!empty($value) && is_numeric($value) && ($value < $this->from || $value > $this->to)) {
-			$this->addError('invalid_range', array('from' => $this->from, 'to' => $this->to));
+			$this->addError('range', array('from' => $this->from, 'to' => $this->to));
 		}
 		return $value;
 	}
