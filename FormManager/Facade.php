@@ -105,7 +105,7 @@ final class FormManager_Facade {
 			$field = $this->getField($type);
 		}
 		$field->setName($name);
-		$collection->add($field);
+		$collection->addChild($field);
 		return $field;
 	}
 
@@ -220,11 +220,11 @@ final class FormManager_Facade {
 	 * Выполняет проверку формы
 	 * 
 	 * @return boolean
-	 */
+	 *//*
 	public function validate() {
 		// TODO требуется реализация
 		return false;
-	}
+	}*/
 
 	/**
 	 * Рисует форму
@@ -234,12 +234,14 @@ final class FormManager_Facade {
 	}
 
 	/**
-	 * Экспортирует объект формы
-	 * 
-	 * @return FormManager_Form
+	 * Вернуть массив данных элемента элемента
+	 *
+	 * @see FormManager_Form::assemble()
+	 *
+	 * @return array
 	 */
-	public function export() {
-		return $this->form;
+	public function assemble() {
+		return $this->form->assemble();
 	}
 
 	/**
@@ -256,12 +258,7 @@ final class FormManager_Facade {
 			throw new FormManager_Exceptions_InvalidArgument();
 		}
 		$input = '_'.strtoupper($method);
-		foreach ($$input as $name => $value) {
-			$el = $this->search($name);
-			if ($el instanceof FormManager_Field_Interface) {
-				$el->setValue($value);
-			}
-		}
-		// TODO добавить декоратор формы с методом
+		$this->form->addDecorator('method', $method)->setValue($$input);
 	}
+
 }
