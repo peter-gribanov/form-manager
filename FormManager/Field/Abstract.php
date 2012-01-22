@@ -17,53 +17,44 @@
  * @package FormManager\Field
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-abstract class FormManager_Field_Abstract extends FormManager_Element implements FormManager_Field_Interface {
+abstract class FormManager_Field_Abstract extends FormManager_Element_Abstract implements FormManager_Field_Interface {
 
 	/**
-	 * Значение поля по умолчанию
-	 * 
-	 * @var mixid
+	 * Получить значение элемента.
 	 */
-	private $default = '';
-
-	/**
-	 * Значение поля
-	 * 
-	 * @var mixid
-	 */
-	private $value = '';
-
-
-	/**
-	 * Конструктор
-	 */
-	public function __construct() {
-		$this->setDecorator('disabled', false);
+	public function getValue() {
+		// TODO требуется реализация
 	}
 
 	/**
-	 * TODO добавить описание
-	 * 
-	 * @throws FormManager_Exceptions_NoAction
-	 * 
-	 * @param FormManager_Element_Interface $element
-	 */
-	public function add(FormManager_Element_Interface $element) {
-		// TODO описать исключение
-		throw new FormManager_Exceptions_NoAction();
-	}
-
-	/**
-	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
-	 * Пример строки запроса: a=foo&b=bar
+	 * Установить значение элемента.
 	 *
-	 * @throws FormManager_Exceptions_NoAction
-	 * 
-	 * @param string $query
+	 * @param unknown_type $value TODO добавить описание параметра
 	 */
-	public function addByQuery($query) {
-		// TODO описать исключение
-		throw new FormManager_Exceptions_NoAction();
+	public function setValue($value) {
+		// TODO требуется реализация
+	}
+
+	/**
+	 * Получить значение элемента по умолчанию
+	 *
+	 * @param boolean $filtred TODO добавить описание параметра
+	 *
+	 * @return mixed
+	 */
+	public function getDefaultValue($filtred = true) {
+		// TODO требуется реализация
+	}
+
+	/**
+	 * Установить значение по умолчанию
+	 *
+	 * @param mixed $value TODO добавить описание параметра
+	 *
+	 * @return Cms_Form_Element_Interface
+	 */
+	public function setDefaultValue($value) {
+		// TODO требуется реализация
 	}
 
 	/**
@@ -72,20 +63,20 @@ abstract class FormManager_Field_Abstract extends FormManager_Element implements
 	 * @param mixid $val
 	 * 
 	 * @return boolean
-	 */
+	 *//*
 	public function setDefaultValue($val){
 		$this->default = $val;
 		return true;
-	}
+	}*/
 
 	/**
 	 * Возвращает значение поля
 	 * 
 	 * @return mixid
-	 */
+	 *//*
 	public function getDefaultValue(){
 		return $this->default;
-	}
+	}*/
 
 	/**
 	 * Возвращает значение поля
@@ -93,7 +84,7 @@ abstract class FormManager_Field_Abstract extends FormManager_Element implements
 	 * TODO по хорошему этот метод больше не должен использоваться
 	 * 
 	 * @return mixid
-	 */
+	 *//*
 	public function getValue(){
 		// значение указанное пользователем
 		$value = & $this->getSentValue();
@@ -108,138 +99,31 @@ abstract class FormManager_Field_Abstract extends FormManager_Element implements
 		}
 
 		return $value!==null ? $value : $this->getDefaultValue();
-	}
+	}*/
 
 	/**
 	 * Устанавливает значение поля
 	 * 
 	 * @param mixid $value
-	 */
+	 *//*
 	public function setValue($value) {
 		$this->value = $value;
-	}
+	}*/
 
 	/**
-	 * Возвращает значение указанное пользователем
-	 * 
-	 * @return string
-	 */
-	public function &getSentValue(){
-		// FIXME getSentValue() больше нет
-		return $this->getRoot()->getSentValue($this->getName());
-	}
-
-	/**
-	 * Определяет изменено ли поле
-	 * 
+	 * Проверить правильно заполнения формы, если ввода данных небыло форма не валидна
+	 *
 	 * @return boolean
 	 */
-	public function isChanged() {
-		return $this->getValue() != $this->getDefaultValue();
-	}
-
-	/**
-	 * Устанавливает фильтр для поля
-	 * 
-	 * @throws FormManager_Exceptions_Field
-	 * 
-	 * @param string $name
-	 * @param array  $params
-	 * 
-	 * @return FormManager_Field_Abstract
-	 *//*
-	public function setFilter($name, $params=null){
-		if (!is_string($name) || !trim($name)) {
-			throw new FormManager_Exceptions_Field('Element filter name must be not empty string');
+	public function isValid() {
+		if (!$this->isChanged()) {
+			return false;
 		}
-		$params = $params ? $params : array();
-		if (!is_array($params)) {
-			throw new FormManager_Exceptions_Field('Element filter parametrs should be an array');
+		if (count($this->getErrors()) == 0) {
+			// Ошибки генерируются только на getValue
+			$this->getValue(true);
 		}
-		if (!file_exists(FORM_PATH.'/filters/'.$name.'.php')) {
-			throw new FormManager_Exceptions_Field('File of element filter ('.$name.') do not exists');
-		}
-		$this->options['filters'][] = array($name, $params);
-		// Обязательное для заполнения
-		if ($name=='empty'){
-			$this->required();
-		}
-		return $this;
-	}*/
-
-	/**
-	 * Производит проверку переданных данных по полю 
-	 *//*
-	public function valid(){
-		// не проверять отключенные поля 
-		if (isset($this->options['view'][1]['disabled'])
-			&& $this->options['view'][1]['disabled']) return;
-
-		$this->filter_iterator = 0;
-		while (isset($this->options['filters'][$this->filter_iterator])){
-			$params = $this->options['filters'][$this->filter_iterator][1];
-			include FORM_PATH.'/filters/'.$this->options['filters'][$this->filter_iterator][0].'.php';
-			$this->filter_iterator++;
-		}
-		$this->filter_iterator = null;
-	}*/
-
-	/**
-	 * Генерирует исключение при проверки поля фильтром
-	 * 
-	 * @throws FormManagerFilterException
-	 * 
-	 * @param string $post
-	 * @param array  $params
-	 *//*
-	public function error($post, $params=array()){
-		if (!is_integer($this->filter_iterator)){
-			throw new LogicException('Validate field is not running');
-		}
-		// добавление сообщения из языковой темы и название поля
-		array_unshift($params, $this->getLangPost($post), $this->getTitle());
-		// создание исключения
-		throw new FormManagerFilterException(call_user_func_array('sprintf', $params), $this,
-			$this->options['filters'][$this->filter_iterator]);
-	}*/
-
-	/**
-	 * Метод для сериализации класса
-	 * 
-	 * @return string
-	 */
-	public function serialize(){
-		// TODO требуется тестирование
-		return serialize(array(
-			$this->default,
-			parent::serialize()
-		));
-	}
-
-	/**
-	 * Метод для десериализации класса
-	 * 
-	 * @param string $data
-	 * 
-	 * @return FormManager_Field_Abstract
-	 */
-	public function unserialize($data){
-		// TODO требуется тестирование
-		list($this->default, $data) = unserialize($data);
-		parent::unserialize($data);
-		return $this;
-	}
-
-	/**
-	 * Возвращает все данные
-	 * 
-	 * @return array
-	 */
-	public function export(){
-		return array_merge(
-			parent::export(),
-			array('default' => $this->default)
-		);
+		return count($this->getErrors()) == 0 ? true : false;
 	}
 
 }
