@@ -60,7 +60,9 @@ class FormManager_Decorator_ElementId extends FormManager_Decorator_Abstract {
 		if (!$id) {
 			return '';
 		}
-		$id[] = $this->prefix;
+		if ($this->prefix) {
+			$id[] = $this->prefix;
+		}
 		return implode($this->separator, array_reverse($id));
 	}
 }
