@@ -17,98 +17,65 @@
  * @package FormManager\Element
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface FormManager_Element_Interface extends IteratorAggregate, FormManager_Interface {
+interface FormManager_Element_Interface extends Serializable {
+
+	/**
+	 * Получить значение элемента.
+	 */
+	public function getValue();
+
+	/**
+	 * Установить значение элемента.
+	 *
+	 * @param unknown_type $value TODO добавить описание параметра
+	 */
+	public function setValue($value);
+
+	/**
+	 * Получить значение элемента по умолчанию
+	 *
+	 * @param boolean $filtred TODO добавить описание параметра
+	 *
+	 * @return mixed
+	 */
+	public function getDefaultValue($filtred = true);
+
+	/**
+	 * Установить значение по умолчанию
+	 *
+	 * @param mixed $value TODO добавить описание параметра
+	 *
+	 * @return Cms_Form_Element_Interface
+	 */
+	public function setDefaultValue($value);
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Element_Interface $element
-	 * 
-	 * @return FormManager_Element_Interface
+	 * @param FormManager_Collection_Interface $parent
 	 */
-	public function add(FormManager_Element_Interface $element);
-
-	/**
-	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
-	 * Пример строки запроса: a=foo&b=bar
-	 * 
-	 * @param string $query
-	 */
-	public function addByQuery($query);
+	public function setParent(FormManager_Collection_Interface $parent);
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Element_Interface $element
-	 */
-	public function setParent(FormManager_Element_Interface $element);
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @return FormManager_Element_Interface
+	 * @return FormManager_Collection_Interface
 	 */
 	public function getParent();
 
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Element_Interface $element
+	 * @param FormManager_Collection_Interface
 	 */
-	public function setRoot(FormManager_Element_Interface $element);
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @return array
-	 */
-	public function getChilds();
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $name
-	 * 
-	 * @return FormManager_Element_Interface|boolean
-	 */
-	public function getChild($name);
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $name
-	 * 
-	 * @return boolean
-	 */
-	public function isAdded($name);
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $name
-	 * 
-	 * @return boolean
-	 */
-	public function remove($name);
-
-	/**
-	 * Очищает список элементов
-	 */
-	public function clear();
-
-	/**
-	 * Проверяет пуста ли коллекция
-	 * 
-	 * @return boolean
-	 */
-	public function isEmpty();
+	public function getRoot();
 
 	/**
 	 * Устанавливает фильтр для поля
 	 * 
 	 * @param FormManager_Filter_Interface $filter Объект фильтра
 	 */
-	public function setFilter(FormManager_Filter_Interface $filter);
+	public function addFilter(FormManager_Filter_Interface $filter);
 
 	/**
 	 * Добавляет декоратор
@@ -116,7 +83,7 @@ interface FormManager_Element_Interface extends IteratorAggregate, FormManager_I
 	 * @param string $name  Название
 	 * @param mixid  $value Значение
 	 */
-	public function setDecorator($name, $value);
+	public function addDecorator($name, $value);
 
 	/**
 	 * Возвращает декоратор для указанного названия
@@ -132,7 +99,7 @@ interface FormManager_Element_Interface extends IteratorAggregate, FormManager_I
 	 * 
 	 * @return boolean
 	 */
-//	public function isValid();
+	public function isValid();
 
 	/**
 	 * Определяет изменено ли поле
@@ -140,6 +107,20 @@ interface FormManager_Element_Interface extends IteratorAggregate, FormManager_I
 	 * @return boolean
 	 */
 	public function isChanged();
+
+	/**
+	 * Получить сообщения об ошибках
+	 *
+	 * @return array
+	 */
+	public function getErrors();
+
+	/**
+	 * Получить сообщения об замечаниях
+	 *
+	 * @return array
+	 */
+	public function getNotices();
 
 	/**
 	 * Устанавливает имя элемента
@@ -156,36 +137,20 @@ interface FormManager_Element_Interface extends IteratorAggregate, FormManager_I
 	public function getName();
 
 	/**
-	 * TODO добавить описание
+	 * Получить полное имя элемента
+	 *
+	 * Полное имя элемента которое будет использоваться на форме,
+	 * оно строиться на основе имен предков
+	 * 
+	 * @return string
+	 */
+	public function getFormName();
+
+	/**
+	 * Возвращает все данные
 	 * 
 	 * @return array
 	 */
-	public function getNamesList();
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $comment
-	 */
-	public function setComment($comment);
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $title
-	 */
-	public function setTitle($title);
-
-	/**
-	 * Устанавливает флаг что есть поля обязательные для заполнения
-	 */
-	public function required();
-
-	/**
-	 * Проверяет есть ли поля обязательные для заполнения
-	 * 
-	 * @return boolean
-	 */
-	public function isRequired();
+	public function assemble();
 
 }
