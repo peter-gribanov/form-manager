@@ -21,10 +21,13 @@ class FormManager_Field_String extends FormManager_Field_Abstract {
 
 	/**
 	 * Конструктор
+	 * 
+	 * @param string|null $name  Имя элемента
+	 * @param string|null $label Подпись элемента
 	 */
-	public function __construct() {
-		parent::__construct();
-		$this->setFilter(new FormManager_Filter_Field_String());
+	public function __construct($name = null, $label = null) {
+		parent::__construct($name, $label);
+		$this->addFilter(new FormManager_Filter_ToString());
 	}
 
 }
