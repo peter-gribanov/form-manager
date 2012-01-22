@@ -46,31 +46,4 @@ final class FormManager_Field_Factory extends FormManager_Loader {
 		return $field;
 	}
 
-	/**
-	 * Возвращает поле Hidden
-	 * 
-	 * @return FormManager_Field_Hidden
-	 */
-	public function Hidden(){
-		return $this->get('Hidden');
-	}
-
-	/**
-	 * Возвращает поле Select
-	 * 
-	 * @return FormManager_Field_Select
-	 */
-	public function Select(){
-		return $this->get('Select');
-	}
-
-	/**
-	 * Возвращает поле Text
-	 * 
-	 * @return FormManager_Field_Text
-	 */
-	public function Text(){
-		return $this->get('Text');
-	}
-
 }
