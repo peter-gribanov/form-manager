@@ -41,6 +41,13 @@ class FormManager_Language {
 	 */
 	const DEFAULT_ID = 'en';
 
+	/**
+	 * Имя группы по умолчанию
+	 * 
+	 * @var string
+	 */
+	const DEFAULT_GROUP = '.default';
+
 
 	/**
 	 * Запрещена инициализация класса
@@ -51,7 +58,7 @@ class FormManager_Language {
 	/**
 	 * Устанавливает идентификатор языковой темы
 	 * 
-	 * @param  string $id Id языковой темы
+	 * @param  string $id Идентификатор языковой темы
 	 * 
 	 * @return boolean Результат установки темы
 	 */
@@ -68,7 +75,7 @@ class FormManager_Language {
 	/**
 	 * Возвращает идентификатор языковой темы
 	 * 
-	 * @return string Id языковой темы
+	 * @return string Идентификатор языковой темы
 	 */
 	public static function getId() {
 		return self::$id;
@@ -88,61 +95,53 @@ class FormManager_Language {
 	 * 
 	 * @throws FormManager_Exceptions_LoadLanguageTheme
 	 * 
-	 * @param string $id     Id сообщения
+	 * @param string $id     Идентификатор сообщения
 	 * @param array  $params Параметры сообщения
+	 * @param string $group  Имя группы сообщений
 	 * 
 	 * @return string|boolean Языковые сообщения
 	 */
-	public static function getMessage($id, array $params = array()) {
+	public static function getMessage($id, array $params = array(), $group = self::DEFAULT_GROUP) {
 		// загрузка списка сообщений если он еще не загружен
 		if (self::$mess === null) {
 			self::$mess = self::getMessagesList(self::$id);
 			// проверка результата загрузки
 			if (self::$mess === false) {
-				throw new FormManager_Exceptions_LoadLanguageTheme('File ".parameters.php" for linguistic theme "'.self::$id.'" not found');
+				throw new FormManager_Exceptions_LoadLanguageTheme('Invalid linguistic theme "'.self::$id.'"');
 			} elseif (!is_array(self::$mess) || !self::$mess) {
 				throw new FormManager_Exceptions_LoadLanguageTheme('List of messages for linguistic theme "'.self::$id.'" is empty');
 			}
 		}
 		// нет сообщения для данного ключа
-		if (!isset(self::$mess[$id])) {
+		if (!isset(self::$mess[$group][$id])) {
 			return false;
 		}
 		if (!empty($params)) { // сборка сообщения
-			return call_user_func('sprintf', array(self::$mess[$id]) + $params);
+			return call_user_func_array('sprintf', array_merge(array(self::$mess[$group][$id]), $params));
 		} else {
-			return self::$mess[$id];
+			return self::$mess[$group][$id];
 		}
 	}
 
 	/**
 	 * Загружает список сообщений если он еще не загружен
 	 * 
-	 * @param string $id Id языковой темы
+	 * @param string $id Идентификатор языковой темы
 	 * 
 	 * @return array|boolean Результат загрузки списка
 	 */
 	private static function getMessagesList($id) {
-		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
-		// загрузка базового набора сообщений
-		$file = $dir.'.parameters.php';
-		// проверка файла
-		if (!file_exists($file) || !is_readable($file)) {
+		if (!FormManager_Plugins_Language::isInstalled(self::DEFAULT_GROUP, $id)) {
 			return false;
 		}
-		// загрузка списка основных сообщений
-		$list = include $file;
+		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
+		// инициализация базовой группы сообщений
+		$mess[self::DEFAULT_GROUP] = include $dir.self::DEFAULT_GROUP.'.php';
 		// загрузка сообщений плагинов
-		$scan = scandir($dir);
-		foreach ($scan as $file) {
-			if ($file[0] != '.' && is_readable($dir.$file)) {
-				$name = pathinfo($file, PATHINFO_FILENAME);
-				$data = include $dir.$file;
-				foreach ($data as $key => $mess) {
-					$list[$name.'-'.$key] = $mess;
-				}
-			}
+		foreach (FormManager_Plugins_Language::getListOfInstalled($id) as $group) {
+			$mess[$group] = include $dir.$group.'.php';
 		}
-		return $list;
+		return $mess;
 	}
+
 }
