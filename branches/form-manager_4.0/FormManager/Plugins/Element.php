@@ -33,6 +33,9 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function install($element) {
+		if (self::isInstalled($element)) {
+			return true; // ???
+		}
 		$element_key = strtolower($element);
 
 		/**
@@ -66,6 +69,9 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($element) {
+		if (!self::isInstalled($element)) {
+			return true; // ???
+		}
 		// TODO требуется реализация
 		return true;
 	}
