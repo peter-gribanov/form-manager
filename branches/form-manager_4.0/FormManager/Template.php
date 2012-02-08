@@ -17,15 +17,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Viwe {
-
-	/**
-	 * Название шаблона
-	 * 
-	 * @var string
-	 */
-	private $template = self::DEFAULT_TEMPLATE;
-
+class FormManager_Template {
 
 	/**
 	 * Название шаблона по умолчанию
@@ -34,28 +26,6 @@ class FormManager_Viwe {
 	 */
 	const DEFAULT_TEMPLATE = '.default';
 
-	/**
-	 * Устанавливает название шаблона
-	 * 
-	 * @throws FormManager_Exceptions_InvalidArgument
-	 * 
-	 * @param string $template Название шаблона
-	 */
-	public function setTemplate($template) {
-		if (!is_string($template) || !trim($template)) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
-		if (strpos($template, DIRECTORY_SEPARATOR) !== false) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
-		if (!is_dir(FORM_MANAGER_PATH.'templates/'.$template)) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
-		$this->template = $template;
-	}
 
 	/**
 	 * Хелпер возвращающий языковое сообщение
@@ -68,7 +38,7 @@ class FormManager_Viwe {
 	 * @return string
 	 */
 	public function lang($id, array $params = array()) {
-		return FormManager_Language::getMessage($id, $params);
+		return FormManager_Language::getMessage('viwe:'.$id, $params);
 	}
 
 	/**
@@ -90,19 +60,29 @@ class FormManager_Viwe {
 	 * 
 	 * @param string $type Название поля
 	 * @param array  $vars Переменные передаваемые в шаблон
-	 */
+	 *//*
 	public function field($type, array $vars = array()) {
 		$this->inc('fields/'.$type.'/template.php', $vars);
-	}
+	}*/
 
 	/**
 	 * Хелпер включающий шаблон колекции
 	 * 
 	 * @param string $type Название колекции
 	 * @param array  $vars Переменные передаваемые в шаблон
-	 */
+	 *//*
 	public function collection($type, array $vars = array()) {
 		$this->inc('collections/'.$type.'/template.php', $vars);
+	}*/
+
+	/**
+	 * Хелпер включающий шаблон элемента
+	 * 
+	 * @param string $type Название колекции
+	 * @param array  $vars Переменные передаваемые в шаблон
+	 */
+	public function element($type, array $vars = array()) {
+		$this->inc($type.'/template.php', $vars);
 	}
 
 	/**
@@ -113,7 +93,7 @@ class FormManager_Viwe {
 	 */
 	public function inc($template, array $vars = array()) {
 		extract($vars, EXTR_SKIP | EXTR_REFS);
-		include $this->getLocalPath($template);
+		include $this->path($template);
 	}
 
 	/**
@@ -124,7 +104,7 @@ class FormManager_Viwe {
 	 * @param string $path Путь отнасительно корня шаблона
 	 * 
 	 * @return string
-	 */
+	 *//*
 	private function getLocalPath($path) {
 		if (!is_string($path) || !trim($path)) {
 			// TODO описать исключение
@@ -134,7 +114,7 @@ class FormManager_Viwe {
 			return FORM_MANAGER_PATH.'templates/'.$this->template.'/'.$path;
 		}
 		return FORM_MANAGER_PATH.'templates/'.self::DEFAULT_TEMPLATE.'/'.$path;
-	}
+	}*/
 
 	/**
 	 * Рисует форму
@@ -142,6 +122,6 @@ class FormManager_Viwe {
 	 * @param FormManager_Form $form Форма
 	 */
 	public function drow(FormManager_Form $form) {
-		$this->inc('template.php', $form->export());
+		$this->inc('template.php', $form->assemble());
 	}
 }
