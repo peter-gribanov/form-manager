@@ -37,4 +37,20 @@ interface FormManager_Plugins_Interface {
 	 */
 	static public function uninstall($element);
 
+	/**
+	 * Проверяет установлен ли элемент
+	 * 
+	 * @param string $element Имя элемента
+	 * 
+	 * @return boolean
+	 */
+	static public function isInstalled($element);
+
+	/**
+	 * Возвращает список установленных элементов
+	 * 
+	 * @return array
+	 */
+	static public function getListOfInstalled();
+
 }

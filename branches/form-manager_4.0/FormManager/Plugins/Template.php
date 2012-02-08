@@ -20,6 +20,12 @@
 class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 
 	/**
+	 * Запрещена инициализация класса
+	 */
+	private function __construct() {
+	}
+
+	/**
 	 * Устанавливает шаблон
 	 * 
 	 * @param string $name  Имя шаблона
@@ -42,6 +48,31 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 	static public function uninstall($name, $group = null) {
 		// TODO требуется реализация
 		return true;
+	}
+
+	/**
+	 * Проверяет установлена ли шаблон
+	 * 
+	 * @param string $name  Имя шаблона
+	 * @param string $group Имя группы шаблонов
+	 * 
+	 * @return boolean
+	 */
+	static public function isInstalled($name, $group = FormManager_Template::DEFAULT_TEMPLATE) {
+		// TODO требуется реализация
+		return false;
+	}
+
+	/**
+	 * Возвращает список установленных шаблонов
+	 * 
+	 * @param string $group Имя группы шаблонов
+	 * 
+	 * @return array
+	 */
+	static public function getListOfInstalled($group = FormManager_Template::DEFAULT_TEMPLATE) {
+		// TODO требуется реализация
+		return array();
 	}
 
 }

@@ -20,7 +20,13 @@
 class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 
 	/**
-	 * Устанавливает язык
+	 * Запрещена инициализация класса
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Устанавливает языковую группу сообщений
 	 * 
 	 * @param string $name Имя группы сообщений
 	 * @param string $id   Идентификатор языковой темы
@@ -28,11 +34,20 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function install($name, $id = FormManager_Language::DEFAULT_ID) {
+		$name = strtolower($name);
+		if ($name == FormManager_Language::DEFAULT_GROUP || $name[0] == '.') {
+			return false;
+		}
+		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
+		if (!file_exists($register_file)) {
+			return false;
+		}
+		// TODO прописать в .register.php
 		return true;
 	}
 
 	/**
-	 * Удаляет язык
+	 * Удаляет языковую группу сообщений
 	 * 
 	 * @param string      $name Имя группы сообщений
 	 * @param string|null $id   Идентификатор языковой темы. Если не укзано удаляет во всех языковых темах
@@ -40,8 +55,50 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($name, $id = null) {
+		if ($name == FormManager_Language::DEFAULT_GROUP) {
+			return false;
+		}
+		if (!self::isInstalled($name)) {
+			return true; // ???
+		}
 		// TODO требуется реализация
 		return true;
+	}
+
+	/**
+	 * Проверяет установлена ли группа языковых сообщений
+	 * 
+	 * @param string $name Имя группы сообщений
+	 * @param string $id   Идентификатор языковой темы
+	 * 
+	 * @return boolean
+	 */
+	static public function isInstalled($name, $id = FormManager_Language::DEFAULT_ID) {
+		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
+		if (!file_exists($dir.'.register.php')) {
+			return false;
+		}
+		if ($name == FormManager_Language::DEFAULT_GROUP) {
+			return file_exists($dir.self::DEFAULT_GROUP.'.php');
+		}
+		return in_array($name, (array)include $dir.'.register.php');
+	}
+
+	/**
+	 * Возвращает список установленных групп языковых сообщений
+	 * 
+	 * @param string $id Идентификатор языковой темы
+	 * 
+	 * @return array
+	 */
+	static public function getListOfInstalled($id = FormManager_Language::DEFAULT_ID) {
+		$register = array();
+		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
+		if (file_exists($register_file)) {
+			$register = (array)include $register_file;
+		}
+		$register[] = FormManager_Language::DEFAULT_GROUP;
+		return $register;
 	}
 
 }

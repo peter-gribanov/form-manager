@@ -20,6 +20,12 @@
 class FormManager_Plugins implements FormManager_Plugins_Interface {
 
 	/**
+	 * Запрещена инициализация класса
+	 */
+	private function __construct() {
+	}
+
+	/**
 	 * Устанавливает элемент
 	 * 
 	 * @param string $element Имя элемента
@@ -63,6 +69,26 @@ class FormManager_Plugins implements FormManager_Plugins_Interface {
 			$status = false;
 		}
 		return true;
+	}
+
+	/**
+	 * Проверяет установлен ли элемент
+	 * 
+	 * @param string $element Имя элемента
+	 * 
+	 * @return boolean
+	 */
+	static public function isInstalled($element) {
+		return FormManager_Plugins_Element::isInstalled($element);
+	}
+
+	/**
+	 * Возвращает список установленных элементов
+	 * 
+	 * @return array
+	 */
+	static public function getListOfInstalled() {
+		return FormManager_Plugins_Element::getListOfInstalled();
 	}
 
 }
