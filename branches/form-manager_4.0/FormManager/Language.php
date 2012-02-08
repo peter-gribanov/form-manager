@@ -136,10 +136,10 @@ class FormManager_Language {
 		}
 		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
 		// инициализация базовой группы сообщений
-		$mess[self::DEFAULT_GROUP] = include $dir.self::DEFAULT_GROUP.'.php';
+		$mess[self::DEFAULT_GROUP] = (array)include $dir.self::DEFAULT_GROUP.'.php';
 		// загрузка сообщений плагинов
 		foreach (FormManager_Plugins_Language::getListOfInstalled($id) as $group) {
-			$mess[$group] = include $dir.$group.'.php';
+			$mess[$group] = (array)include $dir.$group.'.php';
 		}
 		return $mess;
 	}
