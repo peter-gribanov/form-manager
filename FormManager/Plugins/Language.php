@@ -38,10 +38,10 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 		if ($name == FormManager_Language::DEFAULT_GROUP || $name[0] == '.') {
 			return false;
 		}
-		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
-		if (!file_exists($register_file)) {
-			return false;
+		if (self::isInstalled($name, $id)) {
+			return true; // ???
 		}
+		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
 		// TODO прописать в .register.php
 		return true;
 	}
@@ -55,10 +55,11 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($name, $id = null) {
+		$name = strtolower($name);
 		if ($name == FormManager_Language::DEFAULT_GROUP) {
 			return false;
 		}
-		if (!self::isInstalled($name)) {
+		if (!self::isInstalled($name, $id)) {
 			return true; // ???
 		}
 		// TODO требуется реализация

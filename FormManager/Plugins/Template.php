@@ -34,6 +34,11 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function install($name, $group = FormManager_Template::DEFAULT_TEMPLATE) {
+		$name = strtolower($name);
+		if (self::isInstalled($name, $group)) {
+			return true; // ???
+		}
+		// TODO требуется реализация
 		return true;
 	}
 
@@ -46,6 +51,10 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($name, $group = null) {
+		$name = strtolower($name);
+		if (!self::isInstalled($name, $group)) {
+			return true; // ???
+		}
 		// TODO требуется реализация
 		return true;
 	}
