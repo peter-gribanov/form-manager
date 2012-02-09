@@ -134,10 +134,7 @@ class FormManager_Language {
 		if (!FormManager_Plugins_Language::isInstalled(self::DEFAULT_GROUP, $id)) {
 			return false;
 		}
-		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
-		// инициализация базовой группы сообщений
-		$mess[self::DEFAULT_GROUP] = (array)include $dir.self::DEFAULT_GROUP.'.php';
-		// загрузка сообщений плагинов
+		// загрузка сообщений групп
 		foreach (FormManager_Plugins_Language::getListOfInstalled($id) as $group) {
 			$mess[$group] = (array)include $dir.$group.'.php';
 		}

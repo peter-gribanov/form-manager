@@ -35,15 +35,16 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 */
 	static public function install($name, $id = FormManager_Language::DEFAULT_ID) {
 		$name = strtolower($name);
-		if ($name == FormManager_Language::DEFAULT_GROUP || $name[0] == '.') {
+		if ($name == FormManager_Language::DEFAULT_GROUP) {
 			return false;
 		}
-		if (self::isInstalled($name, $id)) {
-			return true; // ???
+		// удалять файлы с недопустимым именем
+		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
+		if ($name[0] == '.' && file_exists($dir.$name)) {
+			unlink($dir.$name);
+			return false;
 		}
-		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
-		// TODO прописать в .register.php
-		return true;
+		return self::isInstalled($name, $id);
 	}
 
 	/**
@@ -62,8 +63,7 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 		if (!self::isInstalled($name, $id)) {
 			return true; // ???
 		}
-		// TODO требуется реализация
-		return true;
+		return unlink(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name);
 	}
 
 	/**
@@ -75,14 +75,7 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function isInstalled($name, $id = FormManager_Language::DEFAULT_ID) {
-		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
-		if (!file_exists($dir.'.register.php')) {
-			return false;
-		}
-		if ($name == FormManager_Language::DEFAULT_GROUP) {
-			return file_exists($dir.self::DEFAULT_GROUP.'.php');
-		}
-		return in_array($name, (array)include $dir.'.register.php');
+		return file_exists(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name);
 	}
 
 	/**
@@ -90,16 +83,14 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * 
 	 * @param string $id Идентификатор языковой темы
 	 * 
-	 * @return array
+	 * @return array|boolean
 	 */
 	static public function getListOfInstalled($id = FormManager_Language::DEFAULT_ID) {
-		$register = array();
-		$register_file = FORM_MANAGER_PATH.'/languages/'.$id.'/.register.php';
-		if (file_exists($register_file)) {
-			$register = (array)include $register_file;
+		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
+		if (is_dir($dir)) {
+			return false;
 		}
-		$register[] = FormManager_Language::DEFAULT_GROUP;
-		return $register;
+		return array_diff(scandir($dir), array('..', '.'));
 	}
 
 }
