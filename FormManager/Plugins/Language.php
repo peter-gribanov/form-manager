@@ -28,6 +28,12 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	/**
 	 * Устанавливает языковую группу сообщений
 	 * 
+	 * Проверяет установлена ли языковая группа сообщений
+	 * и если установлена выполняет валидации установленной группы.
+	 * 
+	 * @throws FormManager_Exceptions_InvalidArgument
+	 * @throws FormManager_Exceptions_Logic
+	 * 
 	 * @param string $name Имя группы сообщений
 	 * @param string $id   Идентификатор языковой темы
 	 * 
@@ -35,20 +41,32 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 */
 	static public function install($name, $id = FormManager_Language::DEFAULT_ID) {
 		$name = strtolower($name);
+		$id   = strtolower($id);
 		if ($name == FormManager_Language::DEFAULT_GROUP) {
-			return false;
+			throw new FormManager_Exceptions_InvalidArgument('Недопустимое имя'); // TODO описать исключение
 		}
+		$file = FORM_MANAGER_LANGUAGES_PATH.'/'.$id.'/'.$name.'.php';
 		// удалять файлы с недопустимым именем
-		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
-		if ($name[0] == '.' && file_exists($dir.$name)) {
-			unlink($dir.$name);
-			return false;
+		if ($name[0] == '.') {
+			if (file_exists($file)) {
+				unlink($file);
+			}
+			throw new FormManager_Exceptions_InvalidArgument('Недопустимое имя'); // TODO описать исключение
 		}
-		return self::isInstalled($name, $id);
+		// создаем пустую группу если ее нет
+		if ((!self::isInstalled($name, $id) || !is_array(include $file)) &&
+			!file_put_contents($file, "<?php\nreturn array(\n);")
+		) {
+			throw new FormManager_Exceptions_Logic('Не удалось создать файл языковой темы'); // TODO описать исключение
+		}
+		return true;
 	}
 
 	/**
 	 * Удаляет языковую группу сообщений
+	 * 
+	 * @throws FormManager_Exceptions_InvalidArgument
+	 * @throws FormManager_Exceptions_Logic
 	 * 
 	 * @param string      $name Имя группы сообщений
 	 * @param string|null $id   Идентификатор языковой темы. Если не укзано удаляет во всех языковых темах
@@ -58,12 +76,24 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	static public function uninstall($name, $id = null) {
 		$name = strtolower($name);
 		if ($name == FormManager_Language::DEFAULT_GROUP) {
-			return false;
+			throw new FormManager_Exceptions_InvalidArgument('Недопустимое имя'); // TODO описать исключение
 		}
 		if (!self::isInstalled($name, $id)) {
-			return true; // ???
+			throw new FormManager_Exceptions_Logic(); // TODO описать исключение
 		}
-		return unlink(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name);
+		if ($id) {
+			return unlink(FORM_MANAGER_LANGUAGES_PATH.'/'.strtolower($id).'/'.$name.'.php');
+		} else {
+			// удаляем группу везде
+			$handler = dir(FORM_MANAGER_LANGUAGES_PATH);
+			while (false !== ($item = $handler->read())) {
+				if ($item != '.' && $item != '..' &&
+					file_exists(FORM_MANAGER_LANGUAGES_PATH.'/'.$item.'/'.$name.'.php')
+				) {
+					unlink(FORM_MANAGER_LANGUAGES_PATH.'/'.$item.'/'.$name.'.php');
+				}
+			}
+		}
 	}
 
 	/**
@@ -75,7 +105,7 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function isInstalled($name, $id = FormManager_Language::DEFAULT_ID) {
-		return file_exists(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name);
+		return file_exists(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name.'.php');
 	}
 
 	/**
@@ -86,11 +116,17 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 	 * @return array|boolean
 	 */
 	static public function getListOfInstalled($id = FormManager_Language::DEFAULT_ID) {
-		$dir = FORM_MANAGER_PATH.'/languages/'.$id.'/';
-		if (is_dir($dir)) {
+		$dir = FORM_MANAGER_LANGUAGES_PATH.'/'.$id.'/';
+		if (!is_dir($dir)) {
 			return false;
 		}
-		return array_diff(scandir($dir), array('..', '.'));
+		$list = array();
+		foreach (scandir($dir) as $item) {
+			if ($item != '.' && $item != '..' && pathinfo($item, PATHINFO_EXTENSION) == 'php') {
+				$list[] = pathinfo($item, PATHINFO_FILENAME);
+			}
+		}
+		return $list;
 	}
 
 }
