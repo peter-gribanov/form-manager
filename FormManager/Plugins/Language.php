@@ -55,7 +55,7 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 		}
 		// создаем пустую группу если ее нет
 		if ((!self::isInstalled($name, $id) || !is_array(include $file)) &&
-			!file_put_contents($file, "<?php\nreturn array(\n);")
+			!file_put_contents($file, "<?php\r\nreturn array(\r\n);")
 		) {
 			throw new FormManager_Exceptions_Logic('Не удалось создать файл языковой темы'); // TODO описать исключение
 		}

@@ -40,6 +40,12 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 		$group = strtolower($group);
 		// создаем пустой шаблон если его нет
 		if (!self::isInstalled($name, $group)) {
+			if (!is_dir(FORM_MANAGER_TEMPLATES_PATH.'/'.$group)) {
+				mkdir(FORM_MANAGER_TEMPLATES_PATH.'/'.$group);
+			}
+			if (!is_dir(FORM_MANAGER_TEMPLATES_PATH.'/'.$group.'/'.$name)) {
+				mkdir(FORM_MANAGER_TEMPLATES_PATH.'/'.$group.'/'.$name);
+			}
 			return file_put_contents(FORM_MANAGER_TEMPLATES_PATH.'/'.$group.'/'.$name.'/template.php', '');
 		}
 		return true;
