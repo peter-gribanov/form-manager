@@ -12,58 +12,91 @@
  */
 
 /**
- * Фасад библиотеки форм
+ * Основной интерфейс библиотеки форм
  * 
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Facade {
+final class FormManager {
 
 	/**
 	 * Фабрика полей
 	 * 
 	 * @var FormManager_Field_Factory|null
 	 */
-	private $field = null;
+//	private $field = null;
 
 	/**
 	 * Фабрика коллекций
 	 * 
 	 * @var FormManager_Collection_Factory|null
 	 */
-	private $collection = null;
+//	private $collection = null;
+
+	/**
+	 * Фабрика элементов
+	 * 
+	 * @var FormManager_Element_Factory|null
+	 */
+//	private $element = null;
 
 	/**
 	 * Фабрика фильтров
 	 * 
 	 * @var FormManager_Filter_Factory|null
 	 */
-	private $filter = null;
+//	private $filter = null;
 
 	/**
 	 * Вид
 	 * 
 	 * @var FormManager_Viwe|null
 	 */
-	private $view = null;
+//	private $view = null;
 
 	/**
 	 * Форма
 	 * 
-	 * @var FormManager_Form|null
+	 * @var FormManager_Element_Form|null
 	 */
 	private $form = null;
+
+	/**
+	 * Обработчик успешного заполнения
+	 * 
+	 * @var callback|Closure|null
+	 */
+	private $callback = null;
+
+	/**
+	 * Пользовательские данные
+	 *
+	 * @var array
+	 */
+	private $input = null;
+
+	/**
+	 * Название шаблона
+	 * 
+	 * @var string
+	 */
+	private $template = FormManager_Template::DEFAULT_TEMPLATE;
 
 
 	/**
 	 * Конструктор
+	 * 
+	 * @param string|null $name   Имя формы
+	 * @param string|null $label  Подпись формы
+	 * @param string|null $method Метод отправки формы
 	 */
-	public function __construct() {
-		$this->form = new FormManager_Form();
-		$this->view = new FormManager_Viwe();
-		$this->field = new FormManager_Field_Factory();
-		$this->collection = new FormManager_Collection_Factory();
-		$this->filter = new FormManager_Filter_Factory();
+	public function __construct($name = null, $label = null, $method = 'post') {
+		$this->form = new FormManager_Element_Form($name, null, $label, $method);
+//		$this->view = new FormManager_Viwe();
+//		$this->field = new FormManager_Field_Factory();
+//		$this->collection = new FormManager_Collection_Factory();
+//		$this->element = new FormManager_Element_Factory($this->template);
+//		$this->filter = new FormManager_Filter_Factory();
 	}
 
 	/**
@@ -78,16 +111,32 @@ final class FormManager_Facade {
 	}
 
 	/**
+	 * Устанавливает название шаблона
+	 * 
+	 * @throws FormManager_Exceptions_InvalidArgument
+	 * 
+	 * @param string $template Название шаблона
+	 */
+	public function setTemplate($template) {
+		if (is_dir(FORM_MANAGER_TEMPLATES_PATH.'/'.$template)) {
+			// TODO описать исключение
+			//throw new FormManager_Exceptions_InvalidArgument();
+			$this->template = $template;
+		}
+		return $this;
+	}
+
+	/**
 	 * Добавляет новое поле
 	 * 
 	 * @param string                                   $name Название поля
 	 * @param FormManager_Field_Interface|string $type Тип поля или объект поля
 	 * 
 	 * @return FormManager_Field_Interface
-	 */
+	 *//*
 	public function addField($name, $type = 'Text') {
 		return $this->addFieldTo($this->form, $name, $type);
-	}
+	}*/
 
 	/**
 	 * Добавляет новое поле в указанную коллекцию
@@ -97,17 +146,17 @@ final class FormManager_Facade {
 	 * @param FormManager_Field_Interface|string $type       Тип поля или объект поля
 	 * 
 	 * @return FormManager_Field_Interface
-	 */
+	 *//*
 	public function addFieldTo(FormManager_Collection_Interface $collection, $name, $type = 'Text') {
 		if ($type instanceof FormManager_Field_Interface) {
 			$field = $type;
 		} else {
-			$field = $this->getField($type);
+			$field = $this->createField()->$type();
 		}
 		$field->setName($name);
 		$collection->addChild($field);
 		return $field;
-	}
+	}*/
 
 	/**
 	 * Добавляет новую коллекцию
@@ -115,10 +164,10 @@ final class FormManager_Facade {
 	 * @param FormManager_Collection_Interface|string $type Тип коллекции или объект коллекции
 	 * 
 	 * @return FormManager_Collection_Interface
-	 */
+	 *//*
 	public function addCollection($type = 'Nested') {
 		return $this->addCollectionTo($this->form, $type);
-	}
+	}*/
 
 	/**
 	 * Добавляет новую коллекцию к другой коллекции
@@ -127,52 +176,55 @@ final class FormManager_Facade {
 	 * @param FormManager_Collection_Interface|string $type       Тип коллекции или объект коллекции
 	 * 
 	 * @return FormManager_Collection_Interface
-	 */
+	 *//*
 	public function addCollectionTo(FormManager_Collection_Interface $collection, $type = 'Nested') {
 		if ($type instanceof FormManager_Collection_Interface) {
 			return $collection->add($type);
 		} else {
 			return $collection->add($this->getCollection($type));
 		}
-	}
+	}*/
 
 	/**
-	 * Возвращает новое поле или фабрику полей
+	 * Возвращает фабрику полей
 	 * 
-	 * @param string $name Имя поля
-	 * 
-	 * @return FormManager_Field_Factory|FormManager_Field_Interface
-	 */
-	public function getField($name = null){
-		return $name !== null ? $this->field->get($name) : $this->field;
-	}
+	 * @return FormManager_Field_Factory
+	 *//*
+	public function createField(){
+		return $this->field;
+	}*/
 
 	/**
-	 * Возвращает новую коллекцию или фабрику коллекций
+	 * Возвращает фабрику коллекций
 	 * 
-	 * @param string $name Имя коллекции
-	 * 
-	 * @return FormManager_Collection_Factory|FormManager_Collection_Interface
-	 */
-	public function getCollection($name = null){
-		return $name !== null ? $this->collection->get($name) : $this->collection;
-	}
+	 * @return FormManager_Collection_Factory
+	 *//*
+	public function createCollection(){
+		return $this->collection;
+	}*/
 
 	/**
-	 * Возвращает новый фильтр или фабрику фильтров
+	 * Возвращает фабрику элементов
 	 * 
-	 * @param string $name Имя фильтра
+	 * @return FormManager_Element_Factory
+	 *//*
+	public function createElement(){
+		return $this->element;
+	}*/
+
+	/**
+	 * Возвращает фабрику фильтров
 	 * 
-	 * @return FormManager_Filter_Factory|FormManager_Filter_Interface
-	 */
-	public function getFilter($name = null){
-		return $name !== null ? $this->filter->get($name) : $this->filter;
-	}
+	 * @return FormManager_Filter_Factory
+	 *//*
+	public function createFilter(){
+		return $this->filter;
+	}*/
 
 	/**
 	 * Возвращает объект текущей формы
 	 * 
-	 * @return FormManager_Form
+	 * @return FormManager_Element_Form
 	 */
 	public function getForm(){
 		return $this->form;
@@ -184,7 +236,7 @@ final class FormManager_Facade {
 	 * @param string $name Имя поля
 	 * 
 	 * @return FormManager_Element|boolean
-	 */
+	 *//*
 	public function search($name) {
 		// TODO протестировать
 		$result = $this->form->getChild($name);
@@ -192,7 +244,7 @@ final class FormManager_Facade {
 			$result = $this->searchInChilds($this->form, $name);
 		}
 		return $result;
-	}
+	}*/
 
 	/**
 	 * Рекурсивно ищет в дочерних элементах элемент с указанным именем
@@ -201,7 +253,7 @@ final class FormManager_Facade {
 	 * @param string                    $name
 	 * 
 	 * @return FormManager_Element|boolean
-	 */
+	 *//*
 	private function searchInChilds(FormManager_Element $childs, $name) {
 		foreach ($childs as $child) {
 			$result = $child->getChild($name);
@@ -214,51 +266,90 @@ final class FormManager_Facade {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * Выполняет проверку формы
-	 * 
-	 * @return boolean
-	 *//*
-	public function validate() {
-		// TODO требуется реализация
-		return false;
 	}*/
 
 	/**
 	 * Рисует форму
-	 */
+	 *//*
 	public function drow() {
 		// TODO требуется реализация
-	}
+	}*/
 
 	/**
 	 * Вернуть массив данных элемента элемента
 	 *
-	 * @see FormManager_Form::assemble()
+	 * @see FormManager_Element_Form::assemble()
 	 *
 	 * @return array
 	 */
 	public function assemble() {
+		$this->form->setValue($this->input);
+		$values = $this->form->getValue();
+		if ($this->form->isValid() && $this->callback) {
+			try {
+				$message = call_user_func_array($this->callback, array($values));
+					$this->form->addDecorator(
+					'success',
+					array_merge(
+						$this->form->getDecorator('success') ?: array(),
+						array(array($message))
+					)
+				);
+			} catch (FormManager_Exception $e) {
+				$this->form->addDecorator(
+					'errors',
+					array_merge(
+						$this->form->getDecorator('errors') ?: array(),
+						array(array($e->getMessage()))
+					)
+				);
+			}
+		}
 		return $this->form->assemble();
 	}
 
 	/**
 	 * Устанавливает метод отправки формы
 	 * 
-	 * @throws FormManager_Exceptions_InvalidArgument
-	 * 
 	 * @param string $method
+	 * 
+	 * @return FormManager
 	 */
 	public function setMethod($method) {
-		$method = strtolower($method);
-		if (!in_array($method, array('post', 'get'))) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
+		$method = strtolower(trim($method));
+		if (in_array($method, array('post', 'get'))) {
+			$input = '_'.strtoupper($method);
+			$this->form->addDecorator('method', $method);
+			$this->setValue($$input);
 		}
-		$input = '_'.strtoupper($method);
-		$this->form->addDecorator('method', $method)->setValue($$input);
+		return $this;
+	}
+
+	/**
+	 * Устанавливает обработчик успешного заполнения
+	 * 
+	 * @param callback|Closure $callback Обработчик успешного заполнения
+	 * 
+	 * @return FormManager
+	 */
+	public function setAction($callback) {
+		// TODO проверить как is_callable работает с Closure
+		if (is_callable($callback) || (class_exists('Closure') && $callback instanceof Closure)) {
+			$this->callback = $callback;
+		}
+		return $this;
+	}
+
+	/**
+	 * Устанавливает пользовательские данные
+	 * 
+	 * @param array|null $value Пользовательские данные
+	 * 
+	 * @return FormManager
+	 */
+	public function setValue(array $value = array()) {
+		$this->input = $value;
+		return $this;
 	}
 
 }

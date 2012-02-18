@@ -64,6 +64,8 @@ if (!defined('FORM_MANAGER_LANGUAGES_PATH')) {
 	/**
 	 * Корневой путь к языковым сообщениям
 	 * 
+	 * TODO DocBlox не ципляет комментарий
+	 * 
 	 * @var string
 	 */
 	define('FORM_MANAGER_LANGUAGES_PATH', FORM_MANAGER_PATH.'/languages');
@@ -72,6 +74,8 @@ if (!defined('FORM_MANAGER_LANGUAGES_PATH')) {
 if (!defined('FORM_MANAGER_TEMPLATES_PATH')) {
 	/**
 	 * Корневой путь к шаблонам
+	 * 
+	 * TODO DocBlox не ципляет комментарий
 	 * 
 	 * @var string
 	 */
@@ -104,7 +108,7 @@ if (!function_exists('p')) {
 /**
  * Исключение для автозагрузки
  * 
- * @package AutoLoad
+ * @package FormManager\AutoLoad
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class FormManager_AutoLoad_Exception extends Exception {
@@ -114,16 +118,22 @@ class FormManager_AutoLoad_Exception extends Exception {
 /**
  * Функция автозагрузки классов и интерфейсов
  * 
+ * <p>
  * Функция сделана не ананимной что бы библиотека могла работать с PHP версии ниже 5.3
+ * </p>
  * 
+ * <p>
  * Pегистрируем ее через SPL, чтобы избежать конфликта с другими
  * функциями автозагрузки. Что, является хорошим тоном.
+ * </p>
  * 
+ * <p>
  * Внимание вызов у несуществующего класса константы, например FormManager_Undefined::UNDEFINED.
  * Вызовет PHP Fatal error:  Undefined class constant и невозможно будет перехватить исключение.
  * В тоже время FormManager_Undefined::undefined() и FormManager_Undefined::$undefined работать будут ожидаемо
+ * </p>
  * 
- * @package AutoLoad
+ * @package FormManager\AutoLoad
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  * 
  * @throws  FormManager_AutoLoad_Exception
@@ -132,7 +142,7 @@ class FormManager_AutoLoad_Exception extends Exception {
  * 
  * @return  boolean
  */
-function FormManagerAutoLoad($name) {
+function FormManager_AutoLoad($name) {
 	// аутолоадер используем только для FormManager_
 	if (strpos($name, 'FormManager_') !== 0) {
 		return false;
@@ -171,4 +181,7 @@ function FormManagerAutoLoad($name) {
  * Второй параметр указывает что необходимо генерить исключени в случаи неуспеха
  * Третий что нашу функцию необходимо добавить в начала всех функций автозагрузок (PHP >= 5.3)
  */
-spl_autoload_register('FormManagerAutoLoad', true, true);
+spl_autoload_register('FormManager_AutoLoad', true, true);
+
+// подгружаем основной интерфейс библиотеки
+include_once 'FormManager.php';
