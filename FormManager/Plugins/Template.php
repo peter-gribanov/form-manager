@@ -61,11 +61,12 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 	 */
 	static public function uninstall($name, $group = null) {
 		$name = strtolower($name);
+		$group = $group ? strtolower($group) : $group;
 		if (!self::isInstalled($name, $group)) {
-			throw new FormManager_Exceptions_Logic(); // TODO описать исключение
+			throw new FormManager_Exceptions_Logic('Шаблон не установлен'); // TODO описать исключение
 		}
 		if ($group) {
-			self::rmdir(FORM_MANAGER_TEMPLATES_PATH.strtolower($group).'/'.$name);
+			self::rmdir(FORM_MANAGER_TEMPLATES_PATH.$group.'/'.$name);
 		} else {
 			// удаляем шаблон везде
 			$handler = dir(FORM_MANAGER_TEMPLATES_PATH);
@@ -81,12 +82,13 @@ class FormManager_Plugins_Template implements FormManager_Plugins_Interface {
 	/**
 	 * Проверяет установлена ли шаблон
 	 * 
-	 * @param string $name  Имя элемента для устанавливаемого шаблона
-	 * @param string $group Имя группы шаблонов
+	 * @param string      $name  Имя элемента для устанавливаемого шаблона
+	 * @param string|null $group Имя группы шаблонов
 	 * 
 	 * @return boolean
 	 */
-	static public function isInstalled($name, $group = FormManager_Template::DEFAULT_TEMPLATE) {
+	static public function isInstalled($name, $group = null) {
+		$group = $group ?: FormManager_Template::DEFAULT_TEMPLATE;
 		return file_exists(FORM_MANAGER_TEMPLATES_PATH.'/'.$group.'/'.$name.'/template.php');
 	}
 

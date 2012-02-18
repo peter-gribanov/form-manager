@@ -94,17 +94,19 @@ class FormManager_Plugins_Language implements FormManager_Plugins_Interface {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
 	 * Проверяет установлена ли группа языковых сообщений
 	 * 
-	 * @param string $name Имя группы сообщений
-	 * @param string $id   Идентификатор языковой темы
+	 * @param string      $name Имя группы сообщений
+	 * @param string|null $id   Идентификатор языковой темы
 	 * 
 	 * @return boolean
 	 */
-	static public function isInstalled($name, $id = FormManager_Language::DEFAULT_ID) {
+	static public function isInstalled($name, $id = null) {
+		$id = $id ?: FormManager_Language::DEFAULT_ID;
 		return file_exists(FORM_MANAGER_PATH.'/languages/'.$id.'/'.$name.'.php');
 	}
 
