@@ -95,9 +95,9 @@ class FormManager_Language {
 	 * 
 	 * @throws FormManager_Exceptions_LoadLanguageTheme
 	 * 
-	 * @param string $id     Идентификатор сообщения
-	 * @param array  $params Параметры сообщения
-	 * @param string $group  Имя группы сообщений
+	 * @param string      $id     Идентификатор сообщения
+	 * @param array       $params Параметры сообщения
+	 * @param string|null $group  Имя группы сообщений
 	 * 
 	 * @return string|boolean Языковые сообщения
 	 */
@@ -135,7 +135,11 @@ class FormManager_Language {
 			return false;
 		}
 		// загрузка сообщений групп
-		foreach (FormManager_Plugins_Language::getListOfInstalled($id) as $group) {
+		if (!($list = FormManager_Plugins_Language::getListOfInstalled($id))) {
+			return false;
+		}
+		$dir = FORM_MANAGER_LANGUAGES_PATH.'/'.$id.'/';
+		foreach ($list as $group) {
 			$mess[$group] = (array)include $dir.$group.'.php';
 		}
 		return $mess;
