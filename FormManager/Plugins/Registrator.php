@@ -69,10 +69,71 @@ class FormManager_Plugins_Registrator {
 		$type = ucfirst($type);
 		$plugin = ucfirst($plugin);
 
+		// запись в фабрику
+		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php');
+		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
+		$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
+		$code .= $this->getMethodForFactory($type, $plugin)."\r\n\r\n}";
+		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php',	$code);
+
+		// запись в строителя
+		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php');
+		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
+		$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
+		$code .= $this->getMethodForBuilder($type, $plugin)."\r\n\r\n}";
+		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php',	$code);
+		return true;
+	}
+
+	/**
+	 * Удаляет плагин из фабрике
+	 * 
+	 * @param string $type   Тип element|filter
+	 * @param string $plugin  Имя компонента
+	 * 
+	 * @return boolean
+	 */
+	public function unregister($type, $plugin) {
+		$type = strtolower($type);
+		if (!in_array($type, array('element','filter'))) {
+			// TODO описать исключение
+			throw new FormManager_Exceptions_InvalidArgument();
+		}
+		$type = ucfirst($type);
+		$plugin = ucfirst($plugin);
+
+		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php');
+		// удаляем метод установленный этим же методом
+		$code = str_replace($this->getMethodForFactory($type, $plugin), '', $code);
+		// если код метода или конструктора были изменены то предыдущий вариант не сработает
+		// поэтому удаляем его через регулярное выражение
+		// правда при таком удалении остается комментарий от метода
+		$code = preg_replace('/\s*public\h+function\h+'.$plugin.'\h*\(.*?\}/is', '', $code);
+		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php', $code);
+
+		// повторяем туже операцию для строителя
+
+		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php');
+		// удаляем метод установленный этим же методом
+		$code = str_replace($this->getMethodForBuilder($type, $plugin), '', $code);
+		// удаляем метод через регулярное выражение
+		$code = preg_replace('/\s*public\h+function\h+'.$plugin.'\h*\(.*?\}/is', '', $code);
+		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php', $code);
+		return true;
+	}
+
+	/**
+	 * Возвращает описание плагина
+	 * 
+	 * @param string $plugin_class_name Имя класса плагина
+	 * 
+	 * @return array
+	 */
+	private function getPluginInfo($plugin_class_name) {
 		// получаем информацию об плагине через рефлексию
-		$ref = new ReflectionClass('FormManager_'.$type.'_'.$plugin);
+		$ref = new ReflectionClass($plugin_class_name);
 		if (!$ref->isInstantiable()) {
-			throw new FormManager_Exceptions_Logic(); // TODO описать исключение
+			throw new FormManager_Exceptions_Logic('Плагин не может быть инициалезирован'); // TODO описать исключение
 		}
 		// получаем заголовок элимента
 		$title = '';
@@ -83,78 +144,90 @@ class FormManager_Plugins_Registrator {
 		// конструктор
 		$cons = $ref->getConstructor();
 		// получаем описание параметров в комментариях
-		$params['comment'] = array();
+		$comments = array();
 		$comment = $cons->getDocComment();
 		if ($comment && preg_match_all('/(@param[\W\w]*?\v)/ui', $comment, $mat)) {
-			$params['comment'] = array_map('trim', $mat[1]);
+			$comments = array_map('trim', $mat[1]);
 		}
 		// получаем описание параметров как атрибутов методов и имена параметров
-		$params['init'] = array();
-		$params['name'] = array();
+		$ads   = array();
+		$names = array();
 		foreach ($cons->getParameters() as $param) {
 			$str  = $param->isArray() ? 'array ' : '';
 			$str .= $param->isPassedByReference() ? '&' : '';
 			$str .= '$'.$param->getName();
 			if ($param->isOptional()) {
-				$str .= ' = '.str_replace(array("\n","\r"), '', var_export($param->getDefaultValue(), true));
+				$value = var_export($param->getDefaultValue(), true);
+				$str .= ' = '.str_replace(array("\n","\r","\t"), '', $value);
 			}
-			$params['init'][] = $str;
-			$params['name'][] = '$'.$param->getName();
+			$ads[]   = $str;
+			$names[] = '$'.$param->getName();
 		}
-		unset($ref);
-
-		// сборка кода описывающего метод
-		// комментарии общие для всех
-		$factory = $builder = "\r\n\r\n";
-		$factory = $builder .= "\t/**\r\n";
-		$factory = $builder .= "\t * ".$title."\r\n";
-		$factory = $builder .= "\t * \r\n";
-		foreach ($params['comment'] as $comment) {
-			$factory = $builder .= "\t * ".$comment."\r\n";
-		}
-		$factory = $builder .= "\t * \r\n";
-
-		// код метода в фабрике
-		$factory .= "\t * @return FormManager_".$type."_".$plugin."\r\n";
-		$factory .= "\t */\r\n";
-		$factory .= "\t public function ".$plugin."(".implode(', ', $params['init'])."){\r\n";
-		$factory .= "\t\treturn new FormManager_".$type."_".$plugin."(".implode(', ', $params['name']).");\r\n";
-		$factory .= "\t }\r\n\r\n}";
-
-		// код метода в строителе
-		// отличается возвращаемым классом в коментарии и телом метода 
-		$builder .= "\t * @return FormManager_".$type."_Builder\r\n";
-		$builder .= "\t */\r\n";
-		$builder .= "\t public function ".$plugin."(".implode(', ', $params['init'])."){\r\n";
-		$builder .= "\t\t\$this->collection->addChild(\$this->factory->".$plugin."(".implode(', ', $params['name'])."));\r\n";
-		$builder .= "\t\treturn \$this;\r\n";
-		$builder .= "\t }\r\n\r\n}";
-
-		// запись в фабрику
-		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php');
-		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
-		$code = preg_replace('/\s*\}\s*(\?>)?\s*$/', $factory, $code);
-		file_put_contents(FORM_MANAGER_PATH.'/tmp_factory.php',	$code);
-
-		// запись в строителя
-		$code = trim(file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php'));
-		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
-		$code = preg_replace('/\s*\}\s*(\?>)?\s*$/', $builder, $code);
-		file_put_contents(FORM_MANAGER_PATH.'/tmp_builder.php',	$code);
-		return true;
+		return array(
+			'title'    => $title,
+			'comments' => $comments,
+			'ads'      => $ads,
+			'names'    => $names
+		);
 	}
 
 	/**
-	 * Удаляет плагин из фабрике
+	 * Возвращает код описывающий метод для инициализации плагина в фабрике
 	 * 
-	 * @param string $factory Имя фабрики
-	 * @param string $plugin  Имя компонента
+	 * @param string $type   Тип фабрики element|filter
+	 * @param string $plugin Название плагина
 	 * 
-	 * @return boolean
+	 * @return string
 	 */
-	public function unregister($factory, $plugin) {
-		// TODO требуется реализация
-		return true;
+	private function getMethodForFactory($type, $plugin) {
+		$info = $this->getPluginInfo('FormManager_'.$type.'_'.$plugin);
+
+		// сборка кода описывающего метод
+		$code = "\r\n\r\n";
+		$code .= "\t/**\r\n";
+		$code .= "\t * ".$info['title']."\r\n";
+		$code .= "\t * \r\n";
+		foreach ($info['comments'] as $comment) {
+			$code .= "\t * ".$comment."\r\n";
+		}
+		$code .= "\t * \r\n";
+		$code .= "\t * @return FormManager_".$type."_".$plugin."\r\n";
+		$code .= "\t */\r\n";
+		$code .= "\t public function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
+		$code .= "\t\treturn new FormManager_".$type."_".$plugin."(".implode(', ', $info['names']).");\r\n";
+		$code .= "\t }";
+
+		return $code;
+	}
+
+	/**
+	 * Возвращает код описывающий метод для инициализации плагина в фабрике
+	 * 
+	 * @param string $type   Тип фабрики element|filter
+	 * @param string $plugin Название плагина
+	 * 
+	 * @return string
+	 */
+	private function getMethodForBuilder($type, $plugin) {
+		$info = $this->getPluginInfo('FormManager_'.$type.'_'.$plugin);
+
+		// сборка кода описывающего метод
+		$code = "\r\n\r\n";
+		$code .= "\t/**\r\n";
+		$code .= "\t * ".$info['title']."\r\n";
+		$code .= "\t * \r\n";
+		foreach ($info['comments'] as $comment) {
+			$code .= "\t * ".$comment."\r\n";
+		}
+		$code .= "\t * \r\n";
+		$code .= "\t * @return FormManager_".$type."_Builder\r\n";
+		$code .= "\t */\r\n";
+		$code .= "\t public function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
+		$code .= "\t\t\$this->collection->addChild(\$this->factory->".$plugin."(".implode(', ', $info['names'])."));\r\n";
+		$code .= "\t\treturn \$this;\r\n";
+		$code .= "\t }";
+
+		return $code;
 	}
 
 }
