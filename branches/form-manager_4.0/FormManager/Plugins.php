@@ -33,21 +33,64 @@ class FormManager_Plugins implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function install($element) {
+		$status = array();
+		// установка элемента
 		try {
-			if (!FormManager_Plugins_Element::install($element)) {
-				throw new Exception();
-			}
-			if (!FormManager_Plugins_Language::install($element)) {
-				throw new Exception();
-			}
-			if (!FormManager_Plugins_Template::install($element)) {
-				throw new Exception();
-			}
-		} catch (Exception $e) {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Element::install($element),
+				// TODO использовать 'Элемент успешно установленн'
+				'message' => FormManager_Language::getMessage('plugins_element_installed')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+		// установка фильтра
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Filter::install($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_filter_installed')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+		// установка языка
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Language::install($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_language_installed')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+		// установка шаблона
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Template::install($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_template_installed')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}/*
+		if (!$status['error']) {
 			self::uninstall($element);
 			return false;
-		}
-		return true;
+		}*/
+		return $status;
 	}
 
 	/**
@@ -58,17 +101,60 @@ class FormManager_Plugins implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($element) {
-		$status = true;
-		if (!FormManager_Plugins_Element::uninstall($element)) {
-			$status = false;
+		$status = array();
+		// удаление элемента
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Element::uninstall($element),
+				// TODO использовать 'Элемент успешно установленн'
+				'message' => FormManager_Language::getMessage('plugins_element_uninstalled')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
 		}
-		if (!FormManager_Plugins_Language::uninstall($element)) {
-			$status = false;
+		// удаление фильтра
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Filter::uninstall($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_filter_uninstalled')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
 		}
-		if (!FormManager_Plugins_Template::uninstall($element)) {
-			$status = false;
+		// удаление языка
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Language::uninstall($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_language_uninstalled')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
 		}
-		return true;
+		// удаление шаблона
+		try {
+			$status['success'][] = array(
+				'status'  => FormManager_Plugins_Template::uninstall($element),
+				// TODO описать сообщение
+				'message' => FormManager_Language::getMessage('plugins_template_uninstalled')
+			);
+		} catch (FormManager_Exceptions_Error $e) {
+			$status['error'][] = array(
+				'status'  => false,
+				'message' => $e->getMessage()
+			);
+		}
+		return $status;
 	}
 
 	/**
