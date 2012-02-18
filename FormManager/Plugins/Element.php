@@ -28,36 +28,41 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	/**
 	 * Устанавливает элемент
 	 * 
+	 * @throws FormManager_Exceptions_InvalidArgument
+	 * 
 	 * @param string $element Имя элемента
 	 * 
 	 * @return boolean
 	 */
 	static public function install($element) {
 		if (self::isInstalled($element)) {
-			return true; // ???
+			return true;
 		}
-		$element_key = strtolower($element);
 
-		/**
-		 * Списка зарезервированных слов PHP
-		 * 
-		 * @see http://php.net/manual/ru/reserved.php
-		 */
-		$reserved_keywords = array(
-			'abstract', 'and', 'array', 'as', 'break', 'case', 'catch', 'class', 'clone', 'const',
-			'continue', 'declare', 'default', 'do', 'else', 'elseif', 'enddeclare', 'endfor',
-			'endforeach', 'endif', 'endswitch', 'endwhile', 'extends', 'final', 'for', 'foreach',
-			'function', 'global', 'goto', 'if', 'implements', 'interface', 'instanceof', 'namespace',
-			'new', 'or', 'private', 'protected', 'public', 'static', 'switch', 'throw', 'try', 'use',
-			'var', 'while', 'xor', 'die', 'echo', 'empty', 'exit', 'eval', 'include', 'include_once',
-			'isset', 'list', 'require', 'require_once', 'return', 'print', 'unset',
-			'factory' // дополнительно слово
-		);
-		// запрешено использовать зарезервированные имена
-		if (in_array($element_key, $reserved_keywords)) {
-			return false;
+		$file = FORM_MANAGER_PATH.'/FormManager/Element/'.str_replace('_', '/', $element).'.php';
+
+		if (!file_exists($file)) {
+			throw new FormManager_Exceptions_Logic('Нет файла'); // TODO описать исключение
 		}
-		// TODO требуется реализация
+
+		$registrator = new FormManager_Plugins_Registrator();
+
+		if (!$registrator->isValidName($element)) {
+			if (!in_array(strtolower($element), array('abstract', 'interface', 'factory', 'builder')) &&
+				file_exists($file)) {
+				unlink($file);
+			}
+			throw new FormManager_Exceptions_InvalidArgument('Недопустимое имя элемента'); // TODO описать исключение
+		}
+		$class_name = 'FormManager_Element_'.$element;
+		include_once $file;
+		if (!class_exists($class_name)) {
+			throw new FormManager_Exceptions_Logic('Класс не установлен'); // TODO описать исключение
+		}
+		if ($class_name instanceof FormManager_Element_Interface) {
+			throw new FormManager_Exceptions_Logic('Некоректный класс элемента'); // TODO описать исключение
+		}
+		$registrator->register('Element', $element);
 		return true;
 	}
 
@@ -72,7 +77,14 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 		if (!self::isInstalled($element)) {
 			return true; // ???
 		}
-		// TODO требуется реализация
+
+		$file = FORM_MANAGER_PATH.'/FormManager/Element/'.str_replace('_', '/', $element).'.php';
+		if (!file_exists($file)) {
+			throw new FormManager_Exceptions_Logic('Нет файла'); // TODO описать исключение
+		}
+
+		$registrator = new FormManager_Plugins_Registrator();
+		$registrator->unregister('Element', $element);
 		return true;
 	}
 
@@ -93,7 +105,7 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return array
 	 */
 	static public function getListOfInstalled() {
-		return get_class_methods('FormManager_Element_Factory');
+		return array_diff(get_class_methods('FormManager_Element_Factory'), array('__construct'));
 	}
 
 }
