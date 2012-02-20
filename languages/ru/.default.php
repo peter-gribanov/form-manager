@@ -13,9 +13,9 @@
 
 return array(
 	// Шаблонные сообщения
-	'viwe:default_submit_title' => 'Отправить',
-	'viwe:field_yesno_yes'      => 'Да',
-	'viwe:field_yesno_no'       => 'Нет',
+	'view:default_submit_title' => 'Отправить',
+	'view:field_yesno_yes'      => 'Да',
+	'view:field_yesno_no'       => 'Нет',
 	// Сообщения фильтров
 	'filter:is_null'      => 'Нет информации о поле',
 	'filter:is_empty'     => 'Вы не заполнили поле',
