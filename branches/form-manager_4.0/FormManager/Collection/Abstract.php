@@ -97,6 +97,8 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	}
 
 	/**
+<<<<<<< .mine
+=======
 	 * Добавляет в коллекцию список элементов
 	 * 
 	 * @param array $childs Список элементов
@@ -147,15 +149,7 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	}*/
 
 	/**
-	 * TODO добавить описание
-	 * 
-	 * @return array
-	 *//*
-	public function getChilds() {
-		return $this->childs;
-	}*/
-
-	/**
+>>>>>>> .r263
 	 * TODO добавить описание
 	 * 
 	 * @param string $name
