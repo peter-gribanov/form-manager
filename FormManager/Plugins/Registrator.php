@@ -55,34 +55,34 @@ class FormManager_Plugins_Registrator {
 	/**
 	 * Регестрирует плагин в фабрике
 	 * 
-	 * @param string $type   Тип element|filter
+	 * @param string $type   Тип. Например element или filter
 	 * @param string $plugin Имя компонента
 	 * 
 	 * @return boolean
 	 */
 	public function register($type, $plugin) {
-		$type = strtolower($type);
-		if (!in_array($type, array('element','filter'))) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
-		$type = ucfirst($type);
+		$type = ucfirst(strtolower($type));
 		$plugin = ucfirst($plugin);
+		$status = false;
 
 		// запись в фабрику
-		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php');
-		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
-		$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
-		$code .= $this->getMethodForFactory($type, $plugin)."\r\n\r\n}";
-		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php',	$code);
+		if (file_exists(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php')) {
+			$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php');
+			// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
+			$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
+			$code .= $this->getMethodForFactory($type, $plugin)."\r\n\r\n}";
+			$status = file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Factory.php',	$code);
+		}
 
 		// запись в строителя
-		$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php');
-		// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
-		$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
-		$code .= $this->getMethodForBuilder($type, $plugin)."\r\n\r\n}";
-		file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php',	$code);
-		return true;
+		if (file_exists(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php')) {
+			$code = file_get_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php');
+			// очищаем мусор который мог случайно попасть и дописываем в конце новый метод
+			$code  = preg_replace('/\s*\}\s*(\?>)?\s*$/', '', $code);
+			$code .= $this->getMethodForBuilder($type, $plugin)."\r\n\r\n}";
+			$status = file_put_contents(FORM_MANAGER_PATH.'/FormManager/'.$type.'/Builder.php',	$code);
+		}
+		return $status;
 	}
 
 	/**
@@ -129,40 +129,44 @@ class FormManager_Plugins_Registrator {
 	 * 
 	 * @return array
 	 */
-	private function getPluginInfo($plugin_class_name) {
+	public function getPluginInfo($plugin_class_name) {
 		// получаем информацию об плагине через рефлексию
 		$ref = new ReflectionClass($plugin_class_name);
 		if (!$ref->isInstantiable()) {
 			throw new FormManager_Exceptions_Logic('Плагин не может быть инициалезирован'); // TODO описать исключение
 		}
+		// список констант
+		$constants = $ref->getConstants();
 		// получаем заголовок элимента
 		$title = '';
 		$comment = $ref->getDocComment();
 		if ($comment && preg_match('/\/\*\*?\s*\*\s*([\wa-яё\h]*)/i', $comment, $mat)) {
 			$title = $mat[1];
 		}
-		// конструктор
-		$cons = $ref->getConstructor();
-		// получаем описание параметров в комментариях
 		$comments = array();
-		$comment = $cons->getDocComment();
-		if ($comment && preg_match_all('/(@param[\W\w]*?\v)/ui', $comment, $mat)) {
-			$comments = array_map('trim', $mat[1]);
-		}
-		// получаем описание параметров как атрибутов методов и имена параметров
-		$ads   = array();
-		$names = array();
-		foreach ($cons->getParameters() as $param) {
-			$str  = $param->isArray() ? 'array ' : '';
-			$str .= $param->getClass() ? $param->getClass()->getName().' ' : '';
-			$str .= $param->isPassedByReference() ? '&' : '';
-			$str .= '$'.$param->getName();
-			if ($param->isOptional()) {
-				$value = var_export($param->getDefaultValue(), true);
-				$str .= ' = '.str_replace(array("\n","\r","\t"), '', $value);
+		$ads      = array();
+		$names    = array();
+		// есть конструктор
+		if ($cons = $ref->getConstructor()) {
+			// получаем описание параметров в комментариях
+			$comment = $cons->getDocComment();
+			if ($comment && preg_match_all('/(@param[\W\w]*?\v)/ui', $comment, $mat)) {
+				$comments = array_map('trim', $mat[1]);
 			}
-			$ads[]   = $str;
-			$names[] = '$'.$param->getName();
+			// получаем описание параметров как атрибутов методов и имена параметров
+			foreach ($cons->getParameters() as $param) {
+				$str  = $param->isArray() ? 'array ' : '';
+				$str .= $param->getClass() ? $param->getClass()->getName().' ' : '';
+				$str .= $param->isPassedByReference() ? '&' : '';
+				$str .= '$'.$param->getName();
+				if ($param->isOptional()) {
+					$value = var_export($param->getDefaultValue(), true);
+					// значения мы передаем только по значению даже если это константа
+					$str .= ' = '.str_replace(array("\n","\r","\t"), '', $value);
+				}
+				$ads[]   = $str;
+				$names[] = '$'.$param->getName();
+			}
 		}
 		return array(
 			'title'    => $title,
@@ -187,16 +191,18 @@ class FormManager_Plugins_Registrator {
 		$code = "\r\n\r\n";
 		$code .= "\t/**\r\n";
 		$code .= "\t * ".$info['title']."\r\n";
-		$code .= "\t * \r\n";
-		foreach ($info['comments'] as $comment) {
-			$code .= "\t * ".$comment."\r\n";
+		if ($info['comments']) {
+			$code .= "\t * \r\n";
+			foreach ($info['comments'] as $comment) {
+				$code .= "\t * ".$comment."\r\n";
+			}
 		}
 		$code .= "\t * \r\n";
 		$code .= "\t * @return FormManager_".$type."_".$plugin."\r\n";
 		$code .= "\t */\r\n";
-		$code .= "\t public function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
+		$code .= "\tpublic function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
 		$code .= "\t\treturn new FormManager_".$type."_".$plugin."(".implode(', ', $info['names']).");\r\n";
-		$code .= "\t }";
+		$code .= "\t}";
 
 		return $code;
 	}
@@ -216,17 +222,20 @@ class FormManager_Plugins_Registrator {
 		$code = "\r\n\r\n";
 		$code .= "\t/**\r\n";
 		$code .= "\t * ".$info['title']."\r\n";
-		$code .= "\t * \r\n";
-		foreach ($info['comments'] as $comment) {
-			$code .= "\t * ".$comment."\r\n";
+		if ($info['comments']) {
+			$code .= "\t * \r\n";
+			foreach ($info['comments'] as $comment) {
+				$code .= "\t * ".$comment."\r\n";
+			}
 		}
 		$code .= "\t * \r\n";
 		$code .= "\t * @return FormManager_".$type."_Builder\r\n";
 		$code .= "\t */\r\n";
-		$code .= "\t public function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
-		$code .= "\t\t\$this->collection->addChild(\$this->factory->".$plugin."(".implode(', ', $info['names'])."));\r\n";
-		$code .= "\t\treturn \$this;\r\n";
-		$code .= "\t }";
+		$code .= "\tpublic function ".$plugin."(".implode(", ", $info['ads']).") {\r\n";
+		$code .= "\t\treturn \$this->add(FormManager_".$type."_Factory::getInstance()\r\n";
+		$code .= "\t\t\t->".$plugin."(".implode(", ", $info['names']).")\r\n";
+		$code .= "\t\t);\r\n";
+		$code .= "\t}";
 
 		return $code;
 	}
