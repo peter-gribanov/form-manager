@@ -17,33 +17,33 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Filter_Factory extends FormManager_Loader {
+final class FormManager_Filter_Factory {
 
 	/**
-	 * Конструктор
+	 * Фабрика
 	 * 
-	 * Устанавливающий адрес класса и коментарий для метода
+	 * @var FormManager_Filter_Factory|null
 	 */
-	public function __construct() {
-		$this->setClassFile(__FILE__);
-		$this->setMethodComment('Возвращает фильтр %s');
+	private static $instance = null;
+
+
+	/**
+	 * Возвращает экзкмпляр фабрики
+	 * 
+	 * @return FormManager_Filter_Factory
+	 */
+	public static function getInstance() {
+		if (!self::$instance) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
-	 * Возвращает новый фильтр
-	 * 
-	 * @throws FormManager_Exceptions_ObjectType
-	 * 
-	 * @param string $type Тип поля
-	 * 
-	 * @return FormManager_Filter_Interface
+	 * Фильтер строки
 	 */
-	public function get($type){
-		$filter = parent::get('FormManager_Filter_'.$type);
-		if (!($filter instanceof FormManager_Filter_Interface)) {
-			throw new FormManager_Exceptions_ObjectType('Не удалось найти указанный тип фильтра: '.$type, 302);
-		}
-		return $filter;
+	public function ToString() {
+		return new FormManager_Filter_ToString();
 	}
 
 }

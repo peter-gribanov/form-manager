@@ -29,6 +29,15 @@ interface FormManager_Collection_Interface extends FormManager_Element_Interface
 	public function addChild(FormManager_Element_Interface $element);
 
 	/**
+	 * Добавляет в коллекцию список элементов
+	 * 
+	 * @param array $childs Список элементов
+	 * 
+	 * @return FormManager_Element_Factory
+	 */
+	public function addChilds(array $childs = array());
+
+	/**
 	 * TODO добавить описание
 	 * 
 	 * @param string $name
