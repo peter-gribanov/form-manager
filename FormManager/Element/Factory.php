@@ -103,12 +103,66 @@ final class FormManager_Element_Factory {
 	 * 
 	 * @return FormManager_Element_Field
 	 */
-	private function String($name = null, $value = null, $label = null){
+	private function ElementString($name = null, $value = null, $label = null){
 		return $this
 			->Field($name, $value, $label)
 			->addDecorator('template', '/'.$this->template.'/text/template.php')
 			->addFilters()
 				->ToString()
+				->apply();
+	}
+
+	/**
+	 * Возвращает поле String
+	 * 
+	 * @param string|null $name  Имя элемента
+	 * @param string|null $value Значение по умолчанию
+	 * @param string|null $label Подпись элемента
+	 * 
+	 * @return FormManager_Element_Field
+	 */
+	private function ElementInteger($name = null, $value = null, $label = null){
+		return $this
+			->Field($name, $value, $label)
+			->addDecorator('template', '/'.$this->template.'/text/template.php')
+			->addFilters()
+				->ToInteger()
+				->apply();
+	}
+
+	/**
+	 * Возвращает поле Boolean
+	 * 
+	 * @param string|null $name  Имя элемента
+	 * @param string|null $value Значение по умолчанию
+	 * @param string|null $label Подпись элемента
+	 * 
+	 * @return FormManager_Element_Field
+	 */
+	private function ElementBoolean($name = null, $value = null, $label = null){
+		return $this
+			->Field($name, $value, $label)
+			->addDecorator('template', '/'.$this->template.'/text/template.php')
+			->addFilters()
+				->ToBoolean()
+				->apply();
+	}
+
+	/**
+	 * Возвращает поле Float
+	 * 
+	 * @param string|null $name  Имя элемента
+	 * @param string|null $value Значение по умолчанию
+	 * @param string|null $label Подпись элемента
+	 * 
+	 * @return FormManager_Element_Field
+	 */
+	private function ElementFloat($name = null, $value = null, $label = null){
+		return $this
+			->Field($name, $value, $label)
+			->addDecorator('template', '/'.$this->template.'/text/template.php')
+			->addFilters()
+				->ToFloat()
 				->apply();
 	}
 
@@ -127,7 +181,7 @@ final class FormManager_Element_Factory {
 			->String($name, $value)
 			->addDecorator('label', $label)
 			->addDecorator('options', $options)
-			->addDecorator('template', '/'.$this->template.'/form/select.tpl')
+			->addDecorator('template', '/'.$this->template.'/select/template.php')
 			->addFilters()
 				->InArray(array_keys($options))
 				->apply();
@@ -151,6 +205,38 @@ final class FormManager_Element_Factory {
 				->String_Trim()
 				->Length($minlen, $maxlen)
 				->apply();
+	}
+	
+	/**
+	 * Возвращает группу элементов
+	 * 
+	 * @param string|null $name     Имя элемента
+	 * @param array|null  $elements Список элементов
+	 * @param string|null $value    Значение по умолчанию
+	 * @param string|null $label    Подпись элемента
+	 * 
+	 * @return FormManager_Element_Collection
+	 */
+	public function Group($name = null, $elements = array(), $value = null, $label = null) {
+		return $this
+			->Collection(name, $elements, $value, $label)
+			->addDecorator('template', '/'.$this->template.'/group/template.php');
+	}
+	
+	/**
+	 * Возвращает группу элементов вида FieldSet
+	 * 
+	 * @param string|null $name     Имя элемента
+	 * @param array|null  $elements Список элементов
+	 * @param string|null $value    Значение по умолчанию
+	 * @param string|null $label    Подпись элемента
+	 * 
+	 * @return FormManager_Element_Collection
+	 */
+	public function FieldSet($name = null, $elements = array(), $value = null, $label = null) {
+		return $this
+			->Collection(name, $elements, $value, $label)
+			->addDecorator('template', '/'.$this->template.'/fieldset/template.php');
 	}
 
 }
