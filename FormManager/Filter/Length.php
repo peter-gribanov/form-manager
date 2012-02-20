@@ -33,18 +33,19 @@ class FormManager_Filter_Length extends FormManager_Filter_Abstract {
 	 */
 	private $max = 0;
 
+
 	/**
 	 * Конструктор
 	 * 
-	 * @param integer $min   Минимальная длинна
-	 * @param integer $max   Максимальная длинна
+	 * @param integer $min Минимальная длинна
+	 * @param integer $max Максимальная длинна
 	 */
 	public function __construct($min = 0, $max = 0) {
 		if ($min > $max) {
 			trigger_error('Filter "Length" config errorr: Min > Max', E_USER_ERROR);
 		}
-		$this->min   = $min;
-		$this->max   = $max;
+		$this->min = $min;
+		$this->max = $max;
 	}
 
 	/**
