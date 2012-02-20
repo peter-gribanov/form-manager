@@ -12,12 +12,12 @@
  */
 
 /**
- * Валидатор максимального значения
+ * Валидатор длинны значения
  * 
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_MaxValue extends FormManager_Filter_Abstract {
+class FormManager_Filter_Length extends FormManager_Filter_Abstract {
 
 	/**
 	 * Минимальная длинна
@@ -34,32 +34,17 @@ class FormManager_Filter_MaxValue extends FormManager_Filter_Abstract {
 	private $max = 0;
 
 	/**
-	 * Длинна равна
-	 * 
-	 * @var integer
-	 */
-	private $equal = 0;
-
-	/**
 	 * Конструктор
 	 * 
 	 * @param integer $min   Минимальная длинна
 	 * @param integer $max   Максимальная длинна
-	 * @param integer $equal Длинна равна
 	 */
-	public function __construct($min = 0, $max = 0, $equal = 0) {
-		if (!$equal && $max && $min == $max) {
-			$equal = $max;
-			// отключаем ненужное
-			$min = 0;
-			$max = 0;
-		}
+	public function __construct($min = 0, $max = 0) {
 		if ($min > $max) {
 			trigger_error('Filter "Length" config errorr: Min > Max', E_USER_ERROR);
 		}
 		$this->min   = $min;
 		$this->max   = $max;
-		$this->equal = $equal;
 	}
 
 	/**
@@ -72,8 +57,8 @@ class FormManager_Filter_MaxValue extends FormManager_Filter_Abstract {
 	 */
 	public function exec($value, FormManager_Element_Interface $element) {
 		$length = strlen($value);
-		if ($this->equal && $length != $this->equal) {
-			$this->addError('length_equal', array('value' => $value, 'equal' => $this->equal));
+		if ($this->min && $this->max && $this->min == $this->max && $length != $this->max) {
+			$this->addError('length_equal', array('value' => $value, 'equal' => $this->max));
 
 		} elseif ($this->min && $this->max && ($length < $this->min || $length > $this->max)) {
 			$this->trigger('length', array('value' => $value, 'min' => $this->min, 'max' => $this->max));
@@ -92,15 +77,14 @@ class FormManager_Filter_MaxValue extends FormManager_Filter_Abstract {
 	 * 
 	 * @see FormManager_Filter_Abstract::assemble
 	 * 
-	 * @return array {errors:[],notices:[],min:integer,max:integer,equal:integer}
+	 * @return array {errors:[],notices:[],min:integer,max:integer}
 	 */
 	public function assemble(){
 		return array_merge(
 			parent::assemble(),
 			array(
 				'min'   => $this->min,
-				'max'   => $this->max,
-				'equal' => $this->equal
+				'max'   => $this->max
 			)
 		);
 	}
