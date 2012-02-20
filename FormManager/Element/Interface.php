@@ -90,7 +90,7 @@ interface FormManager_Element_Interface extends Serializable {
 	 * 
 	 * @param array $filters Список фильтров
 	 * 
-	 * @return FormManager_Element_Builder
+	 * @return FormManager_Filter_Builder
 	 */
 	public function addFilters(array $filters = array());
 
