@@ -245,7 +245,7 @@ abstract class FormManager_Element_Abstract implements FormManager_Element_Inter
 	 * 
 	 * @param array $filters Список фильтров
 	 * 
-	 * @return FormManager_Element_Builder
+	 * @return FormManager_Filter_Builder
 	 */
 	public function addFilters(array $filters = array()) {
 		foreach ($filters as $filter) {
