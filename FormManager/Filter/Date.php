@@ -17,7 +17,7 @@
  * @package FormManager\Filter
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Filter_Data extends FormManager_Filter_Abstract {
+class FormManager_Filter_Date extends FormManager_Filter_Abstract {
 
 	/**
 	 * Регулярка для разюора формата даты
