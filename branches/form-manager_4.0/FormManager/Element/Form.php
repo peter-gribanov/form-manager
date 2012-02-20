@@ -19,7 +19,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Element_Form extends FormManager_Collection_Abstract {
+class FormManager_Element_Form extends FormManager_Element_Collection {
 
 	/**
 	 * Конструктор
