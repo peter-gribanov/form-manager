@@ -115,5 +115,37 @@ final class FormManager_Element_Builder {
 			->Text($name, $value, $label)
 		);
 	}
+	
+	/**
+	 * Возвращает группу элементов
+	 * 
+	 * @param string|null $name     Имя элемента
+	 * @param array|null  $elements Список элементов
+	 * @param string|null $value    Значение по умолчанию
+	 * @param string|null $label    Подпись элемента
+	 * 
+	 * @return FormManager_Element_Collection
+	 */
+	public function Group($name = null, $elements = array(), $value = null, $label = null) {
+		return $this->add(FormManager_Element_Factory::getInstance()
+			->Group($name, $elements, $value, $label)
+		);
+	}
+	
+	/**
+	 * Возвращает группу элементов вида FieldSet
+	 * 
+	 * @param string|null $name     Имя элемента
+	 * @param array|null  $elements Список элементов
+	 * @param string|null $value    Значение по умолчанию
+	 * @param string|null $label    Подпись элемента
+	 * 
+	 * @return FormManager_Element_Collection
+	 */
+	public function FieldSet($name = null, $elements = array(), $value = null, $label = null) {
+		return $this->add(FormManager_Element_Factory::getInstance()
+			->FieldSet($name, $elements, $value, $label)
+		);
+	}
 
 }
