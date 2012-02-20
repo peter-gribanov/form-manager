@@ -21,13 +21,17 @@ interface FormManager_Element_Interface extends Serializable {
 
 	/**
 	 * Получить значение элемента.
+	 * 
+	 * @return mixed
 	 */
 	public function getValue();
 
 	/**
 	 * Установить значение элемента.
 	 *
-	 * @param unknown_type $value TODO добавить описание параметра
+	 * @param mixed $value TODO добавить описание параметра
+	 * 
+	 * @return FormManager_Element_Interface
 	 */
 	public function setValue($value);
 
@@ -52,7 +56,9 @@ interface FormManager_Element_Interface extends Serializable {
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Collection_Interface $parent
+	 * @param FormManager_Collection_Interface $parent TODO добавить описание параметра
+	 * 
+	 * @return FormManager_Element_Interface
 	 */
 	public function setParent(FormManager_Collection_Interface $parent);
 
@@ -66,7 +72,7 @@ interface FormManager_Element_Interface extends Serializable {
 	/**
 	 * TODO добавить описание
 	 * 
-	 * @param FormManager_Collection_Interface
+	 * @return FormManager_Collection_Interface
 	 */
 	public function getRoot();
 
@@ -74,14 +80,27 @@ interface FormManager_Element_Interface extends Serializable {
 	 * Устанавливает фильтр для поля
 	 * 
 	 * @param FormManager_Filter_Interface $filter Объект фильтра
+	 * 
+	 * @return FormManager_Element_Interface
 	 */
 	public function addFilter(FormManager_Filter_Interface $filter);
+
+	/**
+	 * Устанавливает фильтры для поля
+	 * 
+	 * @param array $filters Список фильтров
+	 * 
+	 * @return FormManager_Element_Builder
+	 */
+	public function addFilters(array $filters = array());
 
 	/**
 	 * Добавляет декоратор
 	 * 
 	 * @param string $name  Название
 	 * @param mixid  $value Значение
+	 * 
+	 * @return FormManager_Element_Interface
 	 */
 	public function addDecorator($name, $value);
 

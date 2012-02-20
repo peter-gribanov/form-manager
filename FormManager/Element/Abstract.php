@@ -75,10 +75,13 @@ abstract class FormManager_Element_Abstract implements FormManager_Element_Inter
 	 * Конструктор
 	 * 
 	 * @param string|null $name  Имя элемента
+	 * @param string|null $value Значение по умолчанию
 	 * @param string|null $label Подпись элемента
 	 */
-	public function __construct($name = null, $label = null) {
-		$this->setName($name)->addDecorator('label', $label);
+	public function __construct($name = null, $value = null, $label = null) {
+		$this->setName($name)
+			->setDefaultValue($value)
+			->addDecorator('label', $label);
 	}
 
 	/**
@@ -235,6 +238,20 @@ abstract class FormManager_Element_Abstract implements FormManager_Element_Inter
 	public function addFilter(FormManager_Filter_Interface $filter) {
 		$this->filters[] = $filter;
 		return $this;
+	}
+
+	/**
+	 * Устанавливает фильтры для поля
+	 * 
+	 * @param array $filters Список фильтров
+	 * 
+	 * @return FormManager_Element_Builder
+	 */
+	public function addFilters(array $filters = array()) {
+		foreach ($filters as $filter) {
+			$this->addFilter($filter);
+		}
+		return FormManager_Filter_Builder::getInstance($this);
 	}
 
 	/**
