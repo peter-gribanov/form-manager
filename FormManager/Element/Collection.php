@@ -48,19 +48,24 @@ class FormManager_Element_Collection extends FormManager_Element_Abstract implem
 	}
 
 	/**
-	 * Получить значение элемента.
+	 * Получить значение элемента
+	 * 
+	 * @return mixed
 	 */
 	public function getValue() {
 		// TODO требуется реализация
 	}
 
 	/**
-	 * Установить значение элемента.
+	 * Установить значение элемента
 	 *
-	 * @param unknown_type $value TODO добавить описание параметра
+	 * @param mixed $value TODO добавить описание параметра
+	 * 
+	 * @return FormManager_Element_Collection
 	 */
 	public function setValue($value) {
 		// TODO требуется реализация
+		return $this;
 	}
 
 	/**
@@ -72,17 +77,19 @@ class FormManager_Element_Collection extends FormManager_Element_Abstract implem
 	 */
 	public function getDefaultValue($filtred = true) {
 		// TODO требуется реализация
+		return $this;
 	}
 
 	/**
 	 * Установить значение по умолчанию
 	 *
 	 * @param mixed $value TODO добавить описание параметра
-	 *
-	 * @return FormManager_Collection_Abstract
+	 * 
+	 * @return FormManager_Element_Collection
 	 */
 	public function setDefaultValue($value) {
 		// TODO требуется реализация
+		return $this;
 	}
 
 	/**

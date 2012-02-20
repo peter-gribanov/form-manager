@@ -20,7 +20,9 @@
 class FormManager_Element_Field extends FormManager_Element_Abstract implements FormManager_Field_Interface {
 
 	/**
-	 * Получить значение элемента.
+	 * Получить значение элемента
+	 * 
+	 * @return mixed
 	 */
 	public function getValue() {
 		// TODO требуется реализация
@@ -29,10 +31,13 @@ class FormManager_Element_Field extends FormManager_Element_Abstract implements 
 	/**
 	 * Установить значение элемента.
 	 *
-	 * @param unknown_type $value TODO добавить описание параметра
+	 * @param mixed $value TODO добавить описание параметра
+	 * 
+	 * @return FormManager_Element_Field
 	 */
 	public function setValue($value) {
 		// TODO требуется реализация
+		return $this;
 	}
 
 	/**
@@ -55,6 +60,7 @@ class FormManager_Element_Field extends FormManager_Element_Abstract implements 
 	 */
 	public function setDefaultValue($value) {
 		// TODO требуется реализация
+		return $this;
 	}
 
 	/**
