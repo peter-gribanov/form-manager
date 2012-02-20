@@ -20,6 +20,14 @@
 class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 
 	/**
+	 * Список элементов установленных за период обращения
+	 * 
+	 * @var array
+	 */
+	private static $installed_list = array();
+
+
+	/**
 	 * Запрещена инициализация класса
 	 */
 	private function __construct() {
@@ -62,7 +70,8 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 		if ($class_name instanceof FormManager_Element_Interface) {
 			throw new FormManager_Exceptions_Logic('Некоректный класс элемента'); // TODO описать исключение
 		}
-		$registrator->register('Element', $element);
+		$registrator->register('element', $element);
+		self::$installed_list[] = $element;
 		return true;
 	}
 
@@ -74,6 +83,8 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function uninstall($element) {
+		// удаляем только установленные элементы
+		// из за этого условия нельзя плагин устанавить и сразу удалить
 		if (!self::isInstalled($element)) {
 			return true; // ???
 		}
@@ -84,7 +95,11 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 		}
 
 		$registrator = new FormManager_Plugins_Registrator();
-		$registrator->unregister('Element', $element);
+		$registrator->unregister('element', $element);
+		// удаление из списка TODO переделать на array_diff
+		if ($key = array_search($element, self::$installed_list)) {
+			unset(self::$installed_list[$key]);
+		}
 		return true;
 	}
 
@@ -96,7 +111,8 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return boolean
 	 */
 	static public function isInstalled($element) {
-		return method_exists('FormManager_Element_Factory', $element);
+		return (in_array($element, self::$installed_list) ||
+			method_exists('FormManager_Element_Factory', $element));
 	}
 
 	/**
@@ -105,7 +121,7 @@ class FormManager_Plugins_Element implements FormManager_Plugins_Interface {
 	 * @return array
 	 */
 	static public function getListOfInstalled() {
-		return array_diff(get_class_methods('FormManager_Element_Factory'), array('__construct'));
+		return array_diff(get_class_methods('FormManager_Element_Factory'), array('setTemplate', 'getInstance'));
 	}
 
 }
