@@ -24,15 +24,15 @@ class FormManager_Filter_InArray extends FormManager_Filter_Abstract {
 	 * 
 	 * @var array
 	 */
-	private $valuess = array();
+	private $values = array();
 
 	/**
 	 * Устанавливает параметры фильтра
 	 * 
-	 * @param array $valuess Список значений
+	 * @param array $values Список значений
 	 */
-	public function __construct(array $valuess = array()) {
-		$this->valuess = $valuess;
+	public function __construct(array $values = array()) {
+		$this->values = $values;
 	}
 
 	/**
@@ -49,11 +49,11 @@ class FormManager_Filter_InArray extends FormManager_Filter_Abstract {
 		}
 		if (is_array($value)) {
 			foreach ($value as $v) {
-				if (!in_array($v, $this->valuess)) {
+				if (!in_array($v, $this->values)) {
 					$this->addError('not_found');
 				}
 			}
-		} elseif (!in_array($value, $this->valuess)) {
+		} elseif (!in_array($value, $this->values)) {
 			$this->addError('not_found');
 		}
 		return $value;
