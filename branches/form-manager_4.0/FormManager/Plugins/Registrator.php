@@ -154,6 +154,7 @@ class FormManager_Plugins_Registrator {
 		$names = array();
 		foreach ($cons->getParameters() as $param) {
 			$str  = $param->isArray() ? 'array ' : '';
+			$str .= $param->getClass() ? $param->getClass()->getName().' ' : '';
 			$str .= $param->isPassedByReference() ? '&' : '';
 			$str .= '$'.$param->getName();
 			if ($param->isOptional()) {
