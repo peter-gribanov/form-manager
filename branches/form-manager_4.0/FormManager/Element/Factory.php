@@ -178,7 +178,7 @@ final class FormManager_Element_Factory {
 	 */
 	public function Select($name = null, $value = null, $label = null, array $options = array()){
 		return $this
-			->String($name, $value)
+			->ElementString($name, $value)
 			->addDecorator('label', $label)
 			->addDecorator('options', $options)
 			->addDecorator('template', '/'.$this->template.'/select/template.php')
@@ -200,7 +200,7 @@ final class FormManager_Element_Factory {
 	 */
 	public function Text($name = null, $value = null, $label = null, $maxlen = 255, $minlen = 0){
 		return $this
-			->String($name, $value, $label)
+			->ElementString($name, $value, $label)
 			->addFilters()
 				->String_Trim()
 				->Length($minlen, $maxlen)
