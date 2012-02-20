@@ -15,12 +15,11 @@
  * Класс описывает форму и позволяет ее динамически составлять
  * 
  * Форма это частный случай коллекции
- * TODO нужно ввести понятие подписания формы
  * 
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Form extends FormManager_Collection_Abstract {
+class FormManager_Element_Form extends FormManager_Collection_Abstract {
 
 	/**
 	 * Конструктор
@@ -28,7 +27,7 @@ class FormManager_Form extends FormManager_Collection_Abstract {
 	 * @param string|null $name     Имя формы
 	 * @param string|null $elements Список элементов
 	 * @param string|null $label    Подпись формы
-	 * @param string      $method   Метод отправки формы
+	 * @param string|null $method   Метод отправки формы
 	 */
 	public function __construct($name = null, $elements = null, $label = null, $method = 'post') {
 		parent::__construct($name, $elements);

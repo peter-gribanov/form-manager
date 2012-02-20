@@ -22,7 +22,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Switcher extends FormManager_Element_Abstract implements FormManager_Collection_Interface, Countable, IteratorAggregate {
+class FormManager_Element_Switcher extends FormManager_Element_Abstract implements FormManager_Collection_Interface, Countable, IteratorAggregate {
 
 	/**
 	 * Элемент переключателя
