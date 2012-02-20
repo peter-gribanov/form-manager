@@ -97,6 +97,20 @@ abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstr
 	}
 
 	/**
+	 * Добавляет в коллекцию список элементов
+	 * 
+	 * @param array $childs Список элементов
+	 * 
+	 * @return FormManager_Element_Builder
+	 */
+	public function addChilds(array $childs = array()) {
+		foreach ($childs as $child) {
+			$this->addChild($child);
+		}
+		return FormManager_Element_Builder::getInstance($this);
+	}
+
+	/**
 	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
 	 * Пример строки запроса: a=foo&b=bar
 	 * 
