@@ -41,9 +41,54 @@ final class FormManager_Filter_Factory {
 
 	/**
 	 * Фильтер строки
+	 * 
+	 * @return FormManager_Filter_ToString
 	 */
 	public function ToString() {
 		return new FormManager_Filter_ToString();
+	}
+
+	/**
+	 * Фильтра проверки на Null
+	 * 
+	 * @return FormManager_Filter_NotNull
+	 */
+	public function NotNull() {
+		return new FormManager_Filter_NotNull();
+	}
+
+	/**
+	 * Фильтра проверки на длинну строки
+	 * 
+	 * @param array $values Список значений
+	 * 
+	 * @return FormManager_Filter_InArray
+	 */
+	public function InArray(array $values = array()) {
+		return new FormManager_Filter_InArray($values);
+	}
+
+	/**
+	 * Фильтер для очистки строки
+	 * 
+	 * @param string $charlist Дополнительные параметры очистки
+	 * 
+	 * @return FormManager_Filter_String_Trim
+	 */
+	public function String_Trim($charlist = '') {
+		return new FormManager_Filter_String_Trim($charlist);
+	}
+
+	/**
+	 * Валидатор длинны значения
+	 * 
+	 * @param integer $min Минимальная длинна
+	 * @param integer $max Максимальная длинна
+	 * 
+	 * @return FormManager_Filter_Length
+	 */
+	public function Length($min = 0, $max = 0) {
+		return new FormManager_Filter_Length($min, $max);
 	}
 
 }

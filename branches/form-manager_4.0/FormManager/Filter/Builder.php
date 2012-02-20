@@ -88,12 +88,64 @@ final class FormManager_Filter_Builder {
 	/**
 	 * Фильтер строки
 	 * 
-	 * @return FormManager_Filter_ToString
+	 * @return FormManager_Filter_Builder
 	 */
 	public function ToString(){
 		return $this->add(FormManager_Filter_Factory::getInstance()
 			->ToString()
 		);
+	}
+
+	/**
+	 * Фильтра проверки на Null
+	 * 
+	 * @return FormManager_Filter_Builder
+	 */
+	public function NotNull() {
+		return $this->add(FormManager_Filter_Factory::getInstance()
+			->NotNull()
+		);
+	}
+
+	/**
+	 * Фильтра проверки на длинну строки
+	 * 
+	 * @param array $values Список значений
+	 * 
+	 * @return FormManager_Filter_Builder
+	 */
+	public function InArray(array $values = array()) {
+		return $this->add(FormManager_Filter_Factory::getInstance()
+			->InArray($values)
+		);
+	}
+
+	/**
+	 * Фильтер для очистки строки
+	 * 
+	 * @param string $charlist Дополнительные параметры очистки
+	 * 
+	 * @return FormManager_Filter_Builder
+	 */
+	public function String_Trim($charlist = '') {
+		return $this->add(FormManager_Filter_Factory::getInstance()
+			->String_Trim($charlist)
+		);
+	}
+
+	/**
+	 * Валидатор длинны значения
+	 * 
+	 * @param integer $min Минимальная длинна
+	 * @param integer $max Максимальная длинна
+	 * 
+	 * @return FormManager_Filter_Builder
+	 */
+	public function Length($min = 0, $max = 0) {
+		return $this->add(FormManager_Filter_Factory::getInstance()
+			->Length($min, $max)
+		);
+		return new FormManager_Filter_Length($min, $max);
 	}
 
 }
