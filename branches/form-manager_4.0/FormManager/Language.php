@@ -101,7 +101,8 @@ class FormManager_Language {
 	 * 
 	 * @return string|boolean Языковые сообщения
 	 */
-	public static function getMessage($id, array $params = array(), $group = self::DEFAULT_GROUP) {
+	public static function getMessage($id, array $params = array(), $group = null) {
+		$group = $group ?: self::DEFAULT_GROUP;
 		// загрузка списка сообщений если он еще не загружен
 		if (self::$mess === null) {
 			self::$mess = self::getMessagesList(self::$id);
