@@ -51,7 +51,7 @@ class FormManager_Filter_Form_Referer extends FormManager_Filter_Abstract {
 	 * @param mixed                         $value   Проверяемые данные
 	 * @param FormManager_Element_Interface $element Проверяемый елемент
 	 */
-	public function exec($value, $element){
+	public function exec($value, FormManager_Element_Interface $element){
 		if (strpos($this->referer, $this->server) !== 0) {
 			$this->addError('bad_referer');
 		}
