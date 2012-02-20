@@ -64,11 +64,15 @@ final class FormManager_Element_Factory {
 	 * @param string|null $value Значение по умолчанию
 	 * @param string|null $label Подпись элемента
 	 * 
-	 * @return FormManager_Field
+	 * @return FormManager_Element_Field
 	 */
 	private function Field($name = null, $value = null, $label = null) {
-		$field = new FormManager_Field($name, $value, $label);
-		return $field->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'));
+		$field = new FormManager_Element_Field($name, $value, $label);
+		return $field
+			->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'))
+			->addFilters()
+				->NotNull()
+				->apply();
 	}
 
 	/**
@@ -79,11 +83,15 @@ final class FormManager_Element_Factory {
 	 * @param string|null $value    Значение по умолчанию
 	 * @param string|null $label    Подпись элемента
 	 * 
-	 * @return FormManager_Collection
+	 * @return FormManager_Element_Collection
 	 */
 	private function Collection($name = null, $elements = array(), $value = null, $label = null) {
-		$collection = new FormManager_Collection($name, $elements, $value, $label);
-		return $collection->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'));
+		$collection = new FormManager_Element_Collection($name, $elements, $value, $label);
+		return $collection
+			->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'))
+			->addFilters()
+				->NotNull()
+				->apply();
 	}
 
 	/**
@@ -93,13 +101,15 @@ final class FormManager_Element_Factory {
 	 * @param string|null $value Значение по умолчанию
 	 * @param string|null $label Подпись элемента
 	 * 
-	 * @return FormManager_Element_String
+	 * @return FormManager_Element_Field
 	 */
 	private function String($name = null, $value = null, $label = null){
 		return $this
 			->Field($name, $value, $label)
-			->addFilter(new FormManager_Filter_ToString())
-			->addDecorator('template', '/'.$this->skin.'/text/template.php');
+			->addDecorator('template', '/'.$this->template.'/text/template.php')
+			->addFilters()
+				->ToString()
+				->apply();
 	}
 
 	/**
@@ -110,16 +120,17 @@ final class FormManager_Element_Factory {
 	 * @param string|null $label   Подпись элемента
 	 * @param array|null  $options Параметры выбора
 	 * 
-	 * @return FormManager_Element_Select
+	 * @return FormManager_Element_Field
 	 */
 	public function Select($name = null, $value = null, $label = null, array $options = array()){
 		return $this
 			->String($name, $value)
 			->addDecorator('label', $label)
 			->addDecorator('options', $options)
-			->addDecorator('template', '/'.$this->skin.'/form/select.tpl')
-			->addFilter(new FormManager_Filter_NotNull())
-			->addFilter(new FormManager_Filter_InArray(array_keys($options)));
+			->addDecorator('template', '/'.$this->template.'/form/select.tpl')
+			->addFilters()
+				->InArray(array_keys($options))
+				->apply();
 	}
 
 	/**
@@ -131,14 +142,15 @@ final class FormManager_Element_Factory {
 	 * @param integer|null $maxlen Максимальная длинна
 	 * @param integer|null $minlen Минимальная длинна
 	 * 
-	 * @return FormManager_Element_Text
+	 * @return FormManager_Element_Field
 	 */
 	public function Text($name = null, $value = null, $label = null, $maxlen = 255, $minlen = 0){
 		return $this
 			->String($name, $value, $label)
-			->addFilter(new FormManager_Filter_NotNull())
-			->addFilter(new FormManager_Filter_String_Trim())
-			->addFilter(new FormManager_Filter_String_Length($minlen, $maxlen));
+			->addFilters()
+				->String_Trim()
+				->Length($minlen, $maxlen)
+				->apply();
 	}
 
 }
