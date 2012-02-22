@@ -201,7 +201,8 @@ class FormManager_Plugins_Registrator {
 		$code .= "\t * @return FormManager_".$type."_".$plugin."\r\n";
 		$code .= "\t */\r\n";
 		$code .= "\tpublic function ".$plugin."(".implode(', ', $info['ads']).") {\r\n";
-		$code .= "\t\treturn new FormManager_".$type."_".$plugin."(".implode(', ', $info['names']).");\r\n";
+		$code .= "\t\t\$el = new FormManager_".$type."_".$plugin."(".implode(', ', $info['names']).");\r\n";
+		$code .= "\t\treturn \$el->addDecorator('template', '/'.\$this->template.'/".strtolower($plugin)."/template.php');\r\n";
 		$code .= "\t}";
 
 		return $code;

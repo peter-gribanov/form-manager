@@ -14,6 +14,8 @@
 /**
  * Строитель элементов формы
  * 
+ * @see FormManager_Element_Collection::addChilds
+ * 
  * @package FormManager\Element
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */

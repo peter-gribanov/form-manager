@@ -14,6 +14,7 @@
 /**
  * Фабрика формы
  * 
+ * @deprecated
  * @package FormManager
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
