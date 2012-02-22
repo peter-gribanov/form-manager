@@ -33,7 +33,7 @@ interface FormManager_Collection_Interface extends FormManager_Element_Interface
 	 * 
 	 * @param array $childs Список элементов
 	 * 
-	 * @return FormManager_Element_Factory
+	 * @return FormManager_Element_Builder
 	 */
 	public function addChilds(array $childs = array());
 
