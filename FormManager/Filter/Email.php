@@ -37,7 +37,7 @@ class FormManager_Filter_Email extends FormManager_Filter_Abstract {
 		} elseif (function_exists('filter_var') && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
 			$this->addError('bad_email');
 		// Check RegExp
-		} elseif (!preg_match('/^(?:[-a-z0-9])+@(?:[-a-z0-9]{2,}\.)+(?:[a-z]{2,4}|[0-9]{1,4})$/i', $value)) {
+		} elseif (!preg_match('/^(?:[-_a-z0-9])+@(?:[-a-z0-9]{2,}\.)+(?:[a-z]{2,4}|[0-9]{1,4})$/i', $value)) {
 			$this->addError('bad_email');
 		}
 		return $value;
