@@ -33,6 +33,13 @@ final class FormManager_Element_Factory {
 	 */
 	private static $instance = null;
 
+	/**
+	 * Фабрика фильтров
+	 * 
+	 * @var FormManager_Filter_Factory
+	 */
+	private $filter_factory = null;
+
 
 	/**
 	 * Возвращает экзкмпляр фабрики
@@ -47,6 +54,22 @@ final class FormManager_Element_Factory {
 	}
 
 	/**
+	 * Конструктор
+	 */
+	public function __construct() {
+		$this->filter_factory = new FormManager_Filter_Factory();
+	}
+
+	/**
+	 * Возвращает фабрику фильтров
+	 * 
+	 * @return FormManager_Filter_Factory
+	 */
+	public function Filters() {
+		return $this->filter_factory;
+	}
+
+	/**
 	 * Устанавливает название группы шаблонов
 	 * 
 	 * @param string $template Название группы шаблонов
@@ -58,18 +81,30 @@ final class FormManager_Element_Factory {
 	}
 
 	/**
+	 * Возвращает декаратор Id элемента
+	 * 
+	 * @return FormManager_Decorator_ElementId
+	 */
+	protected function DecoratorId() {
+		return new FormManager_Decorator_ElementId('ele', '-');
+	}
+
+	/**
 	 * Возвращает поле String
 	 * 
-	 * @param string|null $name  Имя элемента
-	 * @param string|null $value Значение по умолчанию
-	 * @param string|null $label Подпись элемента
+	 * {
+	 *  name:string,
+	 *  filters:{...}|FormManager_Element_Interface,
+	 *  children:{...}|FormManager_Filter_Interface,
+	 *  id:string|FormManager_Decorator_Interface,
+	 * }
 	 * 
 	 * @return FormManager_Element_Field
 	 */
-	private function Field($name = null, $value = null, $label = null) {
+	protected function Field($name = null, $value = null, $label = null) {
 		$field = new FormManager_Element_Field($name, $value, $label);
 		return $field
-			->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'))
+			->addDecorator('id', $this->DecoratorId())
 			->addFilters()
 				->NotNull()
 				->apply();
@@ -78,20 +113,34 @@ final class FormManager_Element_Factory {
 	/**
 	 * Возвращает поле String
 	 * 
-	 * @param string|null $name     Имя элемента
-	 * @param array|null  $elements Список элементов
-	 * @param string|null $value    Значение по умолчанию
-	 * @param string|null $label    Подпись элемента
+	 * Поддерживает следующие значения:
+	 * {
+	 *  name:string|null Имя элимента
+	 *  filters:[{...}|FormManager_Filter_Interface] Список фильтров
+	 *  children:[{...}|FormManager_Filter_Interface] Список дочерних элиментов
+	 *  id:string|FormManager_Decorator_Interface Id элимента
+	 * }
 	 * 
-	 * @return FormManager_Element_Collection
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Collection
 	 */
-	private function Collection($name = null, $elements = array(), $value = null, $label = null) {
-		$collection = new FormManager_Element_Collection($name, $elements, $value, $label);
-		return $collection
-			->addDecorator('id', new FormManager_Decorator_ElementId('ele', '-'))
-			->addFilters()
-				->NotNull()
-				->apply();
+	protected function Collection(array $params = array()) {
+		$params = array_merge(array(
+			'children' => array(),
+			'filters'  => array($this->Filters()->NotNull()),
+			'id'       => $this->DecoratorId()
+		), $params);
+		$params['children'] = (array)$params['children'];
+		foreach ($params['children'] as &$child) {
+			$child = $this->assign($child);
+		}
+		$params['filters'] = (array)$params['filters'];
+		foreach ($params['filters'] as &$filter) {
+			$filter = $this->Filters()->assign($filter);
+		}
+		$collection = new FormManager_Collection($params);
+		return $collection->addDecorator('id', $params['id']);
 	}
 
 	/**
@@ -188,55 +237,165 @@ final class FormManager_Element_Factory {
 	}
 
 	/**
+	 * Выбор дня
+	 * 
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Element_Select
+	 */
+	public function SelectDay(array $params = array()){
+		$params['options'] = array_combine($renge = range(1, 31), $renge);
+		return $this->Select($params);
+	}
+
+	/**
+	 * Выбор даты
+	 * 
+	 * Поддерживает следующие значения:
+	 * {
+	 *  name:string|null Имя элимента
+	 *  label:string|null Метка
+	 *  filters:[{...}|FormManager_Filter_Interface] Список фильтров
+	 *  value:{day:integer|null,month:integer|null,year:integer|null} Значения по умолчанию
+	 *  template:string|null Шаблон элимента
+	 * }
+	 * 
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Collection
+	 */
+	public function DateRow(array $params = array()){
+		$params = array_merge(array(
+			'filters' => array($this->Filters()->DateRow()),
+			'value'   => array(
+				'day'   => null,
+				'month' => null,
+				'year'  => null
+			),
+			'children' => array()
+		), $params);
+		$params['children'] = array(
+			$this->SelectDay(array(
+				'name'  => 'day',
+				'value' => $params['value']['day'],
+				'label' => 'День'
+			)),
+			$this->SelectMonth(array(
+				'name'  => 'month',
+				'value' => $params['value']['month'],
+				'label' => 'Месяц'
+			)),
+			$this->SelectYear(array(
+				'name'  => 'year',
+				'value' => $params['value']['year'],
+				'label' => 'Год'
+			)),
+		);
+		unset($params['value'], $params['children']);
+		return $this->Tray($params);
+	}
+
+	/**
 	 * Возвращает поле Text
 	 * 
-	 * @param string|null  $name   Имя элемента
-	 * @param string|null  $value  Значение по умолчанию
-	 * @param string|null  $label  Подпись элемента
-	 * @param integer|null $maxlen Максимальная длинна
-	 * @param integer|null $minlen Минимальная длинна
+	 * Поддерживает следующие значения:
+	 * {
+	 *  name:string|null Имя элимента
+	 *  label:string|null Метка
+	 *  filters:[{...}|FormManager_Filter_Interface] Список фильтров
+	 *  value:string|null Значения по умолчанию
+	 *  template:string|null Шаблон элимента
+	 *  length:{max:integer|null,min:integer|null}|null Длинна значения
+	 * }
 	 * 
-	 * @return FormManager_Element_Field
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Element_Text
 	 */
-	public function Text($name = null, $value = null, $label = null, $maxlen = 255, $minlen = 0){
-		return $this
-			->ElementString($name, $value, $label)
-			->addFilters()
-				->String_Trim()
-				->Length($minlen, $maxlen)
-				->apply();
+	public function Text(array $params = array()){
+		$params = array_merge(array(
+			'label'    => null,
+			'template' => 'text.tpl',
+			'length'   => array('max' => 255, 'min' => 0),
+			'filters'  => array($this->Filters()->String_Trim())
+		), $params);
+		$el = new FormManager_Element_Text($params);
+		return $el->setLength($params['length']['min'], $params['length']['max']);
 	}
-	
-	/**
-	 * Возвращает группу элементов
-	 * 
-	 * @param string|null $name     Имя элемента
-	 * @param array|null  $elements Список элементов
-	 * @param string|null $value    Значение по умолчанию
-	 * @param string|null $label    Подпись элемента
-	 * 
-	 * @return FormManager_Element_Collection
-	 */
-	public function Group($name = null, $elements = array(), $value = null, $label = null) {
-		return $this
-			->Collection(name, $elements, $value, $label)
-			->addDecorator('template', '/'.$this->template.'/group/template.php');
-	}
-	
+
 	/**
 	 * Возвращает группу элементов вида FieldSet
 	 * 
-	 * @param string|null $name     Имя элемента
-	 * @param array|null  $elements Список элементов
-	 * @param string|null $value    Значение по умолчанию
-	 * @param string|null $label    Подпись элемента
+	 * Поддерживает следующие значения:
+	 * {
+	 *  name:string|null Имя элимента
+	 *  label:string|null Метка
+	 *  filters:[{...}|FormManager_Filter_Interface] Список фильтров
+	 *  children:[{...}|FormManager_Filter_Interface] Список дочерних элиментов
+	 *  template:string|null Шаблон элимента
+	 * }
 	 * 
-	 * @return FormManager_Element_Collection
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Collection
 	 */
-	public function FieldSet($name = null, $elements = array(), $value = null, $label = null) {
-		return $this
-			->Collection(name, $elements, $value, $label)
-			->addDecorator('template', '/'.$this->template.'/fieldset/template.php');
+	public function FieldSet(array $params = array()) {
+		$params = array_merge(array(
+			'label'    => null,
+			'template' => 'fieldset.tpl',
+		), $params);
+		return $this->Collection($params)
+			->addDecorator('label', $params['label'])
+			->addDecorator('template', $params['template']);
+	}
+
+	/**
+	 * Возвращает группу элементов вида Tray
+	 * 
+	 * Поддерживает следующие значения:
+	 * {
+	 *  name:string|null Имя элимента
+	 *  label:string|null Метка
+	 *  filters:[{...}|FormManager_Filter_Interface] Список фильтров
+	 *  children:[{...}|FormManager_Filter_Interface] Список дочерних элиментов
+	 *  template:string|null Шаблон элимента
+	 * }
+	 * 
+	 * @param array|null $params Параметры элемента
+	 * 
+	 * @return FormManager_Collection
+	 */
+	public function Tray(array $params = array()) {
+		$params = array_merge(array(
+			'label'    => null,
+			'template' => 'tray.tpl',
+		), $params);
+		return $this->Collection($params)
+			->addDecorator('label', $params['label'])
+			->addDecorator('template', $params['template']);
+	}
+
+	/**
+	 * Строит при необходимости элимент и возвращает его
+	 * 
+	 * @throws FormManager_Exception
+	 * 
+	 * @param array|FormManager_Element_Interface $params Описание элимента или элимент
+	 * 
+	 * @return FormManager_Element_Interface
+	 */
+	public function assign($params) {
+		if ($params instanceof FormManager_Element_Interface) {
+			return $params;
+		}
+		if (!is_array($params) || empty($params['element'])) {
+			throw new FormManager_Exception('Не указан тип элимента');
+		}
+		if (!method_exists($this, $params['element'])) {
+			throw new FormManager_Exception('Неизвестный элимент');
+		}
+		$element = $params['element'];
+		return $this->$element($params);
 	}
 
 }
