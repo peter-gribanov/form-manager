@@ -50,7 +50,7 @@ final class FormManager {
 	/**
 	 * Вид
 	 * 
-	 * @var FormManager_Viwe|null
+	 * @var FormManager_View|null
 	 */
 //	private $view = null;
 
@@ -92,7 +92,7 @@ final class FormManager {
 	 */
 	public function __construct($name = null, $label = null, $method = 'post') {
 		$this->form = new FormManager_Element_Form($name, null, $label, $method);
-//		$this->view = new FormManager_Viwe();
+//		$this->view = new FormManager_View();
 //		$this->field = new FormManager_Field_Factory();
 //		$this->collection = new FormManager_Collection_Factory();
 //		$this->element = new FormManager_Element_Factory($this->template);
