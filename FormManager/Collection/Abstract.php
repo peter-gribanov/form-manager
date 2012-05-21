@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Collection extends FormManager_Element_Abstract implements FormManager_Collection_Interface {
+abstract class FormManager_Collection_Abstract extends FormManager_Element_Abstract implements FormManager_Collection_Interface {
 
 	/**
 	 * TODO добавить описание
