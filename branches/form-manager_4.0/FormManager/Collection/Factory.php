@@ -17,17 +17,7 @@
  * @package FormManager\Collection
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-final class FormManager_Collection_Factory extends FormManager_Loader {
-
-	/**
-	 * Конструктор
-	 * 
-	 * Устанавливающий адрес класса и коментарий для метода
-	 */
-	public function __construct() {
-		$this->setClassFile(__FILE__);
-		$this->setMethodComment('Возвращает коллекцию %s');
-	}
+final class FormManager_Collection_Factory {
 
 	/**
 	 * Возвращает новую коллекцию элиментов формы
