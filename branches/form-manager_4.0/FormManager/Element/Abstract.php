@@ -74,14 +74,20 @@ abstract class FormManager_Element_Abstract implements FormManager_Element_Inter
 	/**
 	 * Конструктор
 	 * 
-	 * @param string|null $name  Имя элемента
-	 * @param string|null $value Значение по умолчанию
-	 * @param string|null $label Подпись элемента
+	 * @param array|null $params Параметры элемента
 	 */
-	public function __construct($name = null, $value = null, $label = null) {
-		$this->setName($name)
-			->setDefaultValue($value)
-			->addDecorator('label', $label);
+	public function __construct(array $params = array()) {
+		$params = array_merge(array(
+			'name'    => null,
+			'value'   => null,
+			'filters' => array()
+		), $params);
+		$this->setName($params['name'])
+			->setDefaultValue($params['name']);
+		$params['filters'] = (array)$params['filters'];
+		foreach ($params['filters'] as $filter) {
+			$this->addFilter($filter);
+		}
 	}
 
 	/**
