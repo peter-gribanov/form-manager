@@ -49,6 +49,38 @@ final class FormManager_Filter_Factory {
 	}
 
 	/**
+	 * 
+	 * @param array|form $params
+	 */
+	public function getFilter($params) {
+		
+	}
+
+	/**
+	 * Строит при необходимости фильтр и возвращает его
+	 * 
+	 * @throws FormManager_Exception
+	 * 
+	 * @param array|FormManager_Filter_Interface $params Описание фильтра или фильтр
+	 * 
+	 * @return FormManager_Filter_Interface
+	 */
+	public function assign($params) {
+		if ($params instanceof FormManager_Field_Interface) {
+			return $params;
+		}
+		$params = (array)$params;
+		if (empty($params[0])) {
+			throw new FormManager_Exception('Не указан тип фильтра');
+		}
+		if (!method_exists($this, $params[0])) {
+			throw new FormManager_Exception('Неизвестный фильтр');
+		}
+		$filter = $params[0];
+		return $this->$filter(isset($params[1]) ? $params[1] : array());
+	}
+
+	/**
 	 * Валидатор символво и цифр
 	 * 
 	 * @return FormManager_Filter_CharactersAndNumbers
@@ -60,12 +92,19 @@ final class FormManager_Filter_Factory {
 	/**
 	 * Валидатор даты
 	 * 
-	 * @param string $format Формат даты
+	 * {
+	 *  format:string Формат даты
+	 * }
+	 * 
+	 * @param array|null $params Параметры фильтра
 	 * 
 	 * @return FormManager_Filter_Date
 	 */
-	public function Date($format = 'YYYY-MM-DD') {
-		return new FormManager_Filter_Date($format);
+	public function Date(array $params = array()) {
+		$params = array_merge(array(
+			'format' => 'YYYY-MM-DD'
+		), $params);
+		return new FormManager_Filter_Date($params['format']);
 	}
 
 	/**
