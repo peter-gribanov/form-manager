@@ -17,7 +17,7 @@
  * @package FormManager
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Element_Collection extends FormManager_Element_Abstract implements FormManager_Collection_Interface {
+class FormManager_Collection extends FormManager_Element_Abstract implements FormManager_Collection_Interface {
 
 	/**
 	 * TODO добавить описание
@@ -30,20 +30,17 @@ class FormManager_Element_Collection extends FormManager_Element_Abstract implem
 	/**
 	 * Конструктор
 	 * 
-	 * @param string|null $name     Имя элемента
-	 * @param array|null  $elements Список элементов
-	 * @param string|null $value    Значение по умолчанию
-	 * @param string|null $label    Подпись элемента
+	 * @param array|null $params Параметры элемента
 	 */
-	public function __construct($name = null, $elements = array(), $value = null, $label = null) {
-		parent::__construct($name, $value, $label);
+	public function __construct(array $params = array()) {
+		$params = array_merge(array(
+			'children' => array()
+		), $params);
+		parent::__construct($params);
 		// добавление элементов в коллекцию
-		$elements = $elements ? $elements : array();
-		if ($elements instanceof FormManager_Element_Interface) {
-			$elements = array($elements);
-		}
-		foreach ($elements as $el) {
-			$this->addChild($el);
+		$params['children'] = (array)$params['children'];
+		foreach ($params['children'] as $child) {
+			$this->addChild($child);
 		}
 	}
 
@@ -103,56 +100,6 @@ class FormManager_Element_Collection extends FormManager_Element_Abstract implem
 		$this->childs[] = $element->setParent($this);
 		return $this;
 	}
-
-	/**
-	 * Добавляет в коллекцию список элементов
-	 * 
-	 * @param array $childs Список элементов
-	 * 
-	 * @return FormManager_Element_Builder
-	 */
-	public function addChilds(array $childs = array()) {
-		foreach ($childs as $child) {
-			$this->addChild($child);
-		}
-		return FormManager_Element_Builder::getInstance($this);
-	}
-
-	/**
-	 * Разбирает строку запроса и добавляет скрытые поля с переменными из запроса
-	 * Пример строки запроса: a=foo&b=bar
-	 * 
-	 * @throws FormManager_Exceptions_InvalidArgument
-	 * 
-	 * @param string $query
-	 *//*
-	public function addByQuery($query) {
-		if (!is_string($query) || !trim($query)) {
-			// TODO описать исключение
-			throw new FormManager_Exceptions_InvalidArgument();
-		}
-
-		// выделение тела запроса если передан не только запрос
-		if (strpos($query, '?') !== false) {
-			if (substr_count($query, '?') > 1) {
-				// TODO описать исключение
-				throw new FormManager_Exceptions_InvalidArgument();
-			}
-			list(, $query) = explode('?', $query, 2);
-		}
-
-		$query = explode('&', $query);
-		foreach ($query as $param) {
-			if (substr_count($param, '=') != 1) {
-				throw new FormManager_Exceptions_InvalidArgument('Cant add element because of improper URL query');
-			}
-			list($name, $value) = explode('=', $param, 2);
-			$field = new FormManager_Field_Hidden();
-			$field->setName($name);
-			$field->setDefaultValue($value);
-			$this->add($field);
-		}
-	}*/
 
 	/**
 	 * TODO добавить описание

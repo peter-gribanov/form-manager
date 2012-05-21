@@ -29,22 +29,11 @@ interface FormManager_Collection_Interface extends FormManager_Element_Interface
 	public function addChild(FormManager_Element_Interface $element);
 
 	/**
-	 * Добавляет в коллекцию список элементов
+	 * Возвращает список всех дочерних элиментов
 	 * 
-	 * @param array $childs Список элементов
-	 * 
-	 * @return FormManager_Element_Builder
+	 * @return array
 	 */
-	public function addChilds(array $childs = array());
-
-	/**
-	 * TODO добавить описание
-	 * 
-	 * @param string $name
-	 * 
-	 * @return FormManager_Element_Interface|boolean
-	 */
-	public function getChild($name);
+	public function getChilds();
 
 	/**
 	 * TODO добавить описание
