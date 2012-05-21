@@ -16,10 +16,10 @@
  * 
  * Форма это частный случай коллекции
  * 
- * @package FormManager
+ * @package FormManager\Collection
  * @author  Peter S. Gribanov <info@peter-gribanov.ru>
  */
-class FormManager_Element_Form extends FormManager_Element_Collection {
+class FormManager_Collection_Form extends FormManager_Collection {
 
 	/**
 	 * Конструктор
